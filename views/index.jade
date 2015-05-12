@@ -1,0 +1,18 @@
+extends layout
+
+block content
+
+  div#sidebar-wrapper
+    ul.sidebar-nav
+      li.sidebar-brand
+        h3 Menthas
+        h5 ニュースカテゴリ
+      each category in categories
+        li
+          a(href="/#{category}") # #{category}
+
+  div#page-content-wrapper
+    div.container-fluid
+      #main-container
+
+  script(src="/js/bundle.js")

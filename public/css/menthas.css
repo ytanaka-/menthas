@@ -1,0 +1,48 @@
+body {
+}
+.navbar {
+  height: 50px;
+}
+
+.container-fluid > .navbar-brand {
+  width: 250px;
+  font-size: 23px;
+  background-color: #000;
+}
+.container-fluid > .navbar-brand> p{
+  color:#DDD;
+}
+
+.collapse.navbar-collapse > .navbar-brand > p{
+  font-size: 21px;
+  margin: 0px 20px;
+}
+
+#sidebar-wrapper {
+  color: #AAA;
+}
+
+.item {
+  margin: 10px 0px;
+}
+
+.item img {
+  width: 120px;
+  height: 90px;
+}
+
+.item .description {
+  text-overflow: ellipsis;
+  font-size: 11px;
+  color: #808080;
+}
+
+.item .title p{
+  font-size: 14px;
+}
+
+.category-color-bar{
+  height:100px;
+  width: 20px;
+  margin: 0px 10px 0px 0px;
+}

@@ -1,0 +1,11 @@
+{
+  "mongodb": {
+    "url": "mongodb://localhost/menthas"
+  },
+  "redis": {
+    "pubsub-config": {
+      "port": 6379
+      ,"scope": "menthas"
+    }
+  }
+}
