@@ -94,28 +94,37 @@ module.exports = React.createClass({
     };
   },
   render: function() {
-    return React.createElement("div", null, this.state.itemStore.items.map(function(item) {
-      return React.createElement("div", {
-        "className": "col-lg-12 item"
-      }, React.createElement("div", {
-        "className": "col-lg-10"
-      }, React.createElement("div", {
-        "className": "category-color-bar pull-left",
-        "style": {
-          "backgroundColor": item.category.color
-        }
-      }), React.createElement("a", {
-        "className": "title",
-        "href": item.page.url,
-        "target": "_brank"
-      }, React.createElement("p", null, item.page.title, " ")), React.createElement("p", {
-        "className": "description"
-      }, item.page.description)), React.createElement("div", {
-        "className": "col-lg-2"
-      }, React.createElement("img", {
-        "src": item.page.thumbnail
-      })));
+    var that;
+    that = this;
+    return React.createElement("div", null, this.state.itemStore.items.map(function(item, i) {
+      if (i & 3 === 0) {
+        return React.createElement("div", {
+          "className": "row"
+        }, that.itemHelper(item));
+      } else {
+        return React.createElement("div", null, that.itemHelper(item));
+      }
     }));
+  },
+  itemHelper: function(item) {
+    return React.createElement("div", {
+      "className": "col-md-3 item"
+    }, React.createElement("div", {
+      "className": "category-color-bar",
+      "style": {
+        "backgroundColor": item.category.color
+      }
+    }, React.createElement("p", null, "item.category.name")), React.createElement("img", {
+      "src": item.page.thumbnail
+    }), React.createElement("div", {
+      "className": "item-footer"
+    }, React.createElement("a", {
+      "className": "title",
+      "href": item.page.url,
+      "target": "_brank"
+    }, React.createElement("p", null, item.page.title, " ")), React.createElement("p", {
+      "className": "description"
+    }, item.page.description)));
   }
 });
 

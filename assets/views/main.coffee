@@ -11,21 +11,32 @@ module.exports = React.createClass
     itemStore: @getFlux().store('ItemStore').getState()
 
   render: ->
+    that = @
     <div>
       {
-        @state.itemStore.items.map (item)->
-          <div className="col-lg-12 item">
-            <div className="col-lg-10">
-              <div className="category-color-bar pull-left"
-                style={{"backgroundColor": item.category.color}}/>
-              <a className="title" href={item.page.url} target="_brank">
-                <p>{item.page.title} </p>
-              </a>
-              <p className="description">{item.page.description}</p>
+        @state.itemStore.items.map (item,i)->
+          if i & 3 == 0
+            <div className="row">
+              {that.itemHelper item}
             </div>
-            <div className="col-lg-2">
-              <img src={item.page.thumbnail} />
+          else
+            <div>
+              {that.itemHelper item}
             </div>
-          </div>
       }
+    </div>
+
+  itemHelper: (item)->
+    <div className="col-md-3 item">
+      <div className="category-color-bar"
+        style={{"backgroundColor": item.category.color}}>
+        <p>item.category.name</p>
+      </div>
+      <img src={item.page.thumbnail} />
+      <div className="item-footer">
+        <a className="title" href={item.page.url} target="_brank">
+          <p>{item.page.title} </p>
+        </a>
+        <p className="description">{item.page.description}</p>
+      </div>
     </div>
