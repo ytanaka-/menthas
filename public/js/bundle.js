@@ -25,7 +25,7 @@ module.exports = function() {
 
 
 },{"superagent":258}],2:[function(require,module,exports){
-var Fluxxor, React, View, category, flux, ref;
+var Fluxxor, React, View, category, flux;
 
 React = require('react');
 
@@ -41,7 +41,11 @@ React.render(React.createElement(View, {
   "flux": flux
 }), document.getElementById('main-container'));
 
-category = (ref = window.location.pathname.substr(1)) != null ? ref : "hot";
+category = window.location.pathname.substr(1);
+
+if (!category) {
+  category = "hot";
+}
 
 flux.actions.item.fetchItems(category);
 
@@ -94,28 +98,58 @@ module.exports = React.createClass({
     };
   },
   render: function() {
-    return React.createElement("div", null, this.state.itemStore.items.map(function(item) {
-      return React.createElement("div", {
-        "className": "col-lg-12 item"
-      }, React.createElement("div", {
-        "className": "col-lg-10"
-      }, React.createElement("div", {
-        "className": "category-color-bar pull-left",
-        "style": {
-          "backgroundColor": item.category.color
-        }
-      }), React.createElement("a", {
-        "className": "title",
-        "href": item.page.url,
-        "target": "_brank"
-      }, React.createElement("p", null, item.page.title, " ")), React.createElement("p", {
-        "className": "description"
-      }, item.page.description)), React.createElement("div", {
-        "className": "col-lg-2"
-      }, React.createElement("img", {
-        "src": item.page.thumbnail
-      })));
+    var that;
+    that = this;
+    return React.createElement("div", null, this.state.itemStore.items.map(function(item, i) {
+      if (i & 3 === 0) {
+        return React.createElement("div", {
+          "className": "row"
+        }, that.itemHelper(item));
+      } else {
+        return React.createElement("div", null, that.itemHelper(item));
+      }
     }));
+  },
+  itemHelper: function(item) {
+    return React.createElement("div", {
+      "className": "col-md-4 clear-padding"
+    }, React.createElement("div", {
+      "className": " item effect"
+    }, React.createElement("div", {
+      "className": "category-color-bar",
+      "style": {
+        "backgroundColor": item.category.color
+      }
+    }, React.createElement("a", {
+      "href": "/" + item.category.name,
+      "target": "_brank"
+    }, React.createElement("span", {
+      "className": "category-name"
+    }, item.category.name)), React.createElement("a", {
+      "href": "http://b.hatena.ne.jp/entry/" + item.page.url,
+      "target": "_brank"
+    }, React.createElement("span", {
+      "className": "hatebu-users pull-right"
+    }, "Users"), React.createElement("span", {
+      "className": "hatebu-count pull-right"
+    }, item.page.hatebu))), React.createElement("a", {
+      "href": item.page.url,
+      "target": "_brank"
+    }, React.createElement("img", {
+      "src": item.page.thumbnail
+    })), React.createElement("div", {
+      "className": "item-footer"
+    }, React.createElement("div", {
+      "className": "title-description"
+    }, React.createElement("a", {
+      "className": "title",
+      "href": item.page.url,
+      "target": "_brank"
+    }, React.createElement("p", null, item.page.title, " ")), React.createElement("p", {
+      "className": "description"
+    }, item.page.description)), React.createElement("p", {
+      "className": "source"
+    }, "From: ", item.page.site_name))));
   }
 });
 

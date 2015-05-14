@@ -7,6 +7,8 @@ block content
       li.sidebar-brand
         h3 Menthas
         h5 ニュースカテゴリ
+      li
+        a(href="/") # top
       each category in categories
         li
           a(href="/#{category}") # #{category}
