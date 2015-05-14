@@ -6,10 +6,13 @@ request = require('superagent');
 module.exports = function() {
   return {
     item: {
-      fetchItems: function(category) {
+      fetchItems: function(category, offset) {
         var that;
+        if (offset == null) {
+          offset = 0;
+        }
         that = this;
-        return request.get("http://localhost:4000/" + category + "/list", function(err, res) {
+        return request.get("http://localhost:4000/" + category + "/list?offset=" + offset, function(err, res) {
           var json;
           if (err) {
             return console.log(err);
@@ -25,7 +28,7 @@ module.exports = function() {
 
 
 },{"superagent":258}],2:[function(require,module,exports){
-var Fluxxor, React, View, category, flux;
+var Fluxxor, React, View, flux;
 
 React = require('react');
 
@@ -40,14 +43,6 @@ View = require('./views/main');
 React.render(React.createElement(View, {
   "flux": flux
 }), document.getElementById('main-container'));
-
-category = window.location.pathname.substr(1);
-
-if (!category) {
-  category = "hot";
-}
-
-flux.actions.item.fetchItems(category);
 
 
 
@@ -69,6 +64,9 @@ module.exports = function() {
       return {
         items: this.items
       };
+    },
+    getItemsLength: function() {
+      return this.items.length;
     },
     insertItem: function(item) {
       this.items.push(item);
@@ -96,6 +94,31 @@ module.exports = React.createClass({
     return {
       itemStore: this.getFlux().store('ItemStore').getState()
     };
+  },
+  componentDidMount: function() {
+    var category;
+    this.state.loading = false;
+    window.addEventListener('scroll', this.checkWindowScroll);
+    category = window.location.pathname.substr(1);
+    if (!category) {
+      category = "hot";
+    }
+    this.state.category = category;
+    return this.getFlux().actions.item.fetchItems(category);
+  },
+  componentDidUpdate: function(prevProps, prevState) {
+    return this.state.loading = false;
+  },
+  checkWindowScroll: function() {
+    var h, s, scrolled, size;
+    h = document.documentElement.clientHeight;
+    s = document.body.scrollTop || document.documentElement.scrollTop || 0;
+    scrolled = (h + s) >= document.body.offsetHeight;
+    if (scrolled && !this.state.loading) {
+      this.state.loading = true;
+      size = this.getFlux().store('ItemStore').getItemsLength();
+      return this.getFlux().actions.item.fetchItems(this.state.category, size);
+    }
   },
   render: function() {
     var that;

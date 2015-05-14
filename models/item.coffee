@@ -14,12 +14,13 @@ ItemSchema.statics =
     .populate("page")
     .exec(cb)
 
-  findByScore: (score,size,cb)->
+  findByScore: (score,size,offset,cb)->
     @find({ score: { $gte:score }})
     .populate("category")
     .populate("page")
     .sort({timestamp: -1})
     .limit(size)
+    .skip(offset)
     .exec(cb)
 
   findByCategory: (category_id,score,size,offset,cb)->
