@@ -36,7 +36,7 @@
     {
     "name": "design",
     "title": "デザイン",
-    "color": "#E50E50",
+    "color": "#5D5AAA",
     "tags": ["配色","WEBデザイン","illustrator","テンプレート","webdesign","photoshop","Webデザイン","Photoshop","Illustrator","写真素材"],
     "curators": [
       "nibushibu",
@@ -66,7 +66,7 @@
     {
     "name": "ios-dev",
     "title": "iOS開発",
-    "color": "#bdc3c7",
+    "color": "#95a5a6",
     "tags": ["iPhoneアプリ開発","Objective-C","アプリ開発","objective-c"],
     "curators": [
       "nasneg",
@@ -88,7 +88,7 @@
     {
     "name": "apple",
     "title": "Apple/Mac",
-    "color": "#bdc3c7",
+    "color": "#95a5a6",
     "tags": ["iPad","iOS 7","ios","iOS","iOS7","app","ios7","Apple","apple","iphone","iPhone"],
     "curators": [
       "monochrome_K2",
@@ -110,7 +110,7 @@
     {
     "name": "pc",
     "title": "PC周辺・デバイス・ソフトウェア",
-    "color": "#E50E50",
+    "color": "#e74c3c",
     "tags": ["ソフトウェア","software","PC","tool","pc","Tips","windows","フリーソフト","Windows","mac","Mac","ハードウェア","game"],
     "curators": [
       "gooseberry0726",
@@ -172,7 +172,7 @@
     {
     "name": "social",
     "title": "ソーシャルメディア系",
-    "color": "#77BB55",
+    "color": "#e67e22",
     "tags": ["メディア","インターネット","ニュース","ネット","LINE","yahoo","SNS","社会","増田","ソーシャルメディア","文化","著作権","sns","communication","twitter","facebook","2ch","Facebook","Twitter","音楽","music"],
     "curators": [
       "tettu0402",
@@ -203,7 +203,7 @@
     {
     "name": "marketing",
     "title": "マーケティング",
-    "color": "#E99911",
+    "color": "#9b59b6",
     "tags": ["コンテンツ","アフィリエイト","ブログ","マーケティング","EC","Webサービス","webサービス","webservice","marketing","SEO","グロースハック","analytics","google","ad","seo","Google","アクセス解析","chrome","文章術","Chrome"],
     "curators": [
       "akiueos",
@@ -251,7 +251,7 @@
     {
     "name": "life",
     "title": "読み物・ライフハック・ビジネス",
-    "color": "#77BB55",
+    "color": "#27ae60",
     "tags": ["読み物","考え方","work","business","コミュニケーション","研究","ビジネス","仕事術","企業","アイデア","起業","ライフハック","スタートアップ","人生","経営","生活","教育","lifehack","統計","組織"],
     "curators": [
       "otsune",
@@ -282,7 +282,7 @@
     {
     "name": "dev",
     "title": "開発環境",
-    "color": "#5D5AAA",
+    "color": "#34495e",
     "tags": ["開発環境","github","testing","git","Git","GitHub","jenkins","tdd","Jenkins","vim","emacs","selenium"],
     "curators": [
       "t-wada",
@@ -371,7 +371,7 @@
     {
     "name": "web-front",
     "title": "Webフロント",
-    "color": "#8fdbb5",
+    "color": "#16a085",
     "tags": ["CSS","css","HTML","css3","html","レスポンシブ","コーディング","HTML5","CSS3","html5","bootstrap","jQuery","SVG","jquery","jQuery","プラグイン","Bootstrap","svg"],
     "curators": [
       "oppara",
@@ -395,7 +395,7 @@
     {
     "name": "web-design",
     "title": "Webデザイン・UI/UX",
-    "color": "#8fdbb5",
+    "color": "#0096D6",
     "tags": ["design","UI","デザイン","Design","ui","ユーザビリティ","UX","ux"],
     "curators": [
       "ebisu3htn",
@@ -440,7 +440,7 @@
     {
     "name": "algorithm",
     "title": "アルゴリズム・機械学習・Python",
-    "color": "#C95999",
+    "color": "#8e44ad",
     "tags": ["algorithm","アルゴリズム","python","Python","c++","C++","機械学習","データマイニング","awk"],
     "curators": [
       "matsulib",

@@ -25,7 +25,7 @@ module.exports = function() {
 
 
 },{"superagent":258}],2:[function(require,module,exports){
-var Fluxxor, React, View, category, flux, ref;
+var Fluxxor, React, View, category, flux;
 
 React = require('react');
 
@@ -41,7 +41,11 @@ React.render(React.createElement(View, {
   "flux": flux
 }), document.getElementById('main-container'));
 
-category = (ref = window.location.pathname.substr(1)) != null ? ref : "hot";
+category = window.location.pathname.substr(1);
+
+if (!category) {
+  category = "hot";
+}
 
 flux.actions.item.fetchItems(category);
 
@@ -108,23 +112,44 @@ module.exports = React.createClass({
   },
   itemHelper: function(item) {
     return React.createElement("div", {
-      "className": "col-md-3 item"
+      "className": "col-md-4 clear-padding"
+    }, React.createElement("div", {
+      "className": " item effect"
     }, React.createElement("div", {
       "className": "category-color-bar",
       "style": {
         "backgroundColor": item.category.color
       }
-    }, React.createElement("p", null, "item.category.name")), React.createElement("img", {
+    }, React.createElement("a", {
+      "href": "/" + item.category.name,
+      "target": "_brank"
+    }, React.createElement("span", {
+      "className": "category-name"
+    }, item.category.name)), React.createElement("a", {
+      "href": "http://b.hatena.ne.jp/entry/" + item.page.url,
+      "target": "_brank"
+    }, React.createElement("span", {
+      "className": "hatebu-users pull-right"
+    }, "Users"), React.createElement("span", {
+      "className": "hatebu-count pull-right"
+    }, item.page.hatebu))), React.createElement("a", {
+      "href": item.page.url,
+      "target": "_brank"
+    }, React.createElement("img", {
       "src": item.page.thumbnail
-    }), React.createElement("div", {
+    })), React.createElement("div", {
       "className": "item-footer"
+    }, React.createElement("div", {
+      "className": "title-description"
     }, React.createElement("a", {
       "className": "title",
       "href": item.page.url,
       "target": "_brank"
     }, React.createElement("p", null, item.page.title, " ")), React.createElement("p", {
       "className": "description"
-    }, item.page.description)));
+    }, item.page.description)), React.createElement("p", {
+      "className": "source"
+    }, "From: ", item.page.site_name))));
   }
 });
 

@@ -27,16 +27,29 @@ module.exports = React.createClass
     </div>
 
   itemHelper: (item)->
-    <div className="col-md-3 item">
-      <div className="category-color-bar"
-        style={{"backgroundColor": item.category.color}}>
-        <p>item.category.name</p>
-      </div>
-      <img src={item.page.thumbnail} />
-      <div className="item-footer">
-        <a className="title" href={item.page.url} target="_brank">
-          <p>{item.page.title} </p>
+    <div className="col-md-4 clear-padding">
+      <div className=" item effect">
+        <div className="category-color-bar"
+          style={{"backgroundColor": item.category.color}} >
+          <a href="/#{item.category.name}" target="_brank">
+            <span className="category-name">{item.category.name}</span>
+          </a>
+          <a href="http://b.hatena.ne.jp/entry/#{item.page.url}" target="_brank">
+            <span className="hatebu-users pull-right">Users</span>
+            <span className="hatebu-count pull-right">{item.page.hatebu}</span>
+          </a>
+        </div>
+        <a href={item.page.url} target="_brank">
+          <img src={item.page.thumbnail} />
         </a>
-        <p className="description">{item.page.description}</p>
+        <div className="item-footer">
+          <div className="title-description">
+            <a className="title" href={item.page.url} target="_brank">
+              <p>{item.page.title} </p>
+            </a>
+            <p className="description">{item.page.description}</p>
+          </div>
+          <p className="source">From: {item.page.site_name}</p>
+        </div>
       </div>
     </div>

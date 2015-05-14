@@ -15,7 +15,6 @@ CategorySchema.statics =
 
   getCategoriesList: (cb)->
     list = [
-      "algorithm",
       "javascript",
       "programming",
       "dev",
@@ -29,6 +28,7 @@ CategorySchema.statics =
       "marketing",
       "web-design",
       "web-front",
+      "algorithm",
       "infrastructure",
       "network",
       "database",
