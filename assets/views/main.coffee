@@ -10,6 +10,40 @@ module.exports = React.createClass
   getStateFromFlux: ->
     itemStore: @getFlux().store('ItemStore').getState()
 
+  componentDidMount: ->
+    @state.isload = true
+    window.addEventListener('scroll',@checkWindowScroll)
+
+    # start
+    category = (window.location.pathname).substr(1)
+    if not category
+      category = "hot"
+    @state.category = category
+    @getFlux().actions.item.fetchItems category
+
+  componentDidUpdate: (prevProps, prevState)->
+    # 更新が無くなったらloadしないようにする
+    if @size == @getFlux().store('ItemStore').getItemsLength()
+      @state.isload = false
+    else
+      @state.isload = true
+
+
+  checkWindowScroll: ->
+    # Get scroll pos & window data
+    h = document.documentElement.clientHeight
+    s = (document.body.scrollTop or document.documentElement.scrollTop or 0)
+    if document.body.scrollHeight != 0
+      scrolled = (h + s) >= document.body.scrollHeight
+    else
+      scrolled = false
+
+    # If scrolled enough, not currently paging and not complete...
+    if scrolled and @state.isload
+      @state.isload = false
+      @size = @getFlux().store('ItemStore').getItemsLength()
+      @getFlux().actions.item.fetchItems @state.category,@size
+
   render: ->
     that = @
     <div>
@@ -39,9 +73,11 @@ module.exports = React.createClass
             <span className="hatebu-count pull-right">{item.page.hatebu}</span>
           </a>
         </div>
-        <a href={item.page.url} target="_brank">
-          <img src={item.page.thumbnail} />
-        </a>
+        <div className="thumbnail-box">
+          <a href={item.page.url} target="_brank">
+            <img src={item.page.thumbnail} />
+          </a>
+        </div>
         <div className="item-footer">
           <div className="title-description">
             <a className="title" href={item.page.url} target="_brank">

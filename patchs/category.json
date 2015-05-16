@@ -3,6 +3,7 @@
     {
     "name": "javascript",
     "title": "JavaScript",
+    "description": "JavaScript関連",
     "color": "#0070AA",
     "tags": ["Javascript","js","react","flux","backbone.js","node.js","ライブラリ","library","JavaScript","framework","javascript","grunt","AngularJS","angular.js","angularjs"],
     "curators": [
@@ -34,8 +35,9 @@
       ]
     },
     {
-    "name": "design",
+    "name": "web-design",
     "title": "デザイン",
+    "description": "WebデザインやPhotoshopやIllustratorに関連",
     "color": "#5D5AAA",
     "tags": ["配色","WEBデザイン","illustrator","テンプレート","webdesign","photoshop","Webデザイン","Photoshop","Illustrator","写真素材"],
     "curators": [
@@ -66,8 +68,9 @@
     {
     "name": "ios-dev",
     "title": "iOS開発",
+    "description": "iOS開発者向け",
     "color": "#95a5a6",
-    "tags": ["iPhoneアプリ開発","Objective-C","アプリ開発","objective-c"],
+    "tags": ["iPhoneアプリ開発","Objective-C","アプリ開発","objective-c","swift"],
     "curators": [
       "nasneg",
       "ninjinkun",
@@ -88,6 +91,7 @@
     {
     "name": "apple",
     "title": "Apple/Mac",
+    "description": "Apple製品関連(iPhone,iPadなど)",
     "color": "#95a5a6",
     "tags": ["iPad","iOS 7","ios","iOS","iOS7","app","ios7","Apple","apple","iphone","iPhone"],
     "curators": [
@@ -110,6 +114,7 @@
     {
     "name": "pc",
     "title": "PC周辺・デバイス・ソフトウェア",
+    "description": "ソフトウェア,ハードウェア,PC機器全般",
     "color": "#e74c3c",
     "tags": ["ソフトウェア","software","PC","tool","pc","Tips","windows","フリーソフト","Windows","mac","Mac","ハードウェア","game"],
     "curators": [
@@ -139,6 +144,7 @@
     {
     "name": "programming",
     "title": "プログラミング全般",
+    "description": "プログラミング全般",
     "color": "#0096D6",
     "tags": ["tech","dev","Programming","テスト","tutorial","設計","システム開発","勉強会","開発","プログラミング","programming","performance","json","slide","development","presentation","システム","API","php","java","ruby","api","Java","http","PHP","Ruby","management","コーディング規約","スクレイピング","scraping","Unity"],
     "curators": [
@@ -172,6 +178,7 @@
     {
     "name": "social",
     "title": "ソーシャルメディア系",
+    "description": "ソーシャルメディア関連",
     "color": "#e67e22",
     "tags": ["メディア","インターネット","ニュース","ネット","LINE","yahoo","SNS","社会","増田","ソーシャルメディア","文化","著作権","sns","communication","twitter","facebook","2ch","Facebook","Twitter","音楽","music"],
     "curators": [
@@ -203,6 +210,7 @@
     {
     "name": "marketing",
     "title": "マーケティング",
+    "description": "マーケティング・ブログ・Webサービス関連",
     "color": "#9b59b6",
     "tags": ["コンテンツ","アフィリエイト","ブログ","マーケティング","EC","Webサービス","webサービス","webservice","marketing","SEO","グロースハック","analytics","google","ad","seo","Google","アクセス解析","chrome","文章術","Chrome"],
     "curators": [
@@ -232,6 +240,7 @@
     {
     "name": "database",
     "title": "データベース",
+    "description": "データベース全般",
     "color": "#006F6F",
     "tags": ["RDBMS","SQL","sql","database","mysql","DB","db","MySQL","データベース","RDB"],
     "curators": [
@@ -251,6 +260,7 @@
     {
     "name": "life",
     "title": "読み物・ライフハック・ビジネス",
+    "description": "読み物・ライフハック・ビジネス関連",
     "color": "#27ae60",
     "tags": ["読み物","考え方","work","business","コミュニケーション","研究","ビジネス","仕事術","企業","アイデア","起業","ライフハック","スタートアップ","人生","経営","生活","教育","lifehack","統計","組織"],
     "curators": [
@@ -282,6 +292,7 @@
     {
     "name": "dev",
     "title": "開発環境",
+    "description": "テストやCIといった開発環境関連",
     "color": "#34495e",
     "tags": ["開発環境","github","testing","git","Git","GitHub","jenkins","tdd","Jenkins","vim","emacs","selenium"],
     "curators": [
@@ -315,6 +326,7 @@
     {
     "name": "network",
     "title": "ネットワーク・OS",
+    "description": "ネットワーク・OS関連",
     "color": "#006F6F",
     "tags": ["ssh","Linux","linux","network","ネットワーク","コマンド","shell","設定","vps","OS","障害","systemd","ssl"],
     "curators": [
@@ -342,6 +354,7 @@
     {
     "name": "infrastructure",
     "title": "インフラ関連",
+    "description": "インフラ・運用・サーバ関連",
     "color": "#006F6F",
     "tags": ["infrastructure","DevOps","devops","インフラ","運用","server","サーバ","仮想化","監視","nginx","chef","capistrano","fluentd","Chef","serf","cloud","クラウド","vagrant","docker","Vagrant","aws","mongodb","AWS","Docker"],
     "curators": [
@@ -371,6 +384,7 @@
     {
     "name": "web-front",
     "title": "Webフロント",
+    "description": "CSSやHTML5関連",
     "color": "#16a085",
     "tags": ["CSS","css","HTML","css3","html","レスポンシブ","コーディング","HTML5","CSS3","html5","bootstrap","jQuery","SVG","jquery","jQuery","プラグイン","Bootstrap","svg"],
     "curators": [
@@ -393,8 +407,9 @@
     ]
     },
     {
-    "name": "web-design",
-    "title": "Webデザイン・UI/UX",
+    "name": "design",
+    "title": "デザイン・UI/UX",
+    "description": "UI/UX,ユーザビリティとデザイン関連",
     "color": "#0096D6",
     "tags": ["design","UI","デザイン","Design","ui","ユーザビリティ","UX","ux"],
     "curators": [
@@ -420,6 +435,7 @@
     {
     "name": "security",
     "title": "セキュリティ",
+    "description": "セキュリティ全般",
     "color": "#006F6F",
     "tags": ["privacy","Security","security","セキュリティ","bitcoin"],
     "curators": [
@@ -440,6 +456,7 @@
     {
     "name": "algorithm",
     "title": "アルゴリズム・機械学習・Python",
+    "description": "アルゴリズム・機械学習・Python関連",
     "color": "#8e44ad",
     "tags": ["algorithm","アルゴリズム","python","Python","c++","C++","機械学習","データマイニング","awk"],
     "curators": [
@@ -465,6 +482,7 @@
     {
     "name": "mobile",
     "title": "モバイル・ガジェット・Android",
+    "description": "モバイル・ガジェット・Android全般",
     "color": "#E50E50",
     "tags": ["スマホ","モバイル","mobile","スマートフォン","android","カメラ","Android","ガジェット","gadget"],
     "curators": [

@@ -11,8 +11,3 @@ View = require './views/main'
 
 React.render <View flux={flux} />
 , document.getElementById 'main-container'
-
-category = (window.location.pathname).substr(1)
-if not category
-  category = "hot"
-flux.actions.item.fetchItems category

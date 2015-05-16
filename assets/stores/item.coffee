@@ -13,6 +13,9 @@ module.exports = ()->
     getState: ()->
       items: @items
 
+    getItemsLength: ()->
+      @items.length
+
     insertItem: (item)->
       @items.push item
       @emit 'change'

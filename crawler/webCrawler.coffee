@@ -83,7 +83,7 @@ CrawlerJob = class CrawlerJob
           done null,urls
         ,1000
 
-    @jobs.process "fetchURL",(job,done)->
+    @jobs.process "fetchURL",2,(job,done)->
       url = job.data.url
       that.findPage url,(err,page)->
         return done err if err
