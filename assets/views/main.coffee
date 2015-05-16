@@ -11,7 +11,7 @@ module.exports = React.createClass
     itemStore: @getFlux().store('ItemStore').getState()
 
   componentDidMount: ->
-    @state.loading = false
+    @state.isload = true
     window.addEventListener('scroll',@checkWindowScroll)
 
     # start
@@ -22,18 +22,27 @@ module.exports = React.createClass
     @getFlux().actions.item.fetchItems category
 
   componentDidUpdate: (prevProps, prevState)->
-    @state.loading = false
+    # 更新が無くなったらloadしないようにする
+    if @size == @getFlux().store('ItemStore').getItemsLength()
+      @state.isload = false
+    else
+      @state.isload = true
+
 
   checkWindowScroll: ->
     # Get scroll pos & window data
     h = document.documentElement.clientHeight
     s = (document.body.scrollTop or document.documentElement.scrollTop or 0)
-    scrolled = (h + s) >= document.body.offsetHeight
+    if document.body.scrollHeight != 0
+      scrolled = (h + s) >= document.body.scrollHeight
+    else
+      scrolled = false
+
     # If scrolled enough, not currently paging and not complete...
-    if scrolled and !@state.loading
-      @state.loading = true
-      size = @getFlux().store('ItemStore').getItemsLength()
-      @getFlux().actions.item.fetchItems @state.category,size
+    if scrolled and @state.isload
+      @state.isload = false
+      @size = @getFlux().store('ItemStore').getItemsLength()
+      @getFlux().actions.item.fetchItems @state.category,@size
 
   render: ->
     that = @
@@ -64,9 +73,11 @@ module.exports = React.createClass
             <span className="hatebu-count pull-right">{item.page.hatebu}</span>
           </a>
         </div>
-        <a href={item.page.url} target="_brank">
-          <img src={item.page.thumbnail} />
-        </a>
+        <div className="thumbnail-box">
+          <a href={item.page.url} target="_brank">
+            <img src={item.page.thumbnail} />
+          </a>
+        </div>
         <div className="item-footer">
           <div className="title-description">
             <a className="title" href={item.page.url} target="_brank">

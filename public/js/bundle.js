@@ -97,7 +97,7 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
     var category;
-    this.state.loading = false;
+    this.state.isload = true;
     window.addEventListener('scroll', this.checkWindowScroll);
     category = window.location.pathname.substr(1);
     if (!category) {
@@ -107,17 +107,25 @@ module.exports = React.createClass({
     return this.getFlux().actions.item.fetchItems(category);
   },
   componentDidUpdate: function(prevProps, prevState) {
-    return this.state.loading = false;
+    if (this.size === this.getFlux().store('ItemStore').getItemsLength()) {
+      return this.state.isload = false;
+    } else {
+      return this.state.isload = true;
+    }
   },
   checkWindowScroll: function() {
-    var h, s, scrolled, size;
+    var h, s, scrolled;
     h = document.documentElement.clientHeight;
     s = document.body.scrollTop || document.documentElement.scrollTop || 0;
-    scrolled = (h + s) >= document.body.offsetHeight;
-    if (scrolled && !this.state.loading) {
-      this.state.loading = true;
-      size = this.getFlux().store('ItemStore').getItemsLength();
-      return this.getFlux().actions.item.fetchItems(this.state.category, size);
+    if (document.body.scrollHeight !== 0) {
+      scrolled = (h + s) >= document.body.scrollHeight;
+    } else {
+      scrolled = false;
+    }
+    if (scrolled && this.state.isload) {
+      this.state.isload = false;
+      this.size = this.getFlux().store('ItemStore').getItemsLength();
+      return this.getFlux().actions.item.fetchItems(this.state.category, this.size);
     }
   },
   render: function() {
@@ -155,12 +163,14 @@ module.exports = React.createClass({
       "className": "hatebu-users pull-right"
     }, "Users"), React.createElement("span", {
       "className": "hatebu-count pull-right"
-    }, item.page.hatebu))), React.createElement("a", {
+    }, item.page.hatebu))), React.createElement("div", {
+      "className": "thumbnail-box"
+    }, React.createElement("a", {
       "href": item.page.url,
       "target": "_brank"
     }, React.createElement("img", {
       "src": item.page.thumbnail
-    })), React.createElement("div", {
+    }))), React.createElement("div", {
       "className": "item-footer"
     }, React.createElement("div", {
       "className": "title-description"
