@@ -12,7 +12,7 @@ module.exports = function() {
           offset = 0;
         }
         that = this;
-        return request.get("http://localhost:4000/" + category + "/list?offset=" + offset, function(err, res) {
+        return request.get("/" + category + "/list?offset=" + offset, function(err, res) {
           var json;
           if (err) {
             return console.log(err);
