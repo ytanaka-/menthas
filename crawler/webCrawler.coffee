@@ -75,13 +75,13 @@ CrawlerJob = class CrawlerJob
 
   setJobProcess: ()->
     that = @
-    @jobs.process "fetchBookmark",1,(job,done)->
+    @jobs.process "fetchBookmark",(job,done)->
       curator = job.data.curator
       hatebuClient.getBookmarkerURLList curator,0,(err,urls)->
         return done err if err
         setTimeout ()->
           done null,urls
-        ,1000
+        ,500
 
     @jobs.process "fetchURL",2,(job,done)->
       url = job.data.url
@@ -93,12 +93,15 @@ CrawlerJob = class CrawlerJob
 
     @jobs.process "fetchBookmarkCount",(job,done)->
       url = job.data.url
-      hatebuClient.getBookmarkCount url,(err,count)->
+      Page.findByURL url,(err,page)->
         return done err if err
-        page.hatebu = count
-        page.save (err)->
+        return done if not page
+        hatebuClient.getBookmarkCount url,(err,count)->
           return done err if err
-          done()
+          page.hatebu = count
+          page.save (err)->
+            return done err if err
+            done()
 
     @jobs.process "fetchItem",(job,done)->
       category = job.data.category
