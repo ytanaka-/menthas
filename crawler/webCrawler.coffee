@@ -39,7 +39,7 @@ CrawlerJob = class CrawlerJob
             that.crawl category,curator,urls
           ).on("failed",(err)->
             debug err
-          ).ttl(1000*15).delay(1000).save()
+          ).ttl(1000*10).save()
 
 
   crawl: (category,curator,urls)->
@@ -78,10 +78,10 @@ CrawlerJob = class CrawlerJob
     @jobs.process "fetchBookmark",1,(job,done)->
       curator = job.data.curator
       hatebuClient.getBookmarkerURLList curator,0,(err,urls)->
-        return done err if err
         setTimeout ()->
+          return done err if err
           done null,urls
-        ,1500
+        ,2000
 
     @jobs.process "fetchURL",2,(job,done)->
       url = job.data.url
