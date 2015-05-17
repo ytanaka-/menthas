@@ -11,6 +11,12 @@ module.exports = React.createClass
     itemStore: @getFlux().store('ItemStore').getState()
 
   componentDidMount: ->
+    # menu-toggle
+    $("#menu-toggle").click (e)->
+      e.preventDefault()
+      $("#wrapper").toggleClass("toggled")
+
+    # set scroll init
     @state.isload = true
     window.addEventListener('scroll',@checkWindowScroll)
 

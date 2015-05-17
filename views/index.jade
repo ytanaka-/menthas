@@ -2,22 +2,21 @@ extends layout
 
 block content
 
-  div#sidebar-wrapper
-    ul.sidebar-nav
-      li.sidebar-brand
-        span(style="font-size: 23px;color: #FFF;") Menthas
-      li(style="font-size: 14px;color: #EEE;height: 28px; ")
-        span ニュースカテゴリ
-      li
-        a(href="/") # top
-      each category in categories
-        li
-          a(href="/#{category}") # #{category}
-
   div#wrapper
+    div#sidebar-wrapper
+      ul.sidebar-nav
+        li.sidebar-brand
+          span(style="font-size: 23px;color: #FFF;") Menthas
+        li(style="font-size: 14px;color: #EEE;height: 28px; ")
+          span ニュースカテゴリ
+        li
+          a(href="/") # top
+        each category in categories
+          li
+            a(href="/#{category}") # #{category}
+
     div#header
-      #open-sb
-      span.category-title ##{categoryName}
+      span#menu-toggle.category-title ##{categoryName}
       span.category-description #{categoryDescription}
     div#page-content-wrapper
       div.container-fluid

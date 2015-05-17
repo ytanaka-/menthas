@@ -97,6 +97,10 @@ module.exports = React.createClass({
   },
   componentDidMount: function() {
     var category;
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      return $("#wrapper").toggleClass("toggled");
+    });
     this.state.isload = true;
     window.addEventListener('scroll', this.checkWindowScroll);
     category = window.location.pathname.substr(1);
