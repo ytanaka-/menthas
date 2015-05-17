@@ -39,7 +39,7 @@ CrawlerJob = class CrawlerJob
             that.crawl category,curator,urls
           ).on("failed",(err)->
             debug err
-          ).ttl(1000*10).save()
+          ).ttl(1000*60).save()
 
 
   crawl: (category,curator,urls)->
@@ -81,7 +81,7 @@ CrawlerJob = class CrawlerJob
         setTimeout ()->
           return done err if err
           done null,urls
-        ,2000
+        ,5000
 
     @jobs.process "fetchURL",2,(job,done)->
       url = job.data.url
