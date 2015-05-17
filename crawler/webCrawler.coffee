@@ -23,7 +23,7 @@ CrawlerJob = class CrawlerJob
     @jobs = kue.createQueue()
     @setJobProcess()
     # webclientを有効化
-    kue.app.listen 3000
+    kue.app.listen 5000
 
   start: ()->
     that = @
