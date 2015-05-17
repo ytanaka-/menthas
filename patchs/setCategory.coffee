@@ -20,6 +20,8 @@ async.each categorys,(category,next)->
     category = new Category
       name: category.name
       title: category.title
+      description: category.description
+      color: category.color
       keywords: category.tags
       curators: category.curators
     category.save (err)->
