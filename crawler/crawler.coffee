@@ -2,7 +2,7 @@ _ = require 'underscore'
 path = require 'path'
 async = require 'async'
 kue = require 'kue'
-debug = require('debug')('webCrawler')
+debug = require('debug')('crawler')
 config = require 'config'
 mongoose = require 'mongoose'
 Category = (require path.resolve 'models','category').Category
@@ -22,56 +22,73 @@ CrawlerJob = class CrawlerJob
   constructor: ()->
     @jobs = kue.createQueue()
     @setJobProcess()
+    @cache = {}
     # webclientを有効化
     kue.app.listen 5000
 
   start: ()->
     that = @
+    # cacheを初期化
+    @cache = {}
     Category.find {},(err,categorys)->
       _.each categorys,(category)->
         curators = category.curators
-        _.each curators,(curator)->
-          that.jobs.create("fetchBookmark",{
-            title: "fetchBookmark: #{curator}"
-            curator: curator
-          }).on("complete",(urls)->
-            # start bookmarkList's crawl
-            that.crawl category,curator,urls
-          ).on("failed",(err)->
-            debug err
-          ).ttl(1000*60).save()
+        async.each curators,(curator,cb)->
+          if not that.cache[curator]
+            that.fetchBookmark category,curator
+            setTimeout ()->
+              cb()
+            ,1000
+          else
+            that.fetchURLs category,curator,that.cache[curator]
+            cb()
+        ,(err)->
+          debug err if err
 
+  fetchBookmark: (category,curator)->
+    that = @
+    that.jobs.create("fetchBookmark",{
+      title: "fetchBookmark: #{curator}"
+      curator: curator
+    }).on("complete",(urls)->
+      # cacheに追加
+      that.cache[curator] = urls
+      that.fetchURLs category,curator,urls
+    ).on("failed",(err)->
+      debug err
+    ).ttl(1000*30).save()
 
-  crawl: (category,curator,urls)->
+  fetchURLs: (category,curator,urls)->
     that = @
     _.each urls,(url)->
       that.jobs.create("fetchURL",{
         title: "fetchURL: #{url}"
         url: url
       }).on("complete",(page)->
-
-        that.jobs.create("fetchItem",{
-          title: "fetchItem"
-          curator: curator
-          category: category
-          page: page
-        }).on("complete",()->
-          debug "[#{url}]の取得が完了"
-          # hatebuのブックマーク数を取得し登録する
-          that.jobs.create("fetchBookmarkCount",{
-            title: "getBookmarkCount: #{url}"
-            url: url
-          }).on("failed",(err)->
-            debug err
-          ).ttl(1000).save()
-
-        ).on("failed",(err)->
-          debug err
-        ).ttl(1000*5).save()
-
+        # page取得に依存するjob
+        that.fetchItem category,curator,page
+        that.fetchHatebuCount page
       ).on("failed",(err)->
         debug err
       ).ttl(1000*10).save()
+
+  fetchItem: (category,curator,page)->
+    @jobs.create("fetchItem",{
+      title: "fetchItem"
+      curator: curator
+      category: category
+      page: page
+    }).on("failed",(err)->
+      debug err
+    ).ttl(1000*5).save()
+
+  fetchHatebuCount: (page)->
+    @jobs.create("fetchHatebuCount",{
+      title: "getBookmarkCount: #{page.url}"
+      page: page
+    }).on("failed",(err)->
+      debug err
+    ).ttl(1000).save()
 
   setJobProcess: ()->
     that = @
@@ -81,7 +98,7 @@ CrawlerJob = class CrawlerJob
         setTimeout ()->
           return done err if err
           done null,urls
-        ,5000
+        ,1000*10
 
     @jobs.process "fetchURL",2,(job,done)->
       url = job.data.url
@@ -91,17 +108,16 @@ CrawlerJob = class CrawlerJob
           done null,page
         ,1000
 
-    @jobs.process "fetchBookmarkCount",(job,done)->
-      url = job.data.url
-      Page.findByURL url,(err,page)->
+    @jobs.process "fetchHatebuCount",1,(job,done)->
+      page = job.data.page
+      hatebuClient.getBookmarkCount page.url,(err,count)->
         return done err if err
-        return done if not page
-        hatebuClient.getBookmarkCount url,(err,count)->
+        page.hatebu = count
+        page.save (err)->
           return done err if err
-          page.hatebu = count
-          page.save (err)->
-            return done err if err
+          setTimeout ()->
             done()
+          ,500
 
     @jobs.process "fetchItem",(job,done)->
       category = job.data.category
