@@ -33,17 +33,11 @@ CrawlerJob = class CrawlerJob
     Category.find {},(err,categorys)->
       _.each categorys,(category)->
         curators = category.curators
-        async.each curators,(curator,cb)->
+        _.each curators,(curator)->
           if not that.cache[curator]
             that.fetchBookmark category,curator
-            setTimeout ()->
-              cb()
-            ,1000
           else
             that.fetchURLs category,curator,that.cache[curator]
-            cb()
-        ,(err)->
-          debug err if err
 
   fetchBookmark: (category,curator)->
     that = @
@@ -56,7 +50,7 @@ CrawlerJob = class CrawlerJob
       that.fetchURLs category,curator,urls
     ).on("failed",(err)->
       debug err
-    ).ttl(1000*30).save()
+    ).ttl(1000*60).save()
 
   fetchURLs: (category,curator,urls)->
     that = @
@@ -88,17 +82,24 @@ CrawlerJob = class CrawlerJob
       url: url
     }).on("failed",(err)->
       debug err
-    ).ttl(1000).save()
+    ).delay(1000).ttl(1000*10).save()
 
   setJobProcess: ()->
     that = @
     @jobs.process "fetchBookmark",1,(job,done)->
+      debug "[start]fetchBookmark"
       curator = job.data.curator
       hatebuClient.getBookmarkerURLList curator,0,(err,urls)->
-        setTimeout ()->
-          return done err if err
-          done null,urls
-        ,1000*10
+        if err
+          debug err
+          setTimeout ()->
+            return done err
+          ,1000*20
+        else
+          setTimeout ()->
+            debug "[end]fetchBookmark"
+            return done null,urls
+          ,1000*10
 
     @jobs.process "fetchURL",2,(job,done)->
       url = job.data.url
@@ -120,7 +121,7 @@ CrawlerJob = class CrawlerJob
             return done err if err
             setTimeout ()->
               done()
-            ,500
+            ,2000
 
     @jobs.process "fetchItem",(job,done)->
       category = job.data.category
