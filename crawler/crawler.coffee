@@ -66,8 +66,8 @@ CrawlerJob = class CrawlerJob
         url: url
       }).on("complete",(page)->
         # page取得に依存するjob
+        that.fetchHatebuCount page.url
         that.fetchItem category,curator,page
-        that.fetchHatebuCount page
       ).on("failed",(err)->
         debug err
       ).ttl(1000*10).save()
@@ -82,10 +82,10 @@ CrawlerJob = class CrawlerJob
       debug err
     ).ttl(1000*5).save()
 
-  fetchHatebuCount: (page)->
+  fetchHatebuCount: (url)->
     @jobs.create("fetchHatebuCount",{
-      title: "getBookmarkCount: #{page.url}"
-      page: page
+      title: "getBookmarkCount: #{url}"
+      url: url
     }).on("failed",(err)->
       debug err
     ).ttl(1000).save()
@@ -109,15 +109,18 @@ CrawlerJob = class CrawlerJob
         ,1000
 
     @jobs.process "fetchHatebuCount",1,(job,done)->
-      page = job.data.page
-      hatebuClient.getBookmarkCount page.url,(err,count)->
+      url = job.data.url
+      Page.findByURL url,(err,page)->
         return done err if err
-        page.hatebu = count
-        page.save (err)->
+        return done if not page
+        hatebuClient.getBookmarkCount url,(err,count)->
           return done err if err
-          setTimeout ()->
-            done()
-          ,500
+          page.hatebu = count
+          page.save (err)->
+            return done err if err
+            setTimeout ()->
+              done()
+            ,500
 
     @jobs.process "fetchItem",(job,done)->
       category = job.data.category
