@@ -22,22 +22,16 @@ CrawlerJob = class CrawlerJob
   constructor: ()->
     @jobs = kue.createQueue()
     @setJobProcess()
-    @cache = {}
     # webclientを有効化
     kue.app.listen 5000
 
   start: ()->
     that = @
-    # cacheを初期化
-    @cache = {}
     Category.find {},(err,categorys)->
       _.each categorys,(category)->
         curators = category.curators
         _.each curators,(curator)->
-          if not that.cache[curator]
-            that.fetchBookmark category,curator
-          else
-            that.fetchURLs category,curator,that.cache[curator]
+          that.fetchBookmark category,curator
 
   fetchBookmark: (category,curator)->
     that = @
@@ -45,8 +39,6 @@ CrawlerJob = class CrawlerJob
       title: "fetchBookmark: #{curator}"
       curator: curator
     }).on("complete",(urls)->
-      # cacheに追加
-      that.cache[curator] = urls
       that.fetchURLs category,curator,urls
     ).on("failed",(err)->
       debug err
@@ -82,7 +74,7 @@ CrawlerJob = class CrawlerJob
       url: url
     }).on("failed",(err)->
       debug err
-    ).delay(1000).ttl(1000*10).save()
+    ).ttl(1000*5).save()
 
   setJobProcess: ()->
     that = @
