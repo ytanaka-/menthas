@@ -22,6 +22,7 @@ CrawlerJob = class CrawlerJob
   constructor: ()->
     @jobs = kue.createQueue()
     @setJobProcess()
+    @cache = {}
     # webclientを有効化
     kue.app.listen 5000
 
@@ -81,12 +82,16 @@ CrawlerJob = class CrawlerJob
   setJobProcess: ()->
     that = @
     @jobs.process "fetchBookmark",1,(job,done)->
-      debug "[start]fetchBookmark"
       curator = job.data.curator
+      # cacheにあるかチェック
+      if that.cache[curator]
+        return done null,that.cache[curator]
+      debug "[start]fetchBookmark"
       hatebuClient.getBookmarkerURLList curator,0,(err,urls)->
         setTimeout ()->
           return done err if err
           debug "[end]fetchBookmark"
+          that.cache[curator] = urls
           done null,urls
         ,1000*10
 
