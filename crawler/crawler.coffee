@@ -26,8 +26,16 @@ CrawlerJob = class CrawlerJob
     # webclientを有効化
     kue.app.listen 5000
 
-  start: ()->
+  startAndInterval: ()->
     that = @
+    setInterval ()->
+      that.start()
+    ,1000*60*60*8
+
+  start: ()->
+    debug "[start]CrawlerJob"
+    that = @
+    @cache = {}
     Category.find {},(err,categorys)->
       _.each categorys,(category)->
         curators = category.curators
@@ -44,7 +52,7 @@ CrawlerJob = class CrawlerJob
       that.fetchURLs category,curator,urls
     ).on("failed",(err)->
       debug err
-    ).ttl(1000*30).save()
+    ).save()
 
   fetchURLs: (category,curator,urls)->
     that = @
@@ -56,7 +64,7 @@ CrawlerJob = class CrawlerJob
         that.fetchItem category,curator,page.url
       ).on("failed",(err)->
         debug err
-      ).ttl(1000*10).save()
+      ).save()
 
   fetchItem: (category,curator,url)->
     that = @
@@ -69,7 +77,7 @@ CrawlerJob = class CrawlerJob
       that.fetchHatebuCount url
     ).on("failed",(err)->
       debug err
-    ).ttl(1000*5).save()
+    ).save()
 
   fetchHatebuCount: (url)->
     @jobs.create("fetchHatebuCount",{
@@ -77,7 +85,7 @@ CrawlerJob = class CrawlerJob
       url: url
     }).on("failed",(err)->
       debug err
-    ).ttl(1000*5).save()
+    ).save()
 
   setJobProcess: ()->
     that = @
@@ -174,4 +182,4 @@ CrawlerJob = class CrawlerJob
 
 
 job = new CrawlerJob
-job.start()
+job.startAndInterval()
