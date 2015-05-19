@@ -33,6 +33,7 @@ CrawlerJob = class CrawlerJob
         _.each curators,(curator)->
           that.fetchBookmark category,curator
 
+
   fetchBookmark: (category,curator)->
     that = @
     that.jobs.create("fetchBookmark",{
@@ -51,20 +52,21 @@ CrawlerJob = class CrawlerJob
         title: "fetchURL: #{url}"
         url: url
       }).on("complete",(page)->
-        # page取得に依存するjob
-        that.fetchHatebuCount page.url
-        that.fetchItem category,curator,page
+        that.fetchItem category,curator,page.url
       ).on("failed",(err)->
         debug err
       ).ttl(1000*10).save()
 
-  fetchItem: (category,curator,page)->
+  fetchItem: (category,curator,url)->
+    that = @
     @jobs.create("fetchItem",{
       title: "fetchItem"
       curator: curator
       category: category
-      page: page
-    }).on("failed",(err)->
+      url: url
+    }).on("complete",()->
+      that.fetchHatebuCount url
+    ).on("failed",(err)->
       debug err
     ).ttl(1000*5).save()
 
@@ -86,7 +88,7 @@ CrawlerJob = class CrawlerJob
           return done err if err
           debug "[end]fetchBookmark"
           done null,urls
-        ,1000*10
+        ,1000*5
 
     @jobs.process "fetchURL",2,(job,done)->
       url = job.data.url
@@ -113,35 +115,38 @@ CrawlerJob = class CrawlerJob
     @jobs.process "fetchItem",(job,done)->
       category = job.data.category
       curator = job.data.curator
-      page = job.data.page
+      url = job.data.url
       # category._idなことに注意
-      Item.findByCategoryAndUrl category._id,page._id,(err,item)->
+      Page.findByURL url,(err,page)->
         return done err if err
-        if not item
-          item = new Item
-            category: category._id
-            page: page._id
-            score: 1
-            picks: [ curator ]
-          # pageのtitleとdescriptionにkeywordが含まれていた場合scoreに加算
-          str = page.title + ":" + page.description
-          keywords = category.keywords
-          if ( _.some keywords,(keyword)-> return !!~ str.indexOf keyword ) is true
-            item.score = item.score + 2
-          item.save (err)->
-            return done err if err
-            done()
-        else
-          if not _.contains item.picks,curator
-            item.score = item.score + 1
-            item.picks.push curator
-            item.timestamp = new Date()
-            debug "scoreにpicksから更新があるっぽい score=#{item.score}"
+        return done if not page
+        Item.findByCategoryAndUrl category._id,page._id,(err,item)->
+          return done err if err
+          if not item
+            item = new Item
+              category: category._id
+              page: page._id
+              score: 1
+              picks: [ curator ]
+            # pageのtitleとdescriptionにkeywordが含まれていた場合scoreに加算
+            str = page.title + ":" + page.description
+            keywords = category.keywords
+            if ( _.some keywords,(keyword)-> return !!~ str.indexOf keyword ) is true
+              item.score = item.score + 2
             item.save (err)->
-              debug err if err
+              return done err if err
               return done()
           else
-            done()
+            if not _.contains item.picks,curator
+              item.score = item.score + 1
+              item.picks.push curator
+              item.timestamp = new Date()
+              debug "scoreにpicksから更新があるっぽい score=#{item.score}"
+              item.save (err)->
+                debug err if err
+                return done()
+            else
+              done()
 
 
   findPage :(url,done)->
@@ -158,7 +163,7 @@ CrawlerJob = class CrawlerJob
             site_name: result.site_name
           page.save (err)->
             return done err if err
-            done null,page
+            return done null,page
       else
         done null,page
 
