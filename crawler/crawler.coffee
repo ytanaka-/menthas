@@ -88,7 +88,7 @@ CrawlerJob = class CrawlerJob
           return done err if err
           debug "[end]fetchBookmark"
           done null,urls
-        ,1000*5
+        ,1000*10
 
     @jobs.process "fetchURL",2,(job,done)->
       url = job.data.url
