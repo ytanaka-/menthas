@@ -22,12 +22,14 @@ CrawlerJob = class CrawlerJob
   constructor: ()->
     @jobs = kue.createQueue()
     @setJobProcess()
-    @cache = {}
+    @bookmarkCache = {}
+    @hatebuCache = {} # urlに対するブクマ数をキャッシュ
     # webclientを有効化
     kue.app.listen 5000
 
   startAndInterval: ()->
     that = @
+    @start()
     setInterval ()->
       that.start()
     ,1000*60*60*8
@@ -35,7 +37,8 @@ CrawlerJob = class CrawlerJob
   start: ()->
     debug "[start]CrawlerJob"
     that = @
-    @cache = {}
+    @bookmarkCache = {}
+    @hatebuCache = {}
     Category.find {},(err,categorys)->
       _.each categorys,(category)->
         curators = category.curators
@@ -92,14 +95,14 @@ CrawlerJob = class CrawlerJob
     @jobs.process "fetchBookmark",1,(job,done)->
       curator = job.data.curator
       # cacheにあるかチェック
-      if that.cache[curator]
-        return done null,that.cache[curator]
+      if that.bookmarkCache[curator]
+        return done null,that.bookmarkCache[curator]
       debug "[start]fetchBookmark"
       hatebuClient.getBookmarkerURLList curator,0,(err,urls)->
         setTimeout ()->
           return done err if err
           debug "[end]fetchBookmark"
-          that.cache[curator] = urls
+          that.bookmarkCache[curator] = urls
           done null,urls
         ,1000*10
 
@@ -113,6 +116,9 @@ CrawlerJob = class CrawlerJob
 
     @jobs.process "fetchHatebuCount",1,(job,done)->
       url = job.data.url
+      # cacheにあるかチェック
+      if that.hatebuCache[url]
+        return done null,that.hatebuCache[url]
       Page.findByURL url,(err,page)->
         return done err if err
         return done if not page
@@ -122,8 +128,9 @@ CrawlerJob = class CrawlerJob
           page.save (err)->
             return done err if err
             setTimeout ()->
+              that.hatebuCache[url] = count
               done()
-            ,2000
+            ,1500
 
     @jobs.process "fetchItem",(job,done)->
       category = job.data.category
