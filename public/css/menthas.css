@@ -2,8 +2,29 @@ body {
   background-color: #F5F5F5;
 }
 
+.effect{
+    -webkit-box-shadow: 1px 1px 2px -1px #888;
+       -moz-box-shadow: 1px 1px 2px -1px #888;
+            box-shadow: 1px 1px 2px -1px #888;
+}
+
+.clear-padding{
+  padding: 0px;
+}
+
 #sidebar-wrapper {
   color: #AAA;
+}
+
+.sidebar-nav .sidebar-brand > span {
+  font-size: 23px;
+  color: #FFF;
+}
+
+.sidebar-nav li > span {
+  font-size: 14px;
+  color: #EEE;
+  height: 28px;
 }
 
 /* header関連 */
@@ -27,15 +48,7 @@ body {
   color: #999;
 }
 
-.effect{
-    -webkit-box-shadow: 1px 1px 2px -1px #888;
-       -moz-box-shadow: 1px 1px 2px -1px #888;
-            box-shadow: 1px 1px 2px -1px #888;
-}
 
-.clear-padding{
-  padding: 0px;
-}
 
 .item {
   margin: 6px;

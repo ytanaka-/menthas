@@ -1,6 +1,9 @@
 React   = require 'react'
 Fluxxor = require 'fluxxor'
 
+Sidebar = require './sidebar'
+Article = require './article'
+
 module.exports = React.createClass
   mixins: [
     Fluxxor.FluxMixin React
@@ -9,6 +12,7 @@ module.exports = React.createClass
 
   getStateFromFlux: ->
     itemStore: @getFlux().store('ItemStore').getState()
+    categoryStore: @getFlux().store('CategoryStore').getState()
 
   componentDidMount: ->
     # menu-toggle
@@ -25,7 +29,8 @@ module.exports = React.createClass
     if not category
       category = "hot"
     @state.category = category
-    @getFlux().actions.item.fetchItems category
+    @getFlux().actions.item.fetch category
+    @getFlux().actions.category.fetchParams category
 
   componentDidUpdate: (prevProps, prevState)->
     # 更新が無くなったらloadしないようにする
@@ -48,50 +53,41 @@ module.exports = React.createClass
     if scrolled and @state.isload
       @state.isload = false
       @size = @getFlux().store('ItemStore').getItemsLength()
-      @getFlux().actions.item.fetchItems @state.category,@size
+      @getFlux().actions.item.fetch @state.category,@size
+
+  onCategoryClick: (category)->
+    @state.category = category
+    @getFlux().actions.item.reload category
+    @getFlux().actions.category.fetchParams category
 
   render: ->
-    that = @
     <div>
-      {
-        @state.itemStore.items.map (item,i)->
-          if i & 3 == 0
-            <div className="row">
-              {that.itemHelper item}
-            </div>
-          else
+      <div id="sidebar-wrapper">
+        <Sidebar
+          categories= {@state.categoryStore.categories}
+          onCategoryClick= {@onCategoryClick} />
+      </div>
+      <div id="header">
+        <span id="menu-toggle" className="category-title"> {@state.categoryStore.name}</span>
+        <span className="category-description"> {@state.categoryStore.description}</span>
+      </div>
+      <div id="page-content-wrapper">
+        <div className="container-fluid">
+          <div id="main-container">
             <div>
-              {that.itemHelper item}
+              {
+                @state.itemStore.items.map (item,i)->
+                  if i & 3 == 0
+                    <div key={item._id} className="row">
+                      <Article item={item}/>
+                    </div>
+                  else
+                    <div key={item._id}>
+                      <Article item={item}/>
+                    </div>
+              }
             </div>
-      }
-    </div>
-
-  itemHelper: (item)->
-    <div className="col-md-4 clear-padding">
-      <div className=" item effect">
-        <div className="category-color-bar"
-          style={{"backgroundColor": item.category.color}} >
-          <a href="/#{item.category.name}" target="_brank">
-            <span className="category-name">{item.category.name}</span>
-          </a>
-          <a href="http://b.hatena.ne.jp/entry/#{item.page.url}" target="_brank">
-            <span className="hatebu-users pull-right">Users</span>
-            <span className="hatebu-count pull-right">{item.page.hatebu}</span>
-          </a>
-        </div>
-        <div className="thumbnail-box">
-          <a href={item.page.url} target="_brank">
-            <img src={item.page.thumbnail} />
-          </a>
-        </div>
-        <div className="item-footer">
-          <div className="title-description">
-            <a className="title" href={item.page.url} target="_brank">
-              <p>{item.page.title} </p>
-            </a>
-            <p className="description">{item.page.description}</p>
           </div>
-          <p className="source">From: {item.page.site_name}</p>
         </div>
       </div>
     </div>

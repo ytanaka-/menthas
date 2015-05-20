@@ -12,26 +12,27 @@ module.exports.CategoryEvent = (app) ->
   SCORE_THRESHOLD = 3
   HOT_THRESHOLD = 5
 
-  index: (req,res,next)->
+  params: (req,res,next)->
     categoryName = req.params.category
     Category.getCategoriesList (err,list)->
-      if not categoryName
+      if categoryName is "hot" || !_.contains list,categoryName
         categoryName = "top"
-        return res.render "index",{
-            categoryName: categoryName
-            categoryDescription: "各カテゴリのHotNews"
-            categories: list
+        return res.json {
+            category:
+              name: categoryName
+              description: "各カテゴリのHotNews"
+              categories: list
           }
       Category.findByName categoryName,(err,category)->
         if err || !category
           debug err
           return res.status(500).send
-        res.render "index",{
-          categoryName: categoryName
-          categoryDescription: category.description
-          categories: list
+        res.json {
+          category:
+            name: categoryName
+            description: category.description
+            categories: list
         }
-
 
   list: (req,res,next)->
     categoryName = req.params.category

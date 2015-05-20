@@ -7,8 +7,8 @@ module.exports = ()->
 
     initialize: ()->
       @items = []
-      @bindActions 'insertItem', @insertItem
       @bindActions 'insertItemList', @insertItemList
+      @bindActions 'reloadItemList', @reloadItemList
 
     getState: ()->
       items: @items
@@ -16,10 +16,10 @@ module.exports = ()->
     getItemsLength: ()->
       @items.length
 
-    insertItem: (item)->
-      @items.push item
-      @emit 'change'
-
     insertItemList: (itemList)->
       @items = _.union @items,itemList
+      @emit 'change'
+
+    reloadItemList: (itemList)->
+      @items = itemList
       @emit 'change'

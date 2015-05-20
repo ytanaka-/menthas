@@ -4,5 +4,4 @@ module.exports.HomeEvent = (app)->
   debug  = require('debug')('events/home')
 
   index: (req,res,next)->
-    res.render "index",
-    title: "Express"
+    return res.render "index",{}
