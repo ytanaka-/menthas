@@ -69,6 +69,8 @@ module.exports = class HatebuClient
       parser.parseString result, (err, data) ->
         if err
           return cb err
+        if not data["rdf:RDF"]
+          return cb new Error "Not data[rdf:RDF]"
         items = data["rdf:RDF"].item
         links = []
         _.each items,(item)->
