@@ -5,6 +5,7 @@ kue = require 'kue'
 debug = require('debug')('crawler')
 config = require 'config'
 mongoose = require 'mongoose'
+LRU = require 'lru-cache'
 Category = (require path.resolve 'models','category').Category
 Item = (require path.resolve 'models','item').Item
 Page = (require path.resolve 'models','page').Page
@@ -22,8 +23,8 @@ CrawlerJob = class CrawlerJob
   constructor: ()->
     @jobs = kue.createQueue()
     @setJobProcess()
-    @bookmarkCache = {}
-    @hatebuCache = {} # urlに対するブクマ数をキャッシュ
+    @bookmarkCache = LRU()
+    @hatebuCache = LRU() # urlに対するブクマ数をキャッシュ
     # webclientを有効化
     kue.app.listen 5000
 
@@ -37,12 +38,14 @@ CrawlerJob = class CrawlerJob
   start: ()->
     debug "[start]CrawlerJob"
     that = @
-    @bookmarkCache = {}
-    @hatebuCache = {}
+    @bookmarkCache.reset()
+    @hatebuCache.reset()
     Category.find {},(err,categorys)->
+      categorys = categorys.splice 0,1
       _.each categorys,(category)->
         curators = category.curators
         _.each curators,(curator)->
+          curator = "efcl"
           that.fetchBookmark category,curator
 
 
@@ -95,14 +98,14 @@ CrawlerJob = class CrawlerJob
     @jobs.process "fetchBookmark",1,(job,done)->
       curator = job.data.curator
       # cacheにあるかチェック
-      if that.bookmarkCache[curator]
-        return done null,that.bookmarkCache[curator]
+      if that.bookmarkCache.has curator
+        return done null,that.bookmarkCache.get curator
       debug "[start]fetchBookmark"
       hatebuClient.getBookmarkerURLList curator,0,(err,urls)->
         setTimeout ()->
           return done err if err
           debug "[end]fetchBookmark"
-          that.bookmarkCache[curator] = urls
+          that.bookmarkCache.set curator,urls
           done null,urls
         ,1000*10
 
@@ -117,8 +120,8 @@ CrawlerJob = class CrawlerJob
     @jobs.process "fetchHatebuCount",1,(job,done)->
       url = job.data.url
       # cacheにあるかチェック
-      if that.hatebuCache[url]
-        return done null,that.hatebuCache[url]
+      if that.hatebuCache.has url
+        return done null,that.hatebuCache.get url
       Page.findByURL url,(err,page)->
         return done err if err
         return done if not page
@@ -128,7 +131,7 @@ CrawlerJob = class CrawlerJob
           page.save (err)->
             return done err if err
             setTimeout ()->
-              that.hatebuCache[url] = count
+              that.hatebuCache.set url,count
               done()
             ,1500
 
