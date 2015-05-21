@@ -41,11 +41,9 @@ CrawlerJob = class CrawlerJob
     @bookmarkCache.reset()
     @hatebuCache.reset()
     Category.find {},(err,categorys)->
-      categorys = categorys.splice 0,1
       _.each categorys,(category)->
         curators = category.curators
         _.each curators,(curator)->
-          curator = "efcl"
           that.fetchBookmark category,curator
 
 
