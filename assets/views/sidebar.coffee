@@ -6,9 +6,16 @@ module.exports = React.createClass
     Fluxxor.FluxMixin React
   ]
 
+  # categoriesの取得までul以下を表示しない
+  _isVisible: ()->
+    if @props.categories.length is 0
+      return {
+        visibility: "hidden"
+      }
+
   render: ()->
     that = @
-    <ul className="sidebar-nav">
+    <ul className="sidebar-nav" style=@_isVisible()>
       <li className="sidebar-brand">
         <span> Menthas</span>
       </li>

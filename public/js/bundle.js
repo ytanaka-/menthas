@@ -313,11 +313,19 @@ Fluxxor = require('fluxxor');
 
 module.exports = React.createClass({
   mixins: [Fluxxor.FluxMixin(React)],
+  _isVisible: function() {
+    if (this.props.categories.length === 0) {
+      return {
+        visibility: "hidden"
+      };
+    }
+  },
   render: function() {
     var that;
     that = this;
     return React.createElement("ul", {
-      "className": "sidebar-nav"
+      "className": "sidebar-nav",
+      "style": this._isVisible()
     }, React.createElement("li", {
       "className": "sidebar-brand"
     }, React.createElement("span", null, " Menthas")), React.createElement("li", null, React.createElement("span", null, "\u30cb\u30e5\u30fc\u30b9\u30ab\u30c6\u30b4\u30ea")), React.createElement("li", null, React.createElement("a", {
