@@ -59,7 +59,24 @@ body {
 .category-color-bar{
   height: 22px;
   margin: 0px 0px 5px 0px;
+  position: relative;
 }
+
+.category-color-bar-helper {
+  height: 100%;
+  padding: 0 !important;
+}
+
+.category-text {
+  position: absolute;
+  left: 1px;
+}
+
+.hatebu-user-text {
+  position: absolute;
+  right: 0;
+}
+
 .category-color-bar .category-name{
   margin-left: 4px;
   font-size: 15px;
