@@ -69,7 +69,7 @@ body {
 
 .category-text {
   position: absolute;
-  left: 0;
+  left: 1px;
 }
 
 .hatebu-user-text {
