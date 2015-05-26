@@ -1,3 +1,4 @@
+_ = require 'underscore'
 async = require 'async'
 mongoose = require 'mongoose'
 
@@ -43,30 +44,40 @@ ItemSchema.statics =
   findByCategoryAndSetOthers: (category_id,score,size,offset,cb)->
     that = @
     @findByCategory category_id,score,size,offset,(err,items)->
-      cb err if err
+      return cb err if err
       that._addOtherCategories items,score,(err,result)->
-        cb err if err
+        return cb err if err
         cb null,result
 
   findAndSetOthers: (score,size,offset,cb)->
     that = @
     @findByScore score,size,offset,(err,items)->
-      cb err if err
+      return cb err if err
       that._addOtherCategories items,score,(err,result)->
-        cb err if err
+        return cb err if err
         cb null,result
 
   _addOtherCategories: (items,score,cb)->
     that = @
     array = []
+    addUrls = []
     async.eachSeries items,(item,next)->
+      # 重複チェック
+      if _.contains addUrls,item.page.url
+        return next()
       that._findOtherCategories item.page._id,item.category._id,score,(err,result)->
-        next err if err
-        item.others = result
-        array.push item
+        return next err if err
+        array.push
+          _id: item._id
+          category: item.category
+          page: item.page
+          score: item.score
+          picks: item.picks
+          others: result
+        addUrls.push item.page.url
         next()
     ,(err)->
-      cb err if err
+      return cb err if err
       cb null,array
 
   _findOtherCategories: (page_id,category_id,score,cb)->
