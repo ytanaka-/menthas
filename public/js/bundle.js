@@ -154,23 +154,48 @@ Fluxxor = require('fluxxor');
 module.exports = React.createClass({
   mixins: [Fluxxor.FluxMixin(React)],
   render: function() {
-    var item;
+    var categoryCol, i, item, length;
     item = this.props.item;
     return React.createElement("div", {
       "className": "col-md-4 clear-padding"
     }, React.createElement("div", {
       "className": " item effect"
     }, React.createElement("div", {
-      "className": "category-color-bar",
-      "style": {
-        "backgroundColor": item.category.color
+      "className": "category-color-bar row"
+    }, ((function() {
+      var j, ref, results;
+      length = item.others.length + 1;
+      if (length > 4) {
+        length = 4;
       }
-    }, React.createElement("a", {
+      categoryCol = 12 / length;
+      results = [];
+      for (i = j = 0, ref = length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+        if (i === 0) {
+          results.push(React.createElement("div", {
+            "className": "col-xs-" + categoryCol + " category-color-bar-helper",
+            "style": {
+              "backgroundColor": item.category.color
+            }
+          }));
+        } else {
+          results.push(React.createElement("div", {
+            "className": "col-xs-" + categoryCol + " category-color-bar-helper",
+            "style": {
+              "backgroundColor": item.others[i - 1].category.color
+            }
+          }));
+        }
+      }
+      return results;
+    })()), React.createElement("a", {
+      "className": "category-text",
       "href": "/" + item.category.name,
       "target": "_brank"
     }, React.createElement("span", {
       "className": "category-name"
     }, item.category.name)), React.createElement("a", {
+      "className": "hatebu-user-text",
       "href": "http://b.hatena.ne.jp/entry/" + item.page.url,
       "target": "_brank"
     }, React.createElement("span", {
