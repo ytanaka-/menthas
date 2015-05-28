@@ -59,11 +59,17 @@ body {
 .category-color-bar{
   height: 22px;
   margin: 0px 0px 5px 0px;
+}
+
+.category-color-bar-main{
+  height: 100%;
   position: relative;
+  float: left;
 }
 
 .category-color-bar-helper {
   height: 100%;
+  float: left;
   padding: 0 !important;
 }
 

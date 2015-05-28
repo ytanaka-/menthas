@@ -6,30 +6,46 @@ module.exports = React.createClass
     Fluxxor.FluxMixin React
   ]
 
+  _categoryStyle: (i,length,item)->
+    subCategoryWidth = 4
+    if i is 0 and length is 1
+      return {
+        backgroundColor: item.category.color
+        width: "100%"
+      }
+    else if i is 0
+      return {
+        backgroundColor: item.category.color
+        width: 100 - subCategoryWidth*(length-1) + "%"
+      }
+    else
+      return {
+        backgroundColor: item.others[i-1].category.color
+        width: subCategoryWidth + "%"
+      }
+
+
   render: ()->
     item = @props.item
     <div className="col-md-4 clear-padding">
       <div className=" item effect">
-        <div className="category-color-bar row">
+        <div className="category-color-bar">
           {
             length = item.others.length + 1
-            if length > 4
-              length = 4
-            categoryCol = 12/length
             for i in [0...length]
-              if i == 0
-                <div className="col-xs-#{categoryCol} category-color-bar-helper" style={"backgroundColor": item.category.color} />
+              if i is 0
+                <div className="category-color-bar-main" style={@_categoryStyle(i,length,item)}>
+                  <a className="category-text" href="/#{item.category.name}" target="_brank">
+                    <span className="category-name">{item.category.name}</span>
+                  </a>
+                  <a className="hatebu-user-text" href="http://b.hatena.ne.jp/entry/#{item.page.url}" target="_brank">
+                    <span className="hatebu-users pull-right">Users</span>
+                    <span className="hatebu-count pull-right">{item.page.hatebu}</span>
+                  </a>
+                </div>
               else
-                <div className="col-xs-#{categoryCol} category-color-bar-helper" style={"backgroundColor": item.others[i-1].category.color} />
-
+                <div className="category-color-bar-helper" style={@_categoryStyle(i,length,item)} />
           }
-          <a className="category-text" href="/#{item.category.name}" target="_brank">
-            <span className="category-name">{item.category.name}</span>
-          </a>
-          <a className="hatebu-user-text" href="http://b.hatena.ne.jp/entry/#{item.page.url}" target="_brank">
-            <span className="hatebu-users pull-right">Users</span>
-            <span className="hatebu-count pull-right">{item.page.hatebu}</span>
-          </a>
         </div>
         <div className="thumbnail-box">
           <a href={item.page.url} target="_brank">
