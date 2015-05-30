@@ -8,7 +8,7 @@ module.exports = (app) ->
   CategoryEvent = app.get('events').CategoryEvent app
 
   app.get '/', (req,res,next)-> HomeEvent.index req,res,next
-  app.get '/:category', (req,res,next)-> HomeEvent.index req,res,next
+  app.get '/:category', (req,res,next)-> HomeEvent.category req,res,next
 
   # Top用のリストを取得
   app.get '/hot/list', (req,res,next)-> CategoryEvent.hotList req,res,next

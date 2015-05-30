@@ -59,11 +59,17 @@ body {
 .category-color-bar{
   height: 22px;
   margin: 0px 0px 5px 0px;
+}
+
+.category-color-bar-main{
+  height: 100%;
   position: relative;
+  float: left;
 }
 
 .category-color-bar-helper {
   height: 100%;
+  float: left;
   padding: 0 !important;
 }
 
@@ -91,6 +97,16 @@ body {
   margin: 6px 4px 0px 1px;
   font-size: 11px;
   color: #FFF;
+}
+
+/* popover関連 */
+/* @hack */
+.popover-content{
+  padding: 0;
+}
+.popover-category-text{
+  margin-left: 6px;
+  font-size: 15px;
 }
 
 .item .thumbnail-box{
