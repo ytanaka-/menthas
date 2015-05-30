@@ -26,7 +26,7 @@ module.exports.CategoryEvent = (app) ->
       Category.findByName categoryName,(err,category)->
         if err || !category
           debug err
-          return res.status(500).send
+          return res.sendStatus(500)
         res.json {
           category:
             name: categoryName
@@ -42,11 +42,11 @@ module.exports.CategoryEvent = (app) ->
     Category.findByName categoryName,(err,category)->
       if err || !category
         debug err
-        return res.status(500).send
+        return res.sendStatus(500)
       Item.findByCategoryAndSetOthers category._id,score,size,offset,(err,result)->
         if err
           debug err
-          return res.status(500).send
+          return res.sendStatus(500)
         return res.json {
           items: result
         }
@@ -59,7 +59,7 @@ module.exports.CategoryEvent = (app) ->
     Item.findAndSetOthers score,size,offset,(err,result)->
       if err
         debug err
-        return res.status(500).send
+        return res.sendStatus(500)
       return res.json {
         items: result
       }
@@ -69,7 +69,7 @@ module.exports.CategoryEvent = (app) ->
     @_generateRSS categoryName,(err,result)->
       if err
         debug err
-        return res.status(500).send
+        return res.sendStatus(500)
       res.send result
 
   _generateRSS: (categoryName,callback)->

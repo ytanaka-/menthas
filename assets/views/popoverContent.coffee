@@ -16,7 +16,6 @@ module.exports = React.createClass
   render : ()->
     <div className="list-group">
     {
-      console.log @props.sharedCategories
       @props.sharedCategories.map (shared)=>
         <a className="list-group-item" href="/#{shared.category.name}">
           <div className="pull-left" style={@_helper shared.category} />

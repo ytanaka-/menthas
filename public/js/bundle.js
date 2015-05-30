@@ -375,7 +375,7 @@ module.exports = React.createClass({
   render: function() {
     return React.createElement("div", {
       "className": "list-group"
-    }, (console.log(this.props.sharedCategories), this.props.sharedCategories.map((function(_this) {
+    }, this.props.sharedCategories.map((function(_this) {
       return function(shared) {
         return React.createElement("a", {
           "className": "list-group-item",
@@ -387,7 +387,7 @@ module.exports = React.createClass({
           "className": "popover-category-text"
         }, shared.category.name));
       };
-    })(this))));
+    })(this)));
   }
 });
 
