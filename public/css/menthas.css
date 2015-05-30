@@ -99,6 +99,16 @@ body {
   color: #FFF;
 }
 
+/* popover関連 */
+/* @hack */
+.popover-content{
+  padding: 0;
+}
+.popover-category-text{
+  margin-left: 6px;
+  font-size: 15px;
+}
+
 .item .thumbnail-box{
   height: 140px;
 }

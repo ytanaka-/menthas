@@ -1,5 +1,9 @@
 React = require 'react'
 Fluxxor = require 'fluxxor'
+OverlayTrigger = require('react-bootstrap').OverlayTrigger
+Popover = require('react-bootstrap').Popover
+
+PopoverContent = require './popoverContent'
 
 module.exports = React.createClass
   mixins: [
@@ -44,7 +48,11 @@ module.exports = React.createClass
                   </a>
                 </div>
               else
-                <div className="category-color-bar-helper" style={@_categoryStyle(i,length,item)} />
+                <OverlayTrigger trigger='click' rootClose={true} placement='bottom' overlay={
+                  <Popover title='共有されている他カテゴリ'><PopoverContent sharedCategories= {item.others}/></Popover>
+                  }>
+                  <div className="category-color-bar-helper" style={@_categoryStyle(i,length,item)} />
+                </OverlayTrigger>
           }
         </div>
         <div className="thumbnail-box">
