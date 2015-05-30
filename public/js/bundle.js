@@ -120,6 +120,7 @@ module.exports = function() {
   return Fluxxor.createStore({
     initialize: function() {
       this.items = [];
+      this.itemIds = [];
       this.bindActions('insertItemList', this.insertItemList);
       return this.bindActions('reloadItemList', this.reloadItemList);
     },
@@ -132,12 +133,20 @@ module.exports = function() {
       return this.items.length;
     },
     insertItemList: function(itemList) {
-      this.items = _.union(this.items, itemList);
+      _.each(itemList, (function(_this) {
+        return function(item) {
+          if (!_.contains(_this.itemIds, item._id)) {
+            _this.items.push(item);
+            return _this.itemIds.push(item._id);
+          }
+        };
+      })(this));
       return this.emit('change');
     },
     reloadItemList: function(itemList) {
-      this.items = itemList;
-      return this.emit('change');
+      this.items = [];
+      this.itemIds = [];
+      return this.insertItemList(itemList);
     }
   });
 };
