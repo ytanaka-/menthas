@@ -37,6 +37,7 @@
     "moment": "^2.10.2",
     "mongoose": "*",
     "react": "^0.13.3",
+    "react-bootstrap": "^0.23.0",
     "redis": "^0.12.1",
     "request": "^2.48.0",
     "rss": "^1.1.1",
