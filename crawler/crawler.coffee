@@ -33,7 +33,7 @@ CrawlerJob = class CrawlerJob
     @start()
     setInterval ()->
       that.start()
-    ,1000*60*60*8
+    ,1000*60*60*12
 
   start: ()->
     debug "[start]CrawlerJob"
