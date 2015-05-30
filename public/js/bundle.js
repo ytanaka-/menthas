@@ -290,11 +290,7 @@ module.exports = React.createClass({
     return this.getFlux().actions.category.fetchParams(category);
   },
   componentDidUpdate: function(prevProps, prevState) {
-    if (this.size === this.getFlux().store('ItemStore').getItemsLength()) {
-      return this.state.isload = false;
-    } else {
-      return this.state.isload = true;
-    }
+    return this.state.isload = true;
   },
   checkWindowScroll: function() {
     var h, s, scrolled;
@@ -313,6 +309,7 @@ module.exports = React.createClass({
   },
   onCategoryClick: function(category) {
     if (this.state.category !== category) {
+      window.scroll(0, 0);
       this.state.category = category;
       this.getFlux().actions.item.reload(category);
       return this.getFlux().actions.category.fetchParams(category);

@@ -33,12 +33,7 @@ module.exports = React.createClass
     @getFlux().actions.category.fetchParams category
 
   componentDidUpdate: (prevProps, prevState)->
-    # 更新が無くなったらloadしないようにする
-    if @size == @getFlux().store('ItemStore').getItemsLength()
-      @state.isload = false
-    else
-      @state.isload = true
-
+    @state.isload = true
 
   checkWindowScroll: ->
     # Get scroll pos & window data
@@ -57,6 +52,7 @@ module.exports = React.createClass
 
   onCategoryClick: (category)->
     if @state.category != category
+      window.scroll 0,0
       @state.category = category
       @getFlux().actions.item.reload category
       @getFlux().actions.category.fetchParams category
