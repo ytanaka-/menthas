@@ -312,9 +312,11 @@ module.exports = React.createClass({
     }
   },
   onCategoryClick: function(category) {
-    this.state.category = category;
-    this.getFlux().actions.item.reload(category);
-    return this.getFlux().actions.category.fetchParams(category);
+    if (this.state.category !== category) {
+      this.state.category = category;
+      this.getFlux().actions.item.reload(category);
+      return this.getFlux().actions.category.fetchParams(category);
+    }
   },
   render: function() {
     return React.createElement("div", null, React.createElement("div", {

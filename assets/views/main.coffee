@@ -56,9 +56,10 @@ module.exports = React.createClass
       @getFlux().actions.item.fetch @state.category,@size
 
   onCategoryClick: (category)->
-    @state.category = category
-    @getFlux().actions.item.reload category
-    @getFlux().actions.category.fetchParams category
+    if @state.category != category
+      @state.category = category
+      @getFlux().actions.item.reload category
+      @getFlux().actions.category.fetchParams category
 
   render: ->
     <div>
