@@ -4,10 +4,14 @@ Fluxxor = require 'fluxxor'
 Sidebar = require './sidebar'
 Article = require './article'
 
+hotkey = require('react-hotkey')
+hotkey.activate()
+
 module.exports = React.createClass
   mixins: [
     Fluxxor.FluxMixin React
     Fluxxor.StoreWatchMixin 'ItemStore'
+    hotkey.Mixin 'handleHotkey'
   ]
 
   getStateFromFlux: ->
@@ -53,11 +57,33 @@ module.exports = React.createClass
   onCategoryClick: (category)->
     if @state.category != category
       # 一旦replaceStateでurlを再リロード対応
-      history.replaceState null,null,"/#{category}"
+      if category == "hot"
+        history.replaceState null,null,"/"
+      else
+        history.replaceState null,null,"/#{category}"
       window.scroll 0,0
       @state.category = category
       @getFlux().actions.item.reload category
       @getFlux().actions.category.fetchParams category
+
+  handleHotkey: (e)->
+    e.preventDefault()
+    keyId = e.nativeEvent.keyIdentifier
+    current = @state.category
+    categories = @state.categoryStore.categories
+    if keyId == "Right"
+      currentIndex = _.indexOf categories,current
+      if currentIndex == categories.length-1
+        return @onCategoryClick "hot"
+      next = categories[currentIndex + 1]
+      @onCategoryClick next
+
+    else if keyId == "Left"
+      currentIndex = _.indexOf categories,current
+      if currentIndex == 0 || currentIndex == -1
+        return  @onCategoryClick "hot"
+      next = categories[currentIndex - 1]
+      @onCategoryClick next
 
   render: ->
     <div>

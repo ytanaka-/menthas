@@ -38,6 +38,7 @@
     "mongoose": "*",
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.0",
+    "react-hotkey": "^0.3.0",
     "redis": "^0.12.1",
     "request": "^2.48.0",
     "rss": "^1.1.1",
