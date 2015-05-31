@@ -131,7 +131,7 @@ CrawlerJob = class CrawlerJob
             setTimeout ()->
               that.hatebuCache.set url,count
               done()
-            ,1500
+            ,1000
 
     @jobs.process "fetchItem",(job,done)->
       category = job.data.category
