@@ -318,6 +318,7 @@ module.exports = React.createClass({
   },
   onCategoryClick: function(category) {
     if (this.state.category !== category) {
+      history.replaceState(null, null, "/" + category);
       window.scroll(0, 0);
       this.state.category = category;
       this.getFlux().actions.item.reload(category);

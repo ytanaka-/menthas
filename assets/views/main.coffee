@@ -52,6 +52,8 @@ module.exports = React.createClass
 
   onCategoryClick: (category)->
     if @state.category != category
+      # 一旦replaceStateでurlを再リロード対応
+      history.replaceState null,null,"/#{category}"
       window.scroll 0,0
       @state.category = category
       @getFlux().actions.item.reload category
