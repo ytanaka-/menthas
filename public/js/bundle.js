@@ -135,6 +135,9 @@ module.exports = function() {
     insertItemList: function(itemList) {
       _.each(itemList, (function(_this) {
         return function(item) {
+          if (/.gif$/.test(item.page.url)) {
+            return;
+          }
           if (!_.contains(_this._urls, item.page.url)) {
             _this.items.push(item);
             return _this._urls.push(item.page.url);

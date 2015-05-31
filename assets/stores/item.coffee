@@ -19,6 +19,8 @@ module.exports = ()->
 
     insertItemList: (itemList)->
       _.each itemList,(item)=>
+        if /.gif$/.test item.page.url
+          return
         if !_.contains @_urls,item.page.url
           @items.push item
           @_urls.push item.page.url
