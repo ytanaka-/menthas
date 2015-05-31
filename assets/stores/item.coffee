@@ -7,7 +7,7 @@ module.exports = ()->
 
     initialize: ()->
       @items = []
-      @itemIds = []
+      @_urls = []
       @bindActions 'insertItemList', @insertItemList
       @bindActions 'reloadItemList', @reloadItemList
 
@@ -19,12 +19,12 @@ module.exports = ()->
 
     insertItemList: (itemList)->
       _.each itemList,(item)=>
-        if !_.contains @itemIds,item._id
+        if !_.contains @_urls,item.page.url
           @items.push item
-          @itemIds.push item._id
+          @_urls.push item.page.url
       @emit 'change'
 
     reloadItemList: (itemList)->
       @items = []
-      @itemIds = []
+      @_urls = []
       @insertItemList itemList
