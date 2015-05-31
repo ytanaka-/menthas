@@ -37,7 +37,7 @@
     {
     "name": "web-design",
     "title": "デザイン",
-    "description": "WebデザインやPhotoshopやIllustratorに関連",
+    "description": "Webデザイン・Photoshop・Illustrator関連",
     "color": "#5D5AAA",
     "tags": ["配色","WEBデザイン","illustrator","テンプレート","webdesign","photoshop","Webデザイン","Photoshop","Illustrator","写真素材"],
     "curators": [
@@ -383,7 +383,7 @@
     {
     "name": "web-front",
     "title": "Webフロント",
-    "description": "CSSやHTML5関連",
+    "description": "jQuery・CSS・HTML5関連",
     "color": "#16a085",
     "tags": ["CSS","css","HTML","css3","html","レスポンシブ","コーディング","HTML5","CSS3","html5","bootstrap","jQuery","SVG","jquery","jQuery","プラグイン","Bootstrap","svg"],
     "curators": [
