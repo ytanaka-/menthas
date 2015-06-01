@@ -14,6 +14,9 @@ module.exports = class WebPageClient
       page = {}
       page.url = url
       page.title = $("title").text()
+      if not page.title or page.title == ""
+        return callback new Error("#{url} is empty of title")
+
       page.thumbnail = $("meta[property='og:image']").attr("content")
       page.site_name = $("meta[property='og:site_name']").attr("content")
 
