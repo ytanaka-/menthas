@@ -89,7 +89,7 @@ CrawlerJob = class CrawlerJob
       url: url
     }).on("failed",(err)->
       debug err
-    ).save()
+    ).ttl(1000*60*30).save()
 
   setJobProcess: ()->
     that = @
