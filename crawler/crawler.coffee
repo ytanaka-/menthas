@@ -89,7 +89,7 @@ CrawlerJob = class CrawlerJob
       url: url
     }).on("failed",(err)->
       debug err
-    ).ttl(1000*60*30).save()
+    ).save()
 
   setJobProcess: ()->
     that = @
@@ -131,7 +131,7 @@ CrawlerJob = class CrawlerJob
             setTimeout ()->
               that.hatebuCache.set url,count
               done()
-            ,1000
+            ,2000
 
     @jobs.process "fetchItem",(job,done)->
       category = job.data.category
