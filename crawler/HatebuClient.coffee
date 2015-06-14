@@ -50,7 +50,9 @@ module.exports = class HatebuClient
   # ブクマ数を調べる 0の場合はnullが返るらしい
   getBookmarkCount: (url,cb)->
     url = "http://api.b.st-hatena.com/entry.count?url=#{url}"
-    request url, (err, response, body)->
+    options =
+      timeout: 1000*60*3
+    request url, options, (err, response, body)->
       if err
         return err
       if response.statusCode isnt 200
