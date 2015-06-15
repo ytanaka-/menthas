@@ -88,7 +88,7 @@ module.exports.CategoryEvent = (app) ->
 
   _convertItemsToRSS: (items,category)->
     feed = new RSS
-      title: "Menthas.com[#{category}]"
+      title: "Menthas[#{category}]"
       description: 'プログラマ向けのニュースキュレーションサービスです。'
       feed_url: "http://menthas.com/#{category}/rss.xml"
       site_url: 'http://menthas.com',
