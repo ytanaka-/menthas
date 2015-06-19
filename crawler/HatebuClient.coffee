@@ -9,7 +9,7 @@ module.exports = class HatebuClient
   getEntryArray: (url,cb)->
     client.fetch url, (err,$,res)->
       if err
-        return err
+        return cb err
       array = []
       $('.entry-link').each ()->
         entry = $(this).attr 'href'
@@ -44,19 +44,17 @@ module.exports = class HatebuClient
     url = "http://b.hatena.ne.jp/entry/json/#{url}"
     request url, (err, response, body)->
       if err
-        return err
+        return cb err
       cb null,body
 
   # ブクマ数を調べる 0の場合はnullが返るらしい
   getBookmarkCount: (url,cb)->
     url = "http://api.b.st-hatena.com/entry.count?url=#{url}"
-    options =
-      timeout: 1000*60*3
-    request url, options, (err, response, body)->
+    request url, (err, response, body)->
       if err
-        return err
+        return cb err
       if response.statusCode isnt 200
-        return new Error "StatusCode Error"
+        return cb new Error "StatusCode Error"
       if not body
         body = 0
       cb null,body
@@ -83,5 +81,5 @@ module.exports = class HatebuClient
     url = "http://b.hatena.ne.jp/#{name}/rss?of=#{offset}"
     request url, (err, response, body)->
       if err
-        return err
+        return cb err
       cb null,body
