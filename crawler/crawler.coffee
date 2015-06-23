@@ -140,7 +140,8 @@ CrawlerJob = class CrawlerJob
       # category._idなことに注意
       Page.findByURL url,(err,page)->
         return done err if err
-        return done if not page
+        if not page
+          return done new Error "[fetchItem]page not found"
         Item.findByCategoryAndUrl category._id,page._id,(err,item)->
           return done err if err
           if not item
