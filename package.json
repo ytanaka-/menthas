@@ -43,6 +43,7 @@
     "rss": "^1.1.1",
     "socket.io": "^1.0.6",
     "static-favicon": "^2.0.0-alpha",
+    "superagent": "^1.2.0",
     "underscore": "^1.6.0",
     "xml2js": "^0.4.4"
   }
