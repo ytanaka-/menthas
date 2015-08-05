@@ -7,7 +7,7 @@ module.exports.CategoryEvent = (app) ->
   Item = app.get("models").Item
 
   # デフォルト定数
-  ITEM_SIZE = 25
+  ITEM_SIZE = 33
   RSS_SIZE = 25
   SCORE_THRESHOLD = 3
   HOT_THRESHOLD = 5
