@@ -27,7 +27,7 @@ module.exports = React.createClass
       </li>
       {
         @props.categories.map (category)->
-          <li key={category} onClick={that.props.onCategoryClick.bind(null,category)}>
+          <li key={category} onClick={that.props.onCategoryClick.bind(null,category)} >
             <a className="category" > # {category}</a>
           </li>
       }

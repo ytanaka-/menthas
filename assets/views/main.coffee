@@ -67,6 +67,7 @@ module.exports = React.createClass
     <div>
       <div id="sidebar-wrapper">
         <Sidebar
+          currentCategory= {@state.category}
           categories= {@state.categoryStore.categories}
           onCategoryClick= {@onCategoryClick} />
       </div>
