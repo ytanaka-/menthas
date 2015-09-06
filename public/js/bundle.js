@@ -171,28 +171,14 @@ PopoverContent = require('./popoverContent');
 
 module.exports = React.createClass({
   mixins: [Fluxxor.FluxMixin(React)],
-  _categoryStyle: function(i, length, item) {
-    var subCategoryWidth;
-    subCategoryWidth = 4;
-    if (i === 0 && length === 1) {
-      return {
-        backgroundColor: item.category.color,
-        width: "100%"
-      };
-    } else if (i === 0) {
-      return {
-        backgroundColor: item.category.color,
-        width: 100 - subCategoryWidth * (length - 1) + "%"
-      };
-    } else {
-      return {
-        backgroundColor: item.others[i - 1].category.color,
-        width: subCategoryWidth + "%"
-      };
-    }
+  _categoryStyle: function(item) {
+    return {
+      backgroundColor: item.category.color,
+      width: "100%"
+    };
   },
   render: function() {
-    var i, item, length;
+    var item;
     item = this.props.item;
     return React.createElement("div", {
       "className": "col-md-4 clear-padding"
@@ -200,48 +186,24 @@ module.exports = React.createClass({
       "className": " item effect"
     }, React.createElement("div", {
       "className": "category-color-bar"
-    }, ((function() {
-      var j, ref, results;
-      length = item.others.length + 1;
-      results = [];
-      for (i = j = 0, ref = length; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
-        if (i === 0) {
-          results.push(React.createElement("div", {
-            "className": "category-color-bar-main",
-            "style": this._categoryStyle(i, length, item)
-          }, React.createElement("a", {
-            "className": "category-text",
-            "href": "/" + item.category.name,
-            "target": "_brank"
-          }, React.createElement("span", {
-            "className": "category-name"
-          }, item.category.name)), React.createElement("a", {
-            "className": "hatebu-user-text",
-            "href": "http://b.hatena.ne.jp/entry/" + item.page.url,
-            "target": "_brank"
-          }, React.createElement("span", {
-            "className": "hatebu-users pull-right"
-          }, "Users"), React.createElement("span", {
-            "className": "hatebu-count pull-right"
-          }, item.page.hatebu))));
-        } else {
-          results.push(React.createElement(OverlayTrigger, {
-            "trigger": 'click',
-            "rootClose": true,
-            "placement": 'bottom',
-            "overlay": React.createElement(Popover, {
-              "title": '共有されている他カテゴリ'
-            }, React.createElement(PopoverContent, {
-              "sharedCategories": item.others
-            }))
-          }, React.createElement("div", {
-            "className": "category-color-bar-helper",
-            "style": this._categoryStyle(i, length, item)
-          })));
-        }
-      }
-      return results;
-    }).call(this))), React.createElement("div", {
+    }, React.createElement("div", {
+      "className": "category-color-bar-main",
+      "style": this._categoryStyle(item)
+    }, React.createElement("a", {
+      "className": "category-text",
+      "href": "/" + item.category.name,
+      "target": "_brank"
+    }, React.createElement("span", {
+      "className": "category-name"
+    }, item.category.name)), React.createElement("a", {
+      "className": "hatebu-user-text",
+      "href": "http://b.hatena.ne.jp/entry/" + item.page.url,
+      "target": "_brank"
+    }, React.createElement("span", {
+      "className": "hatebu-users pull-right"
+    }, "Users"), React.createElement("span", {
+      "className": "hatebu-count pull-right"
+    }, item.page.hatebu)))), React.createElement("div", {
       "className": "thumbnail-box"
     }, React.createElement("a", {
       "href": item.page.url,
