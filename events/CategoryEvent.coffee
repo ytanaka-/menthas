@@ -43,7 +43,7 @@ module.exports.CategoryEvent = (app) ->
       if err || !category
         debug err
         return res.sendStatus(500)
-      Item.findByCategoryAndSetOthers category._id,score,size,offset,(err,result)->
+      Item.findByCategory category._id,score,size,offset,(err,result)->
         if err
           debug err
           return res.sendStatus(500)
@@ -56,7 +56,7 @@ module.exports.CategoryEvent = (app) ->
     size = req.query.size ? ITEM_SIZE
     offset = req.query.offset ? 0
     score = req.query.score ? HOT_THRESHOLD
-    Item.findAndSetOthers score,size,offset,(err,result)->
+    Item.findByScore score,size,offset,(err,result)->
       if err
         debug err
         return res.sendStatus(500)
@@ -75,14 +75,14 @@ module.exports.CategoryEvent = (app) ->
   _generateRSS: (categoryName,callback)->
     that = @
     if categoryName is "hot"
-      Item.findAndSetOthers HOT_THRESHOLD, RSS_SIZE, 0,(err,items)->
+      Item.findByScore HOT_THRESHOLD, RSS_SIZE, 0,(err,items)->
         return callback err if err
         callback null, that._convertItemsToRSS items,categoryName
     else
       Category.findByName categoryName,(err,category)->
         if err || !category
           return callback err
-        Item.findByCategoryAndSetOthers category._id, SCORE_THRESHOLD, RSS_SIZE, 0, (err,items)->
+        Item.findByCategory category._id, SCORE_THRESHOLD, RSS_SIZE, 0, (err,items)->
           return callback err if err
           callback null, that._convertItemsToRSS items,categoryName
 

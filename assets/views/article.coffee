@@ -10,23 +10,11 @@ module.exports = React.createClass
     Fluxxor.FluxMixin React
   ]
 
-  _categoryStyle: (i,length,item)->
-    subCategoryWidth = 4
-    if i is 0 and length is 1
-      return {
-        backgroundColor: item.category.color
-        width: "100%"
-      }
-    else if i is 0
-      return {
-        backgroundColor: item.category.color
-        width: 100 - subCategoryWidth*(length-1) + "%"
-      }
-    else
-      return {
-        backgroundColor: item.others[i-1].category.color
-        width: subCategoryWidth + "%"
-      }
+  _categoryStyle: (item)->
+    return {
+      backgroundColor: item.category.color
+      width: "100%"
+    }
 
 
   render: ()->
@@ -35,24 +23,15 @@ module.exports = React.createClass
       <div className=" item effect">
         <div className="category-color-bar">
           {
-            length = item.others.length + 1
-            for i in [0...length]
-              if i is 0
-                <div className="category-color-bar-main" style={@_categoryStyle(i,length,item)}>
-                  <a className="category-text" href="/#{item.category.name}" target="_brank">
-                    <span className="category-name">{item.category.name}</span>
-                  </a>
-                  <a className="hatebu-user-text" href="http://b.hatena.ne.jp/entry/#{item.page.url}" target="_brank">
-                    <span className="hatebu-users pull-right">Users</span>
-                    <span className="hatebu-count pull-right">{item.page.hatebu}</span>
-                  </a>
-                </div>
-              else
-                <OverlayTrigger trigger='click' rootClose={true} placement='bottom' overlay={
-                  <Popover title='共有されている他カテゴリ'><PopoverContent sharedCategories= {item.others}/></Popover>
-                  }>
-                  <div className="category-color-bar-helper" style={@_categoryStyle(i,length,item)} />
-                </OverlayTrigger>
+            <div className="category-color-bar-main" style={@_categoryStyle(item)}>
+              <a className="category-text" href="/#{item.category.name}" target="_brank">
+                <span className="category-name">{item.category.name}</span>
+              </a>
+              <a className="hatebu-user-text" href="http://b.hatena.ne.jp/entry/#{item.page.url}" target="_brank">
+                <span className="hatebu-users pull-right">Users</span>
+                <span className="hatebu-count pull-right">{item.page.hatebu}</span>
+              </a>
+            </div>
           }
         </div>
         <div className="thumbnail-box">

@@ -38,8 +38,10 @@ CrawlerJob = class CrawlerJob
   start: ()->
     debug "[start]CrawlerJob"
     that = @
+    # reset cache
     @bookmarkCache.reset()
     @hatebuCache.reset()
+
     Category.find {},(err,categorys)->
       _.each categorys,(category)->
         curators = category.curators
@@ -56,7 +58,7 @@ CrawlerJob = class CrawlerJob
       that.fetchURLs category,curator,urls
     ).on("failed",(err)->
       debug err
-    ).save()
+    ).removeOnComplete(true).save()
 
   fetchURLs: (category,curator,urls)->
     that = @
@@ -68,7 +70,7 @@ CrawlerJob = class CrawlerJob
         that.fetchItem category,curator,page.url
       ).on("failed",(err)->
         debug err
-      ).save()
+      ).removeOnComplete(true).save()
 
   fetchItem: (category,curator,url)->
     that = @
@@ -81,7 +83,7 @@ CrawlerJob = class CrawlerJob
       that.fetchHatebuCount url
     ).on("failed",(err)->
       debug err
-    ).save()
+    ).removeOnComplete(true).save()
 
   fetchHatebuCount: (url)->
     @jobs.create("fetchHatebuCount",{
@@ -89,7 +91,7 @@ CrawlerJob = class CrawlerJob
       url: url
     }).on("failed",(err)->
       debug err
-    ).save()
+    ).removeOnComplete(true).save()
 
   setJobProcess: ()->
     that = @
