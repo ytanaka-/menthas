@@ -298,6 +298,7 @@ module.exports = React.createClass({
     return React.createElement("div", null, React.createElement("div", {
       "id": "sidebar-wrapper"
     }, React.createElement(Sidebar, {
+      "currentCategory": this.state.category,
       "categories": this.state.categoryStore.categories,
       "onCategoryClick": this.onCategoryClick
     })), React.createElement("div", {
