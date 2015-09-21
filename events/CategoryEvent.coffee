@@ -9,7 +9,7 @@ module.exports.CategoryEvent = (app) ->
   # デフォルト定数
   ITEM_SIZE = 33
   RSS_SIZE = 25
-  SCORE_THRESHOLD = 3
+  SCORE_THRESHOLD = 4
   HOT_THRESHOLD = 5
 
   params: (req,res,next)->
