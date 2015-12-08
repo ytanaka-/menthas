@@ -41,8 +41,12 @@ module.exports = class HatebuClient
 
 
   getBookmarkInfo: (url,cb)->
-    url = "http://b.hatena.ne.jp/entry/json/#{url}"
-    request url, (err, response, body)->
+    options =
+      url: "http://b.hatena.ne.jp/entry/json/#{url}"
+      headers:
+        "User-Agent":'menthas.com'
+
+    request options, (err, response, body)->
       if err
         return cb err
       cb null,body
@@ -78,8 +82,12 @@ module.exports = class HatebuClient
         cb null,links
 
   getBookmarkerRSS: (name,offset,cb)->
-    url = "http://b.hatena.ne.jp/#{name}/rss?of=#{offset}"
-    request url, (err, response, body)->
+    options =
+      url: "http://b.hatena.ne.jp/#{name}/rss?of=#{offset}"
+      headers:
+        "User-Agent": 'menthas.com'
+
+    request options, (err, response, body)->
       if err
         return cb err
       cb null,body
