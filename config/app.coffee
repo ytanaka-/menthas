@@ -11,6 +11,7 @@ express      = require "express"
 mongoose     = require "mongoose"
 bodyParser   = require 'body-parser'
 cookieParser = require 'cookie-parser'
+favicon      = require 'serve-favicon'
 
 app = express()
 
@@ -32,6 +33,8 @@ app.use cookieParser()
 
 # set static files
 app.use express.static(path.resolve "public")
+
+app.use favicon(__dirname + '/../public/images/favicon.ico')
 
 # Routes
 (require path.resolve 'routes','main') app

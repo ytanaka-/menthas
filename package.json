@@ -41,6 +41,7 @@
     "redis": "^0.12.1",
     "request": "^2.48.0",
     "rss": "^1.1.1",
+    "serve-favicon": "^2.3.0",
     "socket.io": "^1.0.6",
     "static-favicon": "^2.0.0-alpha",
     "superagent": "^1.2.0",
