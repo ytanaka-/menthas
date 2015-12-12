@@ -110,12 +110,12 @@ body {
 }
 
 .item .thumbnail-box{
-  height: 140px;
+  height: 124px;
 }
 
 .item img {
   max-width:100%;
-  height: 140px;
+  height: 124px;
 }
 
 .item-footer{

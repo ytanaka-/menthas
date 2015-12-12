@@ -83,9 +83,8 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 40px;
     font-size: 18px;
-    line-height: 40px;
+    text-indent: 8px;
     color: #FFF;
 }
 

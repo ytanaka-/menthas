@@ -17,7 +17,7 @@ module.exports = React.createClass
     that = @
     <ul className="sidebar-nav" style=@_isVisible()>
       <li className="sidebar-brand">
-        <span> Menthas</span>
+        <img src="./images/logo.svg" height="46"/>
       </li>
       <li>
         <span>ニュースカテゴリ</span>
