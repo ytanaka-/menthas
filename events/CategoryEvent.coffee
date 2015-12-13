@@ -70,6 +70,7 @@ module.exports.CategoryEvent = (app) ->
       if err
         debug err
         return res.sendStatus(500)
+      res.set 'Content-Type', 'text/xml'
       res.send result
 
   _generateRSS: (categoryName,callback)->
