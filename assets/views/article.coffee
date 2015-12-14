@@ -24,10 +24,10 @@ module.exports = React.createClass
         <div className="category-color-bar">
           {
             <div className="category-color-bar-main" style={@_categoryStyle(item)}>
-              <a className="category-text" href="/#{item.category.name}" target="_brank">
+              <a className="category-text" href="/#{item.category.name}" target="_blank">
                 <span className="category-name">{item.category.name}</span>
               </a>
-              <a className="hatebu-user-text" href="http://b.hatena.ne.jp/entry/#{item.page.url}" target="_brank">
+              <a className="hatebu-user-text" href="http://b.hatena.ne.jp/entry/#{item.page.url}" target="_blank">
                 <span className="hatebu-users pull-right">Users</span>
                 <span className="hatebu-count pull-right">{item.page.hatebu}</span>
               </a>
@@ -35,13 +35,13 @@ module.exports = React.createClass
           }
         </div>
         <div className="thumbnail-box">
-          <a href={item.page.url} target="_brank">
+          <a href={item.page.url} target="_blank">
             <img src={item.page.thumbnail} />
           </a>
         </div>
         <div className="item-footer">
           <div className="title-description">
-            <a className="title" href={item.page.url} target="_brank">
+            <a className="title" href={item.page.url} target="_blank">
               <p>{item.page.title} </p>
             </a>
             <p className="description">{item.page.description}</p>

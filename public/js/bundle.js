@@ -188,13 +188,13 @@ module.exports = React.createClass({
     }, React.createElement("a", {
       "className": "category-text",
       "href": "/" + item.category.name,
-      "target": "_brank"
+      "target": "_blank"
     }, React.createElement("span", {
       "className": "category-name"
     }, item.category.name)), React.createElement("a", {
       "className": "hatebu-user-text",
       "href": "http://b.hatena.ne.jp/entry/" + item.page.url,
-      "target": "_brank"
+      "target": "_blank"
     }, React.createElement("span", {
       "className": "hatebu-users pull-right"
     }, "Users"), React.createElement("span", {
@@ -203,7 +203,7 @@ module.exports = React.createClass({
       "className": "thumbnail-box"
     }, React.createElement("a", {
       "href": item.page.url,
-      "target": "_brank"
+      "target": "_blank"
     }, React.createElement("img", {
       "src": item.page.thumbnail
     }))), React.createElement("div", {
@@ -213,7 +213,7 @@ module.exports = React.createClass({
     }, React.createElement("a", {
       "className": "title",
       "href": item.page.url,
-      "target": "_brank"
+      "target": "_blank"
     }, React.createElement("p", null, item.page.title, " ")), React.createElement("p", {
       "className": "description"
     }, item.page.description)), React.createElement("p", {
