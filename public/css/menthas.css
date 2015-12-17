@@ -39,8 +39,12 @@ body {
   box-shadow: 0px 0px 1px 0px #EEE;
 }
 #header .category-title{
-  padding-left: 21px;
+  padding-left: 8px;
   padding-right: 10px;
+  font-size: 18px;
+}
+#header .category-title-text{
+  padding-left: 8px;
   font-size: 18px;
 }
 #header .category-description{

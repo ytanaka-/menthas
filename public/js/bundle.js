@@ -252,7 +252,7 @@ module.exports = React.createClass({
     window.addEventListener('scroll', this.checkWindowScroll);
     category = window.location.pathname.substr(1);
     if (!category) {
-      category = "hot";
+      category = "top";
     }
     this.state.category = category;
     this.getFlux().actions.item.fetch(category);
@@ -278,7 +278,7 @@ module.exports = React.createClass({
   },
   onCategoryClick: function(category) {
     if (this.state.category !== category) {
-      if (category === "hot") {
+      if (category === "top") {
         history.replaceState(null, null, "/");
       } else {
         history.replaceState(null, null, "/" + category);
@@ -301,7 +301,12 @@ module.exports = React.createClass({
     }, React.createElement("span", {
       "id": "menu-toggle",
       "className": "category-title"
-    }, " ", this.state.categoryStore.name), React.createElement("span", {
+    }, React.createElement("img", {
+      "src": "./images/hamburger.svg",
+      "height": "20"
+    }), React.createElement("span", {
+      "className": "category-title-text"
+    }, this.state.categoryStore.name)), React.createElement("span", {
       "className": "category-description"
     }, " ", this.state.categoryStore.description)), React.createElement("div", {
       "id": "page-content-wrapper"
@@ -394,7 +399,7 @@ module.exports = React.createClass({
       "height": "46"
     })), React.createElement("li", null, React.createElement("span", null, "ニュースカテゴリ")), React.createElement("li", null, React.createElement("a", {
       "className": "category",
-      "onClick": that.props.onCategoryClick.bind(null, "hot")
+      "onClick": that.props.onCategoryClick.bind(null, "top")
     }, " # top")), this.props.categories.map(function(category) {
       return React.createElement("li", {
         "key": category,
