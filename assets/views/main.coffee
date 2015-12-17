@@ -27,7 +27,7 @@ module.exports = React.createClass
     # start
     category = (window.location.pathname).substr(1)
     if not category
-      category = "hot"
+      category = "top"
     @state.category = category
     @getFlux().actions.item.fetch category
     @getFlux().actions.category.fetchParams category
@@ -53,7 +53,7 @@ module.exports = React.createClass
   onCategoryClick: (category)->
     if @state.category != category
       # 一旦replaceStateでurlを再リロード対応
-      if category == "hot"
+      if category == "top"
         history.replaceState null,null,"/"
       else
         history.replaceState null,null,"/#{category}"
@@ -72,7 +72,10 @@ module.exports = React.createClass
           onCategoryClick= {@onCategoryClick} />
       </div>
       <div id="header">
-        <span id="menu-toggle" className="category-title"> {@state.categoryStore.name}</span>
+        <span id="menu-toggle" className="category-title">
+          <img src="./images/hamburger.svg" height="20" />
+          <span className="category-title-text">{@state.categoryStore.name}</span>
+        </span>
         <span className="category-description"> {@state.categoryStore.description}</span>
       </div>
       <div id="page-content-wrapper">

@@ -9,7 +9,7 @@ module.exports.HomeEvent = (app)->
 
   category: (req,res,next)->
     categoryName = req.params.category
-    if categoryName is "hot"
+    if categoryName is "top"
       return res.render "index",{}
     Category.getCategoriesList (err,list)->
       return res.sendStatus(500) if err

@@ -23,7 +23,7 @@ module.exports = React.createClass
         <span>ニュースカテゴリ</span>
       </li>
       <li>
-        <a className="category" onClick={that.props.onCategoryClick.bind(null,"hot")} > # top</a>
+        <a className="category" onClick={that.props.onCategoryClick.bind(null,"top")} > # top</a>
       </li>
       {
         @props.categories.map (category)->

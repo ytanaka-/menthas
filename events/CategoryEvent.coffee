@@ -15,7 +15,7 @@ module.exports.CategoryEvent = (app) ->
   params: (req,res,next)->
     categoryName = req.params.category
     Category.getCategoriesList (err,list)->
-      if categoryName is "hot" || !_.contains list,categoryName
+      if categoryName is "top" || !_.contains list,categoryName
         categoryName = "top"
         return res.json {
             category:
@@ -52,7 +52,7 @@ module.exports.CategoryEvent = (app) ->
         }
 
   # 全カテゴリを対象に指定score以上のitemを取得する
-  hotList: (req,res,next)->
+  topList: (req,res,next)->
     size = req.query.size ? ITEM_SIZE
     offset = req.query.offset ? 0
     score = req.query.score ? HOT_THRESHOLD
@@ -75,7 +75,7 @@ module.exports.CategoryEvent = (app) ->
 
   _generateRSS: (categoryName,callback)->
     that = @
-    if categoryName is "hot"
+    if categoryName is "top"
       Item.findByScore HOT_THRESHOLD, RSS_SIZE, 0,(err,items)->
         return callback err if err
         callback null, that._convertItemsToRSS items,categoryName
