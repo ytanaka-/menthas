@@ -93,10 +93,20 @@ module.exports.CategoryEvent = (app) ->
       description: 'プログラマ向けのニュースキュレーションサービスです。'
       feed_url: "http://menthas.com/#{category}/rss"
       site_url: 'http://menthas.com',
+      custom_namespaces:
+        media: 'http://search.yahoo.com/mrss/'
     _.each items,(item)->
-      feed.item
+      i = {
         title: item.page.title
         description: item.page.description
         url: item.page.url
         date: item.page.timestamp
+      }
+      if item.page.thumbnail
+        i['custom_elements'] = [
+          'media:thumbnail':
+            _attr:
+              url: item.page.thumbnail
+        ]
+      feed.item i
     return feed.xml()
