@@ -28,9 +28,15 @@ ItemSchema.statics =
       _items = []
       async.eachSeries items,(item,next)->
         categoryName = item.category.name
-        if categoryName != "life" && categoryName != "network"
-          if item.page.hatebu < 500
+        if categoryName == "life"
+          if item.page.hatebu < 200
             _items.push item
+        else if categoryName == "network"
+          if item.page.hatebu < 200
+            _items.push item
+        else
+          _items.push item
+
         next()
       ,(err)->
         return cb err if err
