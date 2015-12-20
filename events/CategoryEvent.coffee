@@ -91,7 +91,7 @@ module.exports.CategoryEvent = (app) ->
     feed = new RSS
       title: "Menthas[#{category}]"
       description: 'プログラマ向けのニュースキュレーションサービスです。'
-      feed_url: "http://menthas.com/#{category}/rss.xml"
+      feed_url: "http://menthas.com/#{category}/rss"
       site_url: 'http://menthas.com',
     _.each items,(item)->
       feed.item
