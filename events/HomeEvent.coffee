@@ -15,6 +15,8 @@ module.exports.HomeEvent = (app)->
       return res.sendStatus(500) if err
       if !_.contains list,categoryName
         return res.sendStatus(404)
-      return res.render "index",{}
+      return res.render "index",{
+        category: categoryName
+      }
 
 
