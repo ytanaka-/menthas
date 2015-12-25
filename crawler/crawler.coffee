@@ -42,7 +42,7 @@ CrawlerJob = class CrawlerJob
     @bookmarkCache.reset()
     @hatebuCache.reset()
 
-    Category.find {},(err,categorys)->
+    Category.findByCurrentCategory (err,categorys)->
       _.each categorys,(category)->
         curators = category.curators
         _.each curators,(curator)->
