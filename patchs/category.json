@@ -352,9 +352,9 @@
     {
     "name": "iot",
     "title": "IoT",
-    "description": "IoT関連",
+    "description": "IoT・電子工作関連",
     "color": "#27ae60",
-    "tags": ["IoT","iot"],
+    "tags": ["IoT","iot","Arduino","arduino","電子工作","Raspberry Pi","RaspberryPi"],
     "curators": [
       "tatu14",
       "kumakuma0421",
@@ -363,7 +363,9 @@
       "isrc",
       "toruuetani",
       "nobusue",
-      "tomokyun85"
+      "tomokyun85",
+      "Akkiesoft",
+      "karaage"
     ]
     },
     {
