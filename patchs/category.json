@@ -125,7 +125,7 @@
     "name": "programming",
     "title": "プログラミング全般",
     "description": "プログラミング全般",
-    "color": "#0096D6",
+    "color": "#34495e",
     "tags": ["tech","dev","Programming","テスト","tutorial","設計","システム開発","勉強会","開発","プログラミング","programming","performance","development","システム","API","management"],
     "curators": [
       "yujiorama",
