@@ -152,7 +152,7 @@
     "title": "ソーシャルメディア系",
     "description": "ソーシャルメディア関連",
     "color": "#e67e22",
-    "tags": ["メディア","インターネット","ネット","SNS","ソーシャルメディア","文化","sns","communication"],
+    "tags": ["インターネット","social","社会"],
     "curators": [
       "h_tasuki",
       "wideangle",
@@ -165,7 +165,10 @@
       "halfsize",
       "yarukimedesu",
       "tikuwa_ore",
-      "dieatsesa"
+      "dieatsesa",
+      "hungchang",
+      "kumokaji",
+      "yarukimedesu"
     ]
     },
     {
