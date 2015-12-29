@@ -23,24 +23,7 @@ ItemSchema.statics =
     .sort({timestamp: -1})
     .limit(size)
     .skip(offset)
-    .exec (err,items)->
-      return cb err if err
-      _items = []
-      async.eachSeries items,(item,next)->
-        categoryName = item.category.name
-        if categoryName == "life"
-          if item.page.hatebu < 200
-            _items.push item
-        else if categoryName == "network"
-          if item.page.hatebu < 200
-            _items.push item
-        else
-          _items.push item
-
-        next()
-      ,(err)->
-        return cb err if err
-        cb null,_items
+    .exec(cb)
 
 
   findByCategory: (category_id,score,size,offset,cb)->
