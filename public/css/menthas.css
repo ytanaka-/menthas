@@ -38,6 +38,14 @@ body {
   z-index: 1000;
   box-shadow: 0px 0px 1px 0px #EEE;
 }
+
+@media all and (max-width:768px) {
+  #header {
+    height: 50px;
+    line-height: 50px;
+  }
+}
+
 #header .category-title{
   padding-left: 8px;
   padding-right: 10px;

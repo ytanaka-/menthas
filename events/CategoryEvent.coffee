@@ -9,7 +9,9 @@ module.exports.CategoryEvent = (app) ->
   # デフォルト定数
   ITEM_SIZE = 33
   RSS_SIZE = 25
-  SCORE_THRESHOLD = 4
+  SCORE_THRESHOLD = 3
+  # JS/Programmingなどはこちらを使う
+  SCORE_THRESHOLD_MAIN = 4
   HOT_THRESHOLD = 5
 
   params: (req,res,next)->
@@ -39,6 +41,11 @@ module.exports.CategoryEvent = (app) ->
     size = req.query.size ? ITEM_SIZE
     offset = req.query.offset ? 0
     score = req.query.score ? SCORE_THRESHOLD
+
+    # 新しいScore/Rankingシステムができるまではこれで凌ぐ
+    if categoryName is "javascript" or categoryName is "programming" or categoryName is "design"
+      score = SCORE_THRESHOLD_MAIN
+
     Category.findByName categoryName,(err,category)->
       if err || !category
         debug err
@@ -83,7 +90,12 @@ module.exports.CategoryEvent = (app) ->
       Category.findByName categoryName,(err,category)->
         if err || !category
           return callback err
-        Item.findByCategory category._id, SCORE_THRESHOLD, RSS_SIZE, 0, (err,items)->
+
+        score = SCORE_THRESHOLD
+        if categoryName is "javascript" or categoryName is "programming" or categoryName is "design"
+          score = SCORE_THRESHOLD_MAIN
+
+        Item.findByCategory category._id, score, RSS_SIZE, 0, (err,items)->
           return callback err if err
           callback null, that._convertItemsToRSS items,categoryName
 

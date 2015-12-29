@@ -16,6 +16,7 @@ async.each categorys,(category,next)->
       result.description = category.description
       result.color = category.color
       result.curators = category.curators
+      result.keywords = category.tags
       result.save (err)->
         return next err if err
         next()

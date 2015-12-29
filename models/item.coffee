@@ -25,6 +25,7 @@ ItemSchema.statics =
     .skip(offset)
     .exec(cb)
 
+
   findByCategory: (category_id,score,size,offset,cb)->
     @find({category: category_id, score: { $gte:score }})
     .populate("category")

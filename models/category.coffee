@@ -1,3 +1,4 @@
+_ = require 'underscore'
 mongoose = require 'mongoose'
 
 CategorySchema = new mongoose.Schema
@@ -13,26 +14,40 @@ CategorySchema.statics =
     @findOne({name:name})
     .exec(cb)
 
+  # 現在Topに出るCategoryを配列にして返す
+  findByCurrentCategory: (cb)->
+    that = @
+    @getCategoriesList (err, categoryList)->
+      query = {}
+      q = []
+      _.each categoryList,(name)->
+        q.push {"name": name}
+      query.$or = q
+
+      that.find query, (err, result)->
+        cb err if err
+        cb null, result
+
+
   getCategoriesList: (cb)->
     list = [
       "javascript",
+      "php",
+      "java",
+      "ruby",
+      "python",
+      "objective-c",
       "programming",
-      "dev",
       "design",
-      "apple",
-      "ios-dev",
-      "pc",
-      "mobile",
+      "android",
+      "ios",
+      "windows",
+      "machine-learning",
+      "gadget",
       "social",
-      "life",
-      "marketing",
-      "web-design",
-      "web-front",
-      "algorithm",
+      "security",
       "infrastructure",
-      "network",
-      "database",
-      "security"
+      "iot"
     ]
     return cb null,list
 
