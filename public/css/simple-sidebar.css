@@ -97,6 +97,11 @@
     background: none;
 }
 
+#page-content-wrapper {
+    padding: 54px 2px;
+    position: relative;
+}
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 220px;
