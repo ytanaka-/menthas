@@ -12,7 +12,7 @@ module.exports.CategoryEvent = (app) ->
   SCORE_THRESHOLD = 3
   # JS/Programmingなどはこちらを使う
   SCORE_THRESHOLD_MAIN = 4
-  HOT_THRESHOLD = 5
+  HOT_THRESHOLD = 4
 
   params: (req,res,next)->
     categoryName = req.params.category
