@@ -290,7 +290,9 @@ module.exports = React.createClass({
     }
   },
   render: function() {
-    return React.createElement("div", null, React.createElement("div", {
+    return React.createElement("div", {
+      "className": "app-wrapper"
+    }, React.createElement("div", {
       "id": "sidebar-wrapper"
     }, React.createElement(Sidebar, {
       "currentCategory": this.state.category,
