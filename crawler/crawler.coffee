@@ -164,7 +164,8 @@ CrawlerJob = class CrawlerJob
             if not _.contains item.picks,curator
               item.score = item.score + 1
               item.picks.push curator
-              item.timestamp = new Date()
+              if item.score < 4
+                item.timestamp = new Date()
               debug "scoreにpicksから更新があるっぽい score=#{item.score}"
               item.save (err)->
                 debug err if err

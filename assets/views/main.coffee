@@ -64,7 +64,7 @@ module.exports = React.createClass
       @getFlux().actions.category.fetchParams category
 
   render: ->
-    <div>
+    <div className="app-wrapper">
       <div id="sidebar-wrapper">
         <Sidebar
           currentCategory= {@state.category}
