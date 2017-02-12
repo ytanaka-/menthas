@@ -27,10 +27,6 @@ module.exports = React.createClass
               <a className="category-text" href="/#{item.category.name}" target="_blank">
                 <span className="category-name">{item.category.name}</span>
               </a>
-              <a className="hatebu-user-text" href="http://b.hatena.ne.jp/entry/#{item.page.url}" target="_blank">
-                <span className="hatebu-users pull-right">Users</span>
-                <span className="hatebu-count pull-right">{item.page.hatebu}</span>
-              </a>
             </div>
           }
         </div>

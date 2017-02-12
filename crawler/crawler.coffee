@@ -80,7 +80,7 @@ CrawlerJob = class CrawlerJob
       category: category
       url: url
     }).on("complete",()->
-      that.fetchHatebuCount url
+      #that.fetchHatebuCount url
     ).on("failed",(err)->
       debug err
     ).removeOnComplete(true).save()
