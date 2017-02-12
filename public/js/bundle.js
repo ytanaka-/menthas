@@ -191,15 +191,7 @@ module.exports = React.createClass({
       "target": "_blank"
     }, React.createElement("span", {
       "className": "category-name"
-    }, item.category.name)), React.createElement("a", {
-      "className": "hatebu-user-text",
-      "href": "http://b.hatena.ne.jp/entry/" + item.page.url,
-      "target": "_blank"
-    }, React.createElement("span", {
-      "className": "hatebu-users pull-right"
-    }, "Users"), React.createElement("span", {
-      "className": "hatebu-count pull-right"
-    }, item.page.hatebu)))), React.createElement("div", {
+    }, item.category.name)))), React.createElement("div", {
       "className": "thumbnail-box"
     }, React.createElement("a", {
       "href": item.page.url,
