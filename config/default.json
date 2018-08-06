@@ -1,0 +1,12 @@
+{
+  "mongo": {
+    "URL": "mongodb://localhost/menthas-v4"
+  },
+
+  "crawler": {
+    "UA": "request"
+  },
+
+  "curated_threshold": 3,
+  "top_threshold": 4
+}

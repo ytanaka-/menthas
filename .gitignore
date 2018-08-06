@@ -6,5 +6,5 @@ dist
 coverage
 setups
 .cache
-config.js
+config/production.json
 public/assets

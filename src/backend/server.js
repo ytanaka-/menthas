@@ -4,8 +4,8 @@ const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-const config = require('../../config')
-mongoose.connect(config.mongo.URL)
+const config = require('config')
+mongoose.connect(process.env.MONGO_URL || config.mongo.URL)
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;

@@ -9,8 +9,8 @@
  - 各々のカテゴリごとに専門度の高いユーザを算出してニュースを選出
 
 
-##Requirements
+## Requirements
 MongoDB, Node.js etc...
 
-##Contributing
+## Contributing
 TBD
