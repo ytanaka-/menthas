@@ -5,7 +5,6 @@ node_modules
 dist
 coverage
 setups
-public/js
 .cache
 config.js
 public/assets
