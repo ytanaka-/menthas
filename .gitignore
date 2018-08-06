@@ -2,3 +2,10 @@
 .DS_Store
 node_modules
 *.log
+dist
+coverage
+setups
+public/js
+.cache
+config.js
+public/assets
