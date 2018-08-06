@@ -125,169 +125,166 @@ export default {
 </script>
 
 <style lang="stylus">
-.newslist {
-  max-width: 950px;
-  margin: 0 auto;
-  padding-top: 20px;
+.newslist
+  max-width 950px
+  margin 0 auto
+  padding-top 20px
 
-  a {
-    color: #1C5D99;
-    font-weight: bold;
-    font-size: 22px;
-    word-wrap: break-word;
-    text-decoration: none;
-  }
+  a
+    color #1C5D99
+    font-weight bold
+    font-size 22px
+    word-wrap break-word
+    text-decoration none
+  a:visited
+    color #6E97BE
+    text-decoration: none
+  a:hover, a:focus
+    text-decoration underline
 
-  a:visited {
-    color: #6E97BE;
-    text-decoration: none;
-  }
+.news-container
+  margin auto
+  padding 0 10px
+  display flex
+  flex-wrap wrap
+  justify-content space-around
 
-  a:hover, a:focus {
-    text-decoration: underline;
-  }
-}
+.host-name
+  width 100%
+  font-size 12px
+  color #8C8C8C
+  margin-top 8px
+  white-space nowrap
+  overflow hidden
+  text-overflow ellipsis
 
-.news-container {
-  margin: auto;
-  padding: 0 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
+.highly-influential
+  font-size 12px
+  color #dd913f
 
-.host-name {
-  width: 100%;
-  font-size: 12px;
-  color: #8C8C8C;
-  margin-top: 8px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.description
+  width 100%
+  font-size 13px
+  line-height 1.4
+  color #222
+  margin-top 8px
+  overflow hidden
 
-.highly-influential {
-  font-size: 12px;
-  color: #dd913f;
-}
+.main-section
+  width 55%
+  height 340px
+  margin-bottom 20px
+  overflow hidden
 
-.description {
-  width: 100%;
-  font-size: 13px;
-  line-height: 1.4;
-  color: #222;
-  margin-top: 8px;
-  overflow: hidden;
-}
+  .thumbnail-box
+    height (@height * (12 / 17))px
 
-.main-section {
-  width: 55%;
-  height: 340px;
-  margin-bottom: 20px;
-  overflow: hidden;
+    a img
+      object-fit cover
+      width 100%
+      height @height px
+      clip-path polygon(0 0, 100% 0, 100% 100%, 0 95%)
+      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 95%)
 
-  .thumbnail-box {
-    height: (@height * (12 / 17))px;
+  .main-section-title
+    a
+      font-size 21px
+      line-height 1.6
 
-    a img {
-      object-fit: cover;
-      width: 100%;
-      height: @height px;
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 95%);
-      -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 95%);
-    }
-  }
+.main-sub-section
+  width 40%
+  height 340px
+  margin-left 20px
+  margin-bottom 20px
+  .sub-box
+    height (@height / 2 - 10)px
+    margin-bottom 20px
+    overflow hidden
+    .host-name
+      white-space normal
 
-  .main-section-title {
-    a {
-      font-size: 21px;
-      line-height: 1.6;
-    }
-  }
-}
+.main-sub-section-title
+  max-height (18 * 1.4 * 3 - 2)px
+  overflow hidden
 
-.main-sub-section {
-  width: 40%;
-  height: 340px;
-  margin-left: 20px;
-  margin-bottom: 20px;
+  a
+    font-size 18px
+    line-height 1.4 
 
-  .sub-box {
-    height: (@height / 2 - 10)px;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-}
+.main-sub-section-description
+  width 100%
+  max-height (13 * 1.4 * 2 - 2)px
+  font-size 13px
+  line-height 1.4
+  margin-top 8px
 
-.main-sub-section-title {
-  max-height: (18 * 1.4 * 3 - 2)px;
-  overflow: hidden;
 
-  a {
-    font-size: 18px;
-    line-height: 1.4;
-  }
-}
+.page-section
+  display flex
+  width 100%
+  min-height 90px
+  overflow hidden
+  border-bottom 1px solid #e0e0e0
+  padding-top 12px
+  padding-bottom 12px
+  padding-left 6px
+  padding-right 6px
 
-.main-sub-section-description {
-  width: 100%;
-  max-height: (13 * 1.4 * 2 - 2)px;
-  font-size: 13px;
-  line-height: 1.4;
-  margin-top: 8px;
-}
+  .text-box
+    flex 1
 
-.page-section {
-  display: flex;
-  width: 100%;
-  min-height: 90px;
-  overflow: hidden;
-  border-bottom: 1px solid #e0e0e0;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 6px;
-  padding-right: 6px;
+  .thumbnail-box
+    width 120px
+    height 90px
+    margin 10px 0px
+    margin-right 25px
 
-  .text-box {
-    flex: 1;
-  }
+    a img
+      object-fit cover
+      width 100%
+      height 90x
 
-  .thumbnail-box {
-    width: 120px;
-    height: 90px;
-    margin: 10px 0px;
-    margin-right: 25px;
+  .page-title
+    margin 8px 0px
+    max-height (17 * 1.5 * 3 - 2)px
+    overflow hidden
 
-    a img {
-      object-fit: cover;
-      width: 100%;
-      height: 90px;
-    }
-  }
+    a
+      font-size 17px
+      line-height 1.5
 
-  .page-title {
-    margin: 8px 0px;
-    max-height: (17 * 1.5 * 3 - 2)px;
-    overflow: hidden;
+  .page-category
+    margin 8px 0px
+    color #999
+    font-weight bold
+    font-size 14px
 
-    a {
-      font-size: 17px;
-      line-height: 1.5;
-    }
-  }
+  .description
+    margin 8px 0px
+    font-size 13px
+    line-height 1.4
+    max-height (13 * 1.4 * 2 - 2)px
 
-  .page-category {
-    margin: 8px 0px;
-    color: #999;
-    font-weight: bold;
-    font-size: 14px;
-  }
+@media screen and (max-width: 480px)
+  .main-section
+    width 100%
+    border-bottom 1px solid #e0e0e0
+  .main-sub-section
+    width 100%
+    height 100%
+    min-height 90px
+    margin-left 0px
+    margin-bottom 0px
+    .sub-box
+      border-bottom 1px solid #e0e0e0
+  .page-section
+    .thumbnail-box
+      width 80px
+      height 60px
+      margin-right 15px
+      a img
+        object-fit cover
+        width 100%
+        height 60x
 
-  .description {
-    margin: 8px 0px;
-    font-size: 13px;
-    line-height: 1.4;
-    max-height: (13 * 1.4 * 2 - 2)px;
-  }
-}
 </style>
