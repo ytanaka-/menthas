@@ -7,7 +7,7 @@ class APIClient {
     const headers = new Headers({
       "Content-type" : "application/json"
     });
-    return fetch(`http://localhost:3000/api/channels/${name}`, { 
+    return fetch(`/api/channels/${name}`, { 
       method: 'GET',
       headers: headers
     });
@@ -17,7 +17,7 @@ class APIClient {
     const headers = new Headers({
       "Content-type" : "application/json"
     });
-    return fetch(`http://localhost:3000/api/channels`, { 
+    return fetch(`/api/channels`, { 
       method: 'GET',
       headers: headers
     });
