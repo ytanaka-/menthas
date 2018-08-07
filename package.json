@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/backend/server.js",
-    "build": "parcel build src/frontend/app.js -d public/assets",
-    "watch": "parcel watch src/frontend/app.js -d public/assets"
+    "build": "webpack --mode production",
+    "watch": "webpack --watch"
   },
   "author": "ytanaka-",
   "license": "",
@@ -32,8 +32,18 @@
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^2.1.0",
-    "parcel-bundler": "^1.9.7",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^1.0.0",
     "stylus": "^0.54.5",
-    "vue-template-compiler": "^2.5.16"
+    "stylus-loader": "^3.0.2",
+    "svg-url-loader": "^2.3.2",
+    "url-loader": "^1.0.1",
+    "vue-loader": "^15.2.7",
+    "vue-style-loader": "^4.1.1",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
   }
 }
