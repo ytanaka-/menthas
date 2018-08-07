@@ -70,7 +70,7 @@ pageSchema.statics = {
     })
     .sort({curated_at: -1})
     .limit(size)
-    .populate('scores.category', 'title')
+    .populate('scores.category', 'name title')
     .exec()
   },
 
@@ -85,7 +85,7 @@ pageSchema.statics = {
     })
     .sort({curated_at: -1})
     .limit(size)
-    .populate('scores.category', 'title')
+    .populate('scores.category', 'name title')
     .exec()
   }
 }

@@ -14,8 +14,14 @@ export default {
       state.channels = payload.channels
     },
     setChannelPages(state, payload) {
+      const channelName = payload.channelName;
+      // channel更新時のためにtopを初期化
+      state.top.main = null;
+      state.top.sub = [];
+      const selections = [];
+
       const pages = payload.pages
-      pages.forEach((page) => {
+      pages.forEach((page, i) => {
         const scores = page.scores
         scores.forEach((score) => {
           if (score.score >= 5) {
@@ -28,23 +34,38 @@ export default {
               page.categoriesStr = page.categoriesStr + "," + score.category.title
             }
           }
+          // topに入れるpage候補を探索
+          // 1. 新着15件のうちscoreが対象カテゴリで4以上のものを探索
+          // 2. 足りなかったら新着順に入れる
+          if (score.category.name == channelName && score.score >= 4 && i < 15 && selections.length < 3) {
+            selections.push(i)
+          }
         })
       })
-      // channel更新時のためにtopを初期化
-      state.top.main = null;
-      state.top.sub = [];
+
       pages.some((page, i) => {
         if (i >= 3) {
           return true
         }
-        if (i == 0) {
-          state.top.main = page
-        } else {
-          state.top.sub.push(page)
+        if (selections.length < 3 && !selections.includes(i)){
+          selections.push(i);
         }
       })
-      pages.splice(0, 3)
-      state.pages = pages
+
+      selections.forEach((index, i)=>{
+        if (i == 0){
+          state.top.main = pages[index]
+        }else{
+          state.top.sub.push(pages[index])
+        }
+      })
+      const _pages = []
+      pages.forEach((page, i) => {
+        if (!selections.includes(i)) {
+          _pages.push(page)
+        }
+      })
+      state.pages = _pages
     }
   },
   actions: {
@@ -75,7 +96,8 @@ export default {
           if (status === 200) {
             result.json().then((data) => {
               commit('setChannelPages', {
-                pages: data.pages
+                pages: data.pages,
+                channelName: channelName
               })
             }).catch((error) => {
               throw error;
