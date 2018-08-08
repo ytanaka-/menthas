@@ -20,11 +20,12 @@ class NewsCrawler {
   }
 
   async checkCurator(curator, category) {
+    console.log(`CheckCurator[${curator}] is starting.`);
     const links = await this.fetchCuratorRSS(curator);
     for(const link of links){
       try {
         await this.fetchWebPageAndUpdateScore(link.url, curator, category);
-        await this.sleep(200);
+        await this.sleep(300);
       } catch (err){
         console.error(err);
       }

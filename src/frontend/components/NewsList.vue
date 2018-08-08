@@ -241,7 +241,7 @@ export default {
 
     a img
       object-fit cover
-      width 100%
+      width 120px
       height 90px
 
   .page-title
@@ -284,7 +284,7 @@ export default {
       margin-right 15px
       a img
         object-fit cover
-        width 100%
-        height 60x
+        width 80px
+        height 60px
 
 </style>

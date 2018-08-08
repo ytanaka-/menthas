@@ -28,12 +28,12 @@ export default {
 <style lang="stylus">
 .navigation
   width 100%
-  height 33px
+  height 35px
   line-height 24px
   border-bottom 1px solid #ccc
-  overflow scroll
   position sticky
   position -webkit-sticky
+  overflow scroll
   top 0
   z-index 1000
   background #FFF
@@ -41,6 +41,7 @@ export default {
 .navigation-container
   width 100%
   height 100%
+  min-width 950px
   display flex
   justify-content center
   -webkit-justify-content center
@@ -60,5 +61,9 @@ ul
   a:hover,a:focus
     color #1C5D99
     text-decoration underline
+
+@media screen and (max-width: 480px)
+  .navigation
+    height 45px
 
 </style>
