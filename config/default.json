@@ -1,11 +1,12 @@
 {
-  "mongodb": {
-    "url": "mongodb://localhost/menthas"
+  "mongo": {
+    "URL": "mongodb://localhost/menthas-v4"
   },
-  "redis": {
-    "pubsub-config": {
-      "port": 6379
-      ,"scope": "menthas"
-    }
-  }
+
+  "crawler": {
+    "UA": "request"
+  },
+
+  "curated_threshold": 3,
+  "top_threshold": 4
 }

@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport",content="width=device-width, initial-scale=1")
+    meta(property="og:type" content="website")
+    meta(property="og:title" content="Menthas")
+    meta(property="og:description" content="Menthas(メンタス)は、プログラマ向けニュースリーダーです。各カテゴリごとにWebから優秀なキュレーターを選別しニュースを収集しています。")
+    meta(property="og:site_name" content="menthas.com")
+    meta(property="og:url" content="http://menthas.com/")
+    meta(name="keywords" content="menthas プログラマ ニュース")
+    meta(name="description" content="Menthas(メンタス)は、プログラマ向けニュースリーダーです。各カテゴリごとにWebから優秀なキュレーターを選別しニュースを収集しています。")
+    title Menthas.com
+
+    link(rel='alternate', type='application/rss+xml' title='all' href='/all/rss')
+    if channel
+      link(rel='alternate', type='application/rss+xml' title='#{channel}' href='/#{channel}/rss')
+
+  body
+    div#app
+    script(src="/assets/bundle.js")
