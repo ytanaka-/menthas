@@ -16,6 +16,11 @@ if (category) {
   // categoryの指定がない場合は全categoryを対象にする
   (async () => {
     const categories = await Category.findAll();
+    // Crawlする順番に偏りがないようにシャッフル
+    for (let i = categories.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [categories[i], categories[j]] = [categories[j], categories[i]];
+    }
     for (const category of categories) {
       await crawler.checkCategory(category.name);
     }
