@@ -1,14 +1,15 @@
 const client = require("cheerio-httpcli")
 const request = require("request")
 
-// 最大受信量を10MBに制限
-client.set('maxDataSize', 1024 * 1024 * 10);
+// 最大受信量を3MBに制限
+client.set('maxDataSize', 1024 * 1024 * 2);
 
 class WebPageClient {
 
   // urlからpageのmetaデータを取得
   fetch(url) {
     return new Promise((resolve, reject) => {
+
       client.fetch(url, (err, $, res) => {
         if (err) {
           return reject(err);
