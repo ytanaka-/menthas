@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
-const config = require('../../../config')
+const config = require('config')
 const crawler = require("./news-crawler")
 const Category = require("../model/category")
 
-mongoose.connect(config.mongo.URL)
+mongoose.connect(process.env.MONGO_URL || config.mongo.URL)
 
 const category = process.argv[2]
 
