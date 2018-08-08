@@ -8,7 +8,7 @@
     "start": "node src/backend/server.js",
     "build": "webpack --mode production",
     "watch": "webpack --watch",
-    "heroku-prebuild": "npm run build"
+    "heroku-postbuild": "npm run build"
   },
   "author": "ytanaka-",
   "license": "",
