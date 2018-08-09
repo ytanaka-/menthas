@@ -24,7 +24,14 @@ class NewsCrawler {
     const links = await this.fetchCuratorRSS(curator);
     for(const link of links){
       try {
-        await this.fetchWebPageAndUpdateScore(link.url, curator, category);
+        const message = await this.fetchWebPageAndUpdateScore(link.url, curator, category);
+        if (message) {
+          console.log(message);
+          // 既に登録済みのところまできたら探索を打ち切る
+          if (message == "already curated.") {
+            break;
+          }
+        }
         await this.sleep(300);
       } catch (err){
         console.error(err);
@@ -62,10 +69,7 @@ class NewsCrawler {
           }
           return this.updateScore(page, curator, category);
         }).then((message) => {
-          if(message){
-            console.log(message);
-          }
-          resolve();
+          resolve(message);
         }).catch((err) => {
           reject(err);
         });
