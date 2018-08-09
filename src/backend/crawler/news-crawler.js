@@ -78,6 +78,7 @@ class NewsCrawler {
       let curated_at = page.curated_at;
       let isAlreadyCurated = false;
       let isCuratedInCategory = false;
+      let isUpdatedCuratedTime = false;
       updateScores.some((__score, i) => {
         if (__score.category.equals(category._id.toString())) {
           if (__score.curated_by.includes(curator)) {
@@ -88,11 +89,17 @@ class NewsCrawler {
           updateScores[i].curated_by.push(curator);
           updateScores[i].score = updateScores[i].score + 1;
           // scoreが一定条件を満たすときはcurated_atを更新
+          // scoreがCURATE_THRESHOLD以上かつ、対象のpageの最大scoreがMAX_THRESHOLD未満の場合
           if (updateScores[i].score >= CURATE_THRESHOLD && updateScores[i].score <= MAX_THRESHOLD) {
-            curated_at = Date.now();
+            isUpdatedCuratedTime = true;
+          } else if (updateScores[i].score > MAX_THRESHOLD){
+            isUpdatedCuratedTime = false;
           }
         }
       });
+      if (isUpdatedCuratedTime){
+        curated_at = Date.now();
+      }
       if (isAlreadyCurated) {
         return resolve("already curated.");
       } else if (!isCuratedInCategory) {
