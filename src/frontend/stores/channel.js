@@ -22,6 +22,10 @@ export default {
 
       const pages = payload.pages
       pages.forEach((page, i) => {
+        // サムネイルが設定されていない場合はここで代替
+        if (!page.thumbnail) {
+          page.thumbnail = "/images/no-image.png";
+        }
         const scores = page.scores
         scores.forEach((score) => {
           if (score.score >= 5) {

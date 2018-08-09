@@ -5,7 +5,7 @@
       <div class="main-section">
         <div class="thumbnail-box">
           <a v-bind:href="top.main.url" target="_blank">
-            <img v-bind:src="top.main.thumbnail"/>
+            <img v-bind:src="top.main.thumbnail" @error="imageLoadError"/>
           </a>
         </div>
         <div class="main-section-title">
@@ -62,7 +62,7 @@
         <div class="page-section" v-bind:key="page._id">
           <div class="thumbnail-box">
             <a v-bind:href="page.url" target="_blank">
-              <img v-bind:src="page.thumbnail" onerror="this.src='/images/no-image.png'"/>
+              <img v-bind:src="page.thumbnail" @error="imageLoadError"/>
             </a>
           </div>
           <div class="text-box">
@@ -118,6 +118,11 @@ export default {
     },
     top() {
       return this.$store.getters.top;
+    }
+  },
+  methods: {
+    imageLoadError (el) {
+      el.target.src = "/images/no-image.png";
     }
   }
 };
@@ -224,7 +229,7 @@ export default {
   width 100%
   min-height 90px
   overflow hidden
-  border-bottom 1px solid #e0e0e0
+  border-top 1px solid #e0e0e0
   padding-top 12px
   padding-bottom 12px
   padding-left 6px
