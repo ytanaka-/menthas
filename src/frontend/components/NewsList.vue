@@ -62,8 +62,7 @@
         <div class="page-section" v-bind:key="page._id">
           <div class="thumbnail-box">
             <a v-bind:href="page.url" target="_blank">
-              <!-- onerror="this.src=''" を入れる-->
-              <img v-bind:src="page.thumbnail"/>
+              <img v-bind:src="page.thumbnail" onerror="this.src='/images/no-image.png'"/>
             </a>
           </div>
           <div class="text-box">
@@ -187,8 +186,9 @@ export default {
       -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 95%)
 
   .main-section-title
+    max-height (20 * 1.6 * 3 - 2)px
     a
-      font-size 21px
+      font-size 20px
       line-height 1.6
 
 .main-sub-section
@@ -269,6 +269,11 @@ export default {
   .main-section
     width 100%
     border-bottom 1px solid #e0e0e0
+    .main-section-title
+      max-height (18 * 1.4 * 3 - 2)px
+      a
+        font-size 18px
+        line-height 1.4
   .main-sub-section
     width 100%
     height 100%
