@@ -1,5 +1,6 @@
 const client = require("cheerio-httpcli")
 const request = require("request")
+const validator = require('validator')
 
 // 最大受信量を3MBに制限
 client.set('maxDataSize', 1024 * 1024 * 2);
@@ -25,8 +26,11 @@ class WebPageClient {
           title: $("title").text(),
           redirected: false
         }
-        if(url != res.request.href){
+        if (url != res.request.href) {
           page.redirected = true
+        }
+        if (!validator.isURL(url, { protocols: ['http','https']})) {
+          return reject(new Error("Failed to validate URL."));
         }
         if (typeof page.title === "undefined" || page.title === "") {
           return reject(new Error("Page title is empty."));

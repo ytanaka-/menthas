@@ -12,6 +12,7 @@ class NewsCrawler {
       const category = await Category.findByName(categoryName);
       for(const curator of category.curators){
         await this.checkCurator(curator, category);
+        await this.sleep(1000);
       }
     } catch (err){
       console.error(err);

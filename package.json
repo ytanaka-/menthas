@@ -25,6 +25,7 @@
     "path": "^0.12.7",
     "rss": "^1.2.2",
     "serve-favicon": "^2.5.0",
+    "validator": "^10.5.0",
     "vue": "^2.5.16",
     "vue-hot-reload-api": "^2.3.0",
     "vue-router": "^3.0.1",
