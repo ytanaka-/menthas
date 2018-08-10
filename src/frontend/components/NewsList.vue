@@ -62,7 +62,7 @@
         <div class="page-section" v-bind:key="page._id">
           <div class="thumbnail-box">
             <a v-bind:href="page.url" target="_blank">
-              <img v-bind:src="page.thumbnail" @error="imageLoadError"/>
+              <img v-bind:src="page.thumbnail" @error="listImageLoadError"/>
             </a>
           </div>
           <div class="text-box">
@@ -123,7 +123,10 @@ export default {
   methods: {
     imageLoadError (el) {
       el.target.src = "/images/no-image.png";
-    }
+    },
+    listImageLoadError (el) {
+      el.target.src = "/images/no-image-big.png";
+    },
   }
 };
 </script>

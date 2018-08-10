@@ -22,10 +22,6 @@ export default {
 
       const pages = payload.pages
       pages.forEach((page, i) => {
-        // サムネイルが設定されていない場合はここで代替
-        if (!page.thumbnail) {
-          page.thumbnail = "/images/no-image.png";
-        }
         const scores = page.scores
         scores.forEach((score) => {
           if (score.score >= 5) {
@@ -58,6 +54,10 @@ export default {
 
       selections.forEach((index, i)=>{
         if (i == 0){
+          // サムネイルが設定されていない場合はここで代替
+          if (!pages[index].thumbnail) {
+            page[index].thumbnail = "/images/no-image.png";
+          }
           state.top.main = pages[index]
         }else{
           state.top.sub.push(pages[index])
@@ -66,6 +66,9 @@ export default {
       const _pages = []
       pages.forEach((page, i) => {
         if (!selections.includes(i)) {
+          if (!page.thumbnail) {
+            page.thumbnail = "/images/no-image-big.png";
+          }
           _pages.push(page)
         }
       })
