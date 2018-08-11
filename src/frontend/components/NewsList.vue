@@ -2,87 +2,96 @@
   <div class="newslist">
     <div class="news-container">
       <template v-if="top.main != null">
-      <div class="main-section">
-        <div class="thumbnail-box">
-          <a v-bind:href="top.main.url" target="_blank">
-            <img v-bind:src="top.main.thumbnail" @error="imageLoadError"/>
-          </a>
-        </div>
-        <div class="main-section-title">
-          <a v-bind:href="top.main.url" target="_blank">
-            <p>{{top.main.title}}</p>
-          </a>
-        </div>
-        <div>
-          <span class="host-name">from: {{top.main.host_name}}, {{top.main.categoriesStr}}</span>
-          <template v-if="top.main.isInfluential == true">
-          <span class="host-name">, </span>
-          <span class="highly-influential">Highly Influential News</span>
-          </template>
-        </div>
-      </div>
-      <div class="main-sub-section">
-        <div class="sub-box">
-          <div class="main-sub-section-title">
-            <a v-bind:href="top.sub[0].url" target="_blank">
-              <p>{{top.sub[0].title}}</p>
+        <div class="main-container top-box">
+          <div class="thumbnail-box">
+            <a v-bind:href="top.main.url" target="_blank">
+              <img v-bind:src="top.main.thumbnail" @error="imageLoadError"/>
             </a>
           </div>
-          <div>
-            <span class="host-name">from: {{top.sub[0].host_name}}, {{top.sub[0].categoriesStr}}</span>
-            <template v-if="top.sub[0].isInfluential == true">
-            <span class="host-name">, </span>
-            <span class="highly-influential">Highly Influential News</span>
-            </template>
-          </div>
-          <div>
-            <p class="main-sub-section-description description">{{top.sub[0].description}}</p>
-          </div>
-        </div>
-        <div class="sub-box">
-          <div class="main-sub-section-title">
-            <a v-bind:href="top.sub[1].url" target="_blank">
-              <p>{{top.sub[1].title}}</p>
+          <div class="title">
+            <a v-bind:href="top.main.url" target="_blank">
+              <p>{{top.main.title}}</p>
             </a>
           </div>
-          <div>
-            <span class="host-name">from: {{top.sub[1].host_name}}, {{top.sub[1].categoriesStr}}</span>
-            <template v-if="top.sub[1].isInfluential == true">
-            <span class="host-name">, </span>
-            <span class="highly-influential">Highly Influential News</span>
+          <div class="meta-info">
+            <p class="meta-info-text">
+              from: {{top.main.host_name}}, {{top.main.categoriesStr}}
+            <template v-if="top.main.isInfluential == true">
+              ,
+              <span class="highly-influential">Highly Influential News</span>
             </template>
-          </div>
-          <div>
-            <p class="main-sub-section-description description">{{top.sub[1].description}}</p>
+            </p>
           </div>
         </div>
-      </div>
+        <div class="sub-container">
+          <div class="text-box">
+            <div class="title">
+              <a v-bind:href="top.sub[0].url" target="_blank">
+                <p>{{top.sub[0].title}}</p>
+              </a>
+            </div>
+            <div class="meta-info">
+              <p class="meta-info-text">
+                from: {{top.sub[0].host_name}}, {{top.sub[0].categoriesStr}}
+              <template v-if="top.sub[0].isInfluential == true">
+                ,
+                <span class="highly-influential">Highly Influential News</span>
+              </template>
+              </p>
+            </div>
+            <div class="description">
+              <p class="description-text">{{top.sub[0].description}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="sub-container">
+          <div class="text-box">
+            <div class="title">
+              <a v-bind:href="top.sub[1].url" target="_blank">
+                <p>{{top.sub[1].title}}</p>
+              </a>
+            </div>
+            <div class="meta-info">
+              <p class="meta-info-text">
+                from: {{top.sub[1].host_name}}, {{top.sub[1].categoriesStr}}
+              <template v-if="top.sub[1].isInfluential == true">
+                ,
+                <span class="highly-influential">Highly Influential News</span>
+              </template>
+              </p>
+            </div>
+            <div class="description">
+              <p class="description-text">{{top.sub[1].description}}</p>
+            </div>
+          </div>
+        </div>
       </template>
       <template v-for="(page) in pages">
-        <div class="page-section" v-bind:key="page._id">
+        <div class="list-container" v-bind:key="page._id">
           <div class="thumbnail-box">
             <a v-bind:href="page.url" target="_blank">
               <img v-bind:src="page.thumbnail" @error="listImageLoadError"/>
             </a>
           </div>
           <div class="text-box">
-            <div class="page-title">
+            <div class="title">
               <a v-bind:href="page.url" target="_blank">
                 <p>{{page.title}}</p>
               </a>
             </div>
-            <div>
-              <span class="host-name">from: {{page.host_name}}, {{page.categoriesStr}}</span>
+            <div class="meta-info">
+              <p class="meta-info-text">
+                from: {{page.host_name}}, {{page.categoriesStr}}
               <template v-if="page.isInfluential == true">
-              <span class="host-name">, </span>
-              <span class="highly-influential">Highly Influential News</span>
+                ,
+                <span class="highly-influential">Highly Influential News</span>
               </template>
+              </p>
             </div>
-            <div>
-              <p class="description">{{page.description}}</p>
+            <div class="description">
+              <p class="description-text">{{page.description}}</p>
             </div>
           </div>
-          
         </div>
       </template>
     </div>
@@ -152,91 +161,90 @@ export default {
 .news-container
   margin auto
   padding 0 10px
-  display flex
-  flex-wrap wrap
+  display grid
+  grid-template-columns repeat(5, 1fr)
+  grid-template-rows 170px 170px 20px auto
   justify-content space-around
 
-.host-name
-  width 100%
-  font-size 12px
-  color #8C8C8C
-  margin-top 8px
-  white-space nowrap
-  overflow hidden
-  text-overflow ellipsis
+.main-container
+  grid-column 1 / 4
+  grid-row 1 / 4
+  margin-right 35px
+  padding 0px 6px
 
-.highly-influential
-  font-size 12px
-  color #dd913f
-
-.description
-  width 100%
-  font-size 13px
-  line-height 1.4
-  color #222
-  margin-top 8px
-  overflow hidden
-
-.main-section
-  width 55%
-  height 340px
-  margin-bottom 20px
-  overflow hidden
-
+.top-box
+  display grid
+  grid-template-rows minmax(150px, 250px) min-content min-content
   .thumbnail-box
-    height (@height * (12 / 17))px
-
     a img
       object-fit cover
       width 100%
-      height @height px
+      max-height 100%
       clip-path polygon(0 0, 100% 0, 100% 100%, 0 95%)
       -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 95%)
-
-  .main-section-title
-    max-height (20 * 1.6 * 3 - 2)px
+  .title
+    max-height calc(20px * 1.6 * 3)
     a
       font-size 20px
       line-height 1.6
+  .meta-info
+    min-height calc(12px * 1.4 * 3)
 
-.main-sub-section
-  width 40%
-  height 340px
-  margin-left 20px
-  margin-bottom 20px
-  .sub-box
-    height (@height / 2 - 10)px
-    margin-bottom 20px
-    overflow hidden
-    .host-name
-      white-space normal
+.sub-container
+  grid-column 4 / 6
+  .title
+    max-height calc(18px * 1.4 * 3)
+    margin-top 0px
+    margin-bottom 3px
+    a
+      font-size 18px
+      line-height 1.4
+  .meta-info
+    margin 2px 0px
 
-.main-sub-section-title
-  max-height (18 * 1.4 * 3 - 2)px
+.text-box
+  display grid
+  grid-template-rows min-content min-content auto
+  width 100%
+
+.title
+  max-height calc(17px * 1.5 * 3)
+  margin 6px 0px
   overflow hidden
-
   a
-    font-size 18px
-    line-height 1.4 
+    font-size 17px
+    line-height 1.5
 
-.main-sub-section-description
-  width 100%
-  max-height (13 * 1.4 * 2 - 2)px
-  font-size 13px
-  line-height 1.4
-  margin-top 8px
+.meta-info
+  max-height calc(12px * 1.4 * 2)
+  margin 3px 0px
+  overflow hidden
+  text-overflow ellipsis
+  .meta-info-text
+    font-size 12px
+    line-height 1.4
+    color #8C8C8C
+  .highly-influential
+    font-size 12px
+    line-height 1.4
+    color #dd913f
+
+.description
+  max-height calc(13px * 1.4 * 3)
+  margin 6px 0px
+  overflow hidden
+  .description-text
+    font-size 13px
+    line-height 1.4
+    color #222
 
 
-.page-section
+.list-container
+  grid-column 1 / 6
   display flex
-  width 100%
-  min-height 90px
   overflow hidden
   border-top 1px solid #e0e0e0
-  padding-top 12px
-  padding-bottom 12px
-  padding-left 6px
-  padding-right 6px
+  padding 12px 6px
 
   .text-box
     flex 1
@@ -252,45 +260,33 @@ export default {
       width 120px
       height 90px
 
-  .page-title
-    margin 8px 0px
-    max-height (17 * 1.5 * 3 - 2)px
-    overflow hidden
-
-    a
-      font-size 17px
-      line-height 1.5
-
-  .page-category
-    margin 8px 0px
-    color #999
-    font-weight bold
-    font-size 14px
-
-  .description
-    margin 8px 0px
-    font-size 13px
-    line-height 1.4
-    max-height (13 * 1.4 * 2 - 2)px
 
 @media screen and (max-width: 480px)
-  .main-section
-    width 100%
-    border-bottom 1px solid #e0e0e0
-    .main-section-title
-      max-height (18 * 1.4 * 3 - 2)px
+  .news-container
+    grid-template-rows auto
+  .main-container
+    grid-column 1 / 6
+    margin-right 0px
+
+  .top-box
+    grid-template-rows minmax(50px, 150px) min-content min-content
+    .title
+      max-height calc(17px * 1.4 * 3)
       a
-        font-size 18px
+        font-size 17px
         line-height 1.4
-  .main-sub-section
-    width 100%
-    height 100%
-    min-height 90px
-    margin-left 0px
-    margin-bottom 0px
-    .sub-box
-      border-bottom 1px solid #e0e0e0
-  .page-section
+
+  .sub-container
+    grid-column 1 / 6
+    padding 12px 6px
+    border-top 1px solid #e0e0e0
+    .title
+      max-height calc(17px * 1.4 * 3)
+      a
+        font-size 17px
+        line-height 1.4
+
+  .list-container
     .thumbnail-box
       width 80px
       height 60px
@@ -299,5 +295,11 @@ export default {
         object-fit cover
         width 80px
         height 60px
+
+  .title
+    max-height calc(16px * 1.5 * 3)
+    a
+      font-size 16px
+      line-height 1.5
 
 </style>
