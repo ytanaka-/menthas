@@ -56,7 +56,7 @@ export default {
         if (i == 0){
           // サムネイルが設定されていない場合はここで代替
           if (!pages[index].thumbnail) {
-            page[index].thumbnail = "/images/no-image.png";
+            pages[index].thumbnail = "/images/no-image.png";
           }
           state.top.main = pages[index]
         }else{

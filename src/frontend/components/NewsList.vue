@@ -163,7 +163,7 @@ export default {
   padding 0 10px
   display grid
   grid-template-columns repeat(5, 1fr)
-  grid-template-rows 170px 170px 20px auto
+  grid-template-rows 165px 165px 25px auto
   justify-content space-around
 
 .main-container
@@ -193,11 +193,11 @@ export default {
 .sub-container
   grid-column 4 / 6
   .title
-    max-height calc(18px * 1.4 * 3)
+    max-height calc(17px * 1.4 * 3)
     margin-top 0px
     margin-bottom 3px
     a
-      font-size 18px
+      font-size 17px
       line-height 1.4
   .meta-info
     margin 2px 0px
