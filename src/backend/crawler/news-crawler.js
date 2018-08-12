@@ -3,7 +3,7 @@ const webpageClient = require("./webpage-client")
 const Category = require("../model/category")
 const Page = require("../model/page")
 const CURATE_THRESHOLD = 3
-const MAX_THRESHOLD = 5
+const MAX_THRESHOLD = 4
 
 class NewsCrawler {
 
