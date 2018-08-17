@@ -29,7 +29,6 @@ export default {
 .navigation
   width 100%
   height 35px
-  line-height 24px
   border-bottom 1px solid #ccc
   position sticky
   position -webkit-sticky
@@ -52,8 +51,14 @@ ul
   list-style-type none
 
 .channel-section
-  margin-right 21px
+  margin 0 5px
+  min-width 50px
   a
+    display block
+    height 33px
+    padding 0 5px
+    text-align center
+    line-height 33px
     text-decoration none
     color #222
     font-size 13px
@@ -61,6 +66,8 @@ ul
   a:hover,a:focus
     color #1C5D99
     text-decoration underline
+  .router-link-active
+    border-bottom 2px solid #222
 
 @media screen and (max-width: 480px)
   .navigation
