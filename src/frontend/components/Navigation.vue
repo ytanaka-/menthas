@@ -1,7 +1,7 @@
 <template>
   <div class="navigation">
     <ul class="navigation-container">
-      <li class="channel-section" v-for="channel in channels" v-bind:key="channel.name">
+      <li class="channel-section" v-for="channel in channels" v-bind:key="channel.name" v-bind:id="channel._id">
         <template v-if="channel.name == 'all'">
           <router-link to="/" exact>
             <span class="navigation-channel-text">{{ channel.title }}</span>

@@ -1,5 +1,5 @@
 <template>
-  <div class="newslist">
+  <div class="newslist" v-touch:swipe="swipeHandler">
     <div class="news-container">
       <template v-if="top.main != null">
         <div class="main-container top-box">
@@ -108,7 +108,11 @@ export default {
 
   watch: {
     channel(channel) {
-      this.$store.dispatch("getChannelPages", channel);
+      if (channel) {
+        this.$store.dispatch("getChannelPages", channel);
+      } else {
+        this.$store.dispatch("getChannelPages", "all");
+      }
     }
   },
 
@@ -136,6 +140,34 @@ export default {
     listImageLoadError (el) {
       el.target.src = "/images/no-image-big.png";
     },
+    swipeHandler (direction) {
+      let current = 0;
+      const channels = this.$store.getters.channels;
+      channels.some((channel, i) => {
+        if (channel.name == this.channel) {
+          current = i;
+          return true;
+        }
+      });
+      // 右swipe
+      if (direction == "left") {
+        if (current != channels.length - 1){
+          const toChannel = channels[current + 1];
+          this.$router.push({ path: `/${toChannel.name}` });
+          document.getElementById(`${toChannel._id}`).scrollIntoView({inline: 'center'});
+        }
+      } else if (direction == "right") {
+        if (current != 0){
+          const toChannel = channels[current - 1];
+          if (current == 1){
+            this.$router.push({ path: "/" });
+          } else {
+            this.$router.push({ path: `/${toChannel.name}` });
+          }
+          document.getElementById(`${toChannel._id}`).scrollIntoView({inline: 'center'});
+        }
+      }
+    }
   }
 };
 </script>
