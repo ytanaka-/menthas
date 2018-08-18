@@ -17,7 +17,7 @@ const router = new VueRouter({
 })
 
 Vue.use(VueRouter);
-Vue.use(Vue2TouchEvents);
+Vue.use(Vue2TouchEvents, { swipeTolerance: 120 });
 
 new Vue({
   router,

@@ -206,7 +206,7 @@ export default {
 
 .top-box
   display grid
-  grid-template-rows minmax(150px, 250px) min-content min-content
+  grid-template-rows minmax(150px, 230px) min-content min-content
   .thumbnail-box
     a img
       object-fit cover
