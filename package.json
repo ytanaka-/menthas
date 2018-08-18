@@ -10,6 +10,9 @@
     "watch": "webpack --watch",
     "heroku-postbuild": "npm run build"
   },
+  "engines": {
+    "node": "10.x"
+  },
   "author": "ytanaka-",
   "license": "",
   "dependencies": {
