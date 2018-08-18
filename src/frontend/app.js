@@ -12,12 +12,16 @@ const router = new VueRouter({
     { path: '/:channel', component: NewsList, props: true }
   ],
   scrollBehavior (to, from, savedPosition) {
-    return { x: 0, y: 0 }
+    let y = 0
+    if (window.pageYOffset >= 65) {
+      y = 65;
+    }
+    return { x: 0, y: y }
   }
 })
 
 Vue.use(VueRouter);
-Vue.use(Vue2TouchEvents, { swipeTolerance: 120 });
+Vue.use(Vue2TouchEvents, { swipeTolerance: 150 });
 
 new Vue({
   router,
