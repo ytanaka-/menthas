@@ -13,7 +13,7 @@ const router = new VueRouter({
   ],
   scrollBehavior (to, from, savedPosition) {
     let y = 0
-    if (document.scrollingElement.scrollTop >= 65) {
+    if (window.pageYOffset >= 65 || to.query.triger == "swipe") {
       y = 65;
     }
     return { x: 0, y: y }

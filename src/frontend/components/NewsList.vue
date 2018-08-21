@@ -153,16 +153,17 @@ export default {
       if (direction == "left") {
         if (current != channels.length - 1){
           const toChannel = channels[current + 1];
-          this.$router.push({ path: `/${toChannel.name}` });
+          this.$router.push({ path: `/${toChannel.name}`, query: { triger: "swipe"}});
           document.getElementById(`${toChannel._id}`).scrollIntoView({inline: 'center'});
         }
       } else if (direction == "right") {
         if (current != 0){
           const toChannel = channels[current - 1];
           if (current == 1){
+            // queryを付けると.router-link-activeがうまくつかないので付けないでおく
             this.$router.push({ path: "/" });
           } else {
-            this.$router.push({ path: `/${toChannel.name}` });
+            this.$router.push({ path: `/${toChannel.name}`, query: { triger: "swipe"}});
           }
           document.getElementById(`${toChannel._id}`).scrollIntoView({inline: 'center'});
         }
