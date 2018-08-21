@@ -94,12 +94,15 @@ class NewsCrawler {
           updateScores[i].curated_by.push(curator);
           updateScores[i].score = updateScores[i].score + 1;
           // scoreが一定条件を満たすときはcurated_atを更新
-          // scoreがCURATE_THRESHOLD以上かつ、対象のpageの最大scoreがMAX_THRESHOLD以下の場合
+          // 一旦curated_atは更新しないようにする(2018/08)
+          // 複数人がcurateしたときは既にbuzzっている可能性が高いし、scoreが上がればtopに表示されやすくなるので
+          // わざわざ更新して上位にあげる必要性がない
+          /*
           if (updateScores[i].score >= CURATE_THRESHOLD) {
             isUpdatedCuratedTime = true;
           } else if (updateScores[i].score >= MAX_THRESHOLD){
             isUpdatedCuratedTime = false;
-          }
+          }*/
         }
       });
       if (isUpdatedCuratedTime){
