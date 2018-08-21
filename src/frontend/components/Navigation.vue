@@ -39,6 +39,8 @@ export default {
   position sticky
   position -webkit-sticky
   overflow scroll
+  -webkit-overflow-scrolling touch
+  overflow-scrolling touch
   top 0
   z-index 1000
   background #FFF
@@ -71,7 +73,6 @@ ul
     white-space nowrap
   a:hover,a:focus
     color #1C5D99
-    text-decoration underline
   .router-link-active
     box-sizing border-box
     border-bottom 2px solid #222
@@ -81,5 +82,7 @@ ul
     a
       height 42px
       line-height 40px
+    .router-link-active
+      transition border-bottom 0.3s ease-out
 
 </style>
