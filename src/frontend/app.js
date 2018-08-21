@@ -13,7 +13,7 @@ const router = new VueRouter({
   ],
   scrollBehavior (to, from, savedPosition) {
     let y = 0
-    if (window.pageYOffset >= 65) {
+    if (document.scrollingElement.scrollTop >= 65) {
       y = 65;
     }
     return { x: 0, y: y }

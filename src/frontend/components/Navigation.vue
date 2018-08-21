@@ -83,6 +83,6 @@ ul
       height 42px
       line-height 40px
     .router-link-active
-      transition border-bottom 0.3s ease-out
+      transition border-bottom 0.5s ease-out
 
 </style>
