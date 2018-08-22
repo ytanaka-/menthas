@@ -49,11 +49,11 @@ const pageSchema = new Schema({
   scores: [ scoreSchema ],
   created_at: {
     type: Date,
-    default: () => Date.now()
+    default: Date.now
   },
   curated_at: {
     type: Date,
-    default: () => Date.now()
+    default: Date.now
   }
 });
 
