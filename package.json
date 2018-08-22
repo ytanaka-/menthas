@@ -24,6 +24,7 @@
     "helmet": "^3.12.1",
     "isomorphic-fetch": "^2.2.1",
     "jade": "^1.11.0",
+    "moment": "^2.22.2",
     "mongoose": "^5.1.7",
     "path": "^0.12.7",
     "rss": "^1.2.2",

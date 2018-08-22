@@ -1,4 +1,5 @@
 import APIClient from '../libs/api-client'
+import moment from 'moment'
 
 export default {
   state: {
@@ -14,15 +15,18 @@ export default {
       state.channels = payload.channels
     },
     setChannelPages(state, payload) {
-      const channelName = payload.channelName;
+      const channelName = payload.channelName
       // channel更新時のためにtopを初期化
-      state.top.main = null;
-      state.top.sub = [];
-      const selections = [];
+      state.top.main = null
+      state.top.sub = []
+      const selections = []
+      const now = moment()
 
       const pages = payload.pages
       pages.forEach((page, i) => {
         const scores = page.scores
+        const curatedTime = moment(page.curated_at)
+        const diff = now.diff(curatedTime, 'hours')
         scores.forEach((score) => {
           if (score.score >= 5) {
             page.isInfluential = true
@@ -35,9 +39,10 @@ export default {
             }
           }
           // topに入れるpage候補を探索
-          // 1. 新着15件のうちscoreが対象カテゴリで4以上のものを探索
+          // 1. 新着15件のうちscoreが対象カテゴリで4以上のものを探索かつ24時間以内のもの
           // 2. 足りなかったら新着順に入れる
-          if (score.category.name == channelName && score.score >= 4 && i < 15 && selections.length < 3) {
+          if (score.category.name == channelName && score.score >= 4 
+            && i < 15 && selections.length < 3 && diff < 24) {
             selections.push(i)
           }
         })
