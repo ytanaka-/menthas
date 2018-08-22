@@ -21,7 +21,6 @@ export default {
       state.top.sub = []
       const selections = []
       const now = moment()
-
       const pages = payload.pages
       pages.forEach((page, i) => {
         const scores = page.scores
@@ -39,10 +38,10 @@ export default {
             }
           }
           // topに入れるpage候補を探索
-          // 1. 新着15件のうちscoreが対象カテゴリで4以上のものを探索かつ24時間以内のもの
+          // 1. 新着25件のうちscoreが対象カテゴリで4以上のものを探索かつ24時間以内のもの
           // 2. 足りなかったら新着順に入れる
           if (score.category.name == channelName && score.score >= 4 
-            && i < 15 && selections.length < 3 && diff < 24) {
+            && i < 25 && selections.length < 3 && diff < 24) {
             selections.push(i)
           }
         })
