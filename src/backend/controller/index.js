@@ -14,7 +14,8 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:channel', (req, res) => {
-  res.render("index", {});
+  const channelName = req.params.channel;
+  res.render("index", { channel: channelName});
 });
 
 // 後方互換として残しておく
