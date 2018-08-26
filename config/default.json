@@ -6,7 +6,9 @@
   "crawler": {
     "UA": "request"
   },
-
   "curated_threshold": 3,
-  "top_threshold": 3
+  "top_threshold": 3,
+  "page_size": 30,
+  "rss_size": 25,
+  "selection_size": 50
 }

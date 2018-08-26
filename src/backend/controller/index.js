@@ -1,12 +1,12 @@
 const express = require("express")
 const Channel = require("../model/channel")
 const Category = require("../model/category")
-const Page = require("../model/page")
+const PageService = require("../model/page-service")
 const router = express.Router();
 const config = require('config')
 const CURATED_THRESHOLD = config.curated_threshold;
 const TOP_CURATED_THRESHOLD = config.top_threshold;
-const RSS_SIZE = 25;
+const RSS_SIZE = config.rss_size;
 const RSS = require("rss");
 
 router.get('/', (req, res) => {
@@ -34,9 +34,9 @@ router.get('/:channel/rss', (req, res) => {
       throw "Not found";
     }
     if(channel.name == "all"){
-      return Page.findCuratedNews(TOP_CURATED_THRESHOLD, RSS_SIZE)
+      return PageService.curatedNewsSelect(TOP_CURATED_THRESHOLD, RSS_SIZE)
     }
-    return Page.findCuratedNewsByCategory(channel.categories, CURATED_THRESHOLD, RSS_SIZE)
+    return PageService.curatedNewsSelectByCategory(channel.name, channel.categories, CURATED_THRESHOLD, RSS_SIZE)
   }).then((pages)=>{
     const feed = new RSS({
       title: `Menthas #${channelName}`,

@@ -1,9 +1,9 @@
 const express = require("express")
 const Channel = require("../model/channel")
-const Page = require("../model/page")
+const PageService = require("../model/page-service")
 const router = express.Router();
 const config = require('config')
-const PAGE_SIZE = 30;
+const PAGE_SIZE = config.page_size;
 const CURATED_THRESHOLD = config.curated_threshold;
 const TOP_CURATED_THRESHOLD = config.top_threshold;
 
@@ -30,9 +30,9 @@ router.get('/channels/:name', (req, res) => {
       throw "Not found";
     }
     if(channel.name == "all"){
-      return Page.findCuratedNews(TOP_CURATED_THRESHOLD, PAGE_SIZE)
+      return PageService.curatedNewsSelect(TOP_CURATED_THRESHOLD, PAGE_SIZE)
     }
-    return Page.findCuratedNewsByCategory(channel.categories, CURATED_THRESHOLD, PAGE_SIZE)
+    return PageService.curatedNewsSelectByCategory(channel.name, channel.categories, CURATED_THRESHOLD, PAGE_SIZE)
   }).then((pages)=>{
     return res.json({
       pages: pages
