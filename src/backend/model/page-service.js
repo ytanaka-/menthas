@@ -11,8 +11,7 @@ class PageService {
     return new Promise((resolve, reject) => {
       Page.findCuratedNews(threshold, SELECTION_SIZE)
       .then((pages)=>{
-        const selectionIndexes = this._diversifiedSelect(pages, size)
-        console.log(selectionIndexes)
+        const selectionIndexes = this._diversifiedSelect(pages, size, ["all"])
         selectionIndexes.forEach((index)=>{
           _pages.push(pages[index])
         })
@@ -28,8 +27,7 @@ class PageService {
     return new Promise((resolve, reject) => {
       Page.findCuratedNewsByCategory(categories, threshold, SELECTION_SIZE)
       .then((pages)=>{
-        const topSelectionIndexes = this._topSelect(pages, channelName)
-        const selectionIndexes = this._newsSelect(pages, topSelectionIndexes, size)
+        const selectionIndexes = this._diversifiedSelect(pages, size, categories)
         selectionIndexes.forEach((index)=>{
           _pages.push(pages[index])
         })
@@ -40,47 +38,30 @@ class PageService {
     })
   }
 
-  _topSelect(pages, channelName){
-    const selectionIndexes = []
-    const now = moment()
-    pages.some((page, i) => {
-      const scores = page.scores
-      const curatedTime = moment(page.curated_at)
-      const diff = now.diff(curatedTime, 'hours')
-      scores.forEach((score) => {
-        // 1. 新着20件のうちscoreが対象カテゴリで4以上のものを探索かつ12時間以内のもの
-        // 2. 足りなかったら新着順に入れる
-        if ((score.category.name == channelName || channelName == "all") && score.score >= 4  
-          && i < 20 && selectionIndexes.length < 3 ) {
-          if (!selectionIndexes.includes(i)){
-            selectionIndexes.push(i)
-          }
-        }
-      })
-      if(selectionIndexes.length > 3) {
-        return true
-      }
-    })
-    return selectionIndexes;
-  }
-
   // 指定された件数までMMRを使ってindexを登録していく
-  _diversifiedSelect(pages, size) {
+  _diversifiedSelect(pages, size, categories) {
     const selectedIndexes = []
     const now = moment()
+    // categoriesはmongooseのidの配列なので文字列にする
+    const _categories = []
+    categories.forEach((category)=>{
+      _categories.push(category.toString())
+    })
     for (let i = 0; i < size; i++) {
       const max = {}
       pages.forEach((page, index) => {
         const scores = page.scores
         const hostName = page.host_name
-        const category = {}
         const curatedTime = moment(page.curated_at)
         const diff = now.diff(curatedTime, 'hours')
+        const category = {}
         scores.forEach((score) => {
-          if (!category.score || score.score > category.score) {
-            category.score = score.score
-            category.name = score.category.name
-            category.curator = score.curated_by
+          if (_categories == "all" || (_categories && _categories.includes(score.category._id.toString()))){
+            if (!category.score || score.score > category.score) {
+              category.score = score.score
+              category.name = score.category.name
+              category.curator = score.curated_by
+            }
           }
         })
         if (category.score > 5) {
@@ -101,18 +82,6 @@ class PageService {
     return selectedIndexes
   }
 
-  // 既に選出されている記事のindexを先頭にしながら並べる
-  _newsSelect(pages, selectedIndexes, size){
-    pages.some((page, i) => {
-      if (!selectedIndexes.includes(i)){
-        selectedIndexes.push(i)
-      }
-      if(selectedIndexes.length >= size) {
-        return true
-      }
-    })
-    return selectedIndexes
-  }
 }
 
 module.exports = new PageService()
