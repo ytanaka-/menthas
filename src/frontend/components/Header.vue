@@ -29,11 +29,17 @@ export default {
   max-width 950px
   margin 0 auto
 .logo
-  padding 7px 5px 5px 7px
+  padding 7px
 
 .logo-img
   width auto
   height 51px
   background: url("../images/logo.svg") no-repeat
+
+@media screen and (max-width: 480px)
+  .header
+    height 55px
+  .logo-img
+    height 41px
 
 </style>
