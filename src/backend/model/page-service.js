@@ -63,7 +63,7 @@ class PageService {
           category.score = 5
         }
         // 時間経過からrelを算出
-        const rel = category.score / ((diff + 2) ^ 1.5)
+        const rel = category.score / ((diff + 2) ^ 0.5)
         // 類似度を算出
         const sim = this._maxSim(union, selectedPageUnions)
         const mmrScore = MMR_REL_WEIGHT * rel - (1 - MMR_REL_WEIGHT) * sim

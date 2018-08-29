@@ -10,7 +10,9 @@ class NewsCrawler {
   async checkCategory(categoryName) {
     try {
       const category = await Category.findByName(categoryName);
-      for(const curator of category.curators){
+      // curatorのlistは先頭がscoreが高いので逆順にする
+      const curators = category.curators.reverse();
+      for(const curator of curators){
         await this.checkCurator(curator, category);
         await this.sleep(1000);
       }
