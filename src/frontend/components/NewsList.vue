@@ -20,6 +20,10 @@
               ,
               <span class="highly-influential">Highly Influential News</span>
             </template>
+            <template v-if="top.main.isNew == true">
+              ,
+              <span class="new">New!</span>
+            </template>
             </p>
           </div>
         </div>
@@ -36,6 +40,10 @@
               <template v-if="top.sub[0].isInfluential == true">
                 ,
                 <span class="highly-influential">Highly Influential News</span>
+              </template>
+              <template v-if="top.sub[0].isNew == true">
+                ,
+                <span class="new">New!</span>
               </template>
               </p>
             </div>
@@ -57,6 +65,10 @@
               <template v-if="top.sub[1].isInfluential == true">
                 ,
                 <span class="highly-influential">Highly Influential News</span>
+              </template>
+              <template v-if="top.sub[1].isNew == true">
+                ,
+                <span class="new">New!</span>
               </template>
               </p>
             </div>
@@ -85,6 +97,10 @@
               <template v-if="page.isInfluential == true">
                 ,
                 <span class="highly-influential">Highly Influential News</span>
+              </template>
+              <template v-if="page.isNew == true">
+                ,
+                <span class="new">New!</span>
               </template>
               </p>
             </div>
@@ -196,7 +212,7 @@ export default {
   padding 0 10px
   display grid
   grid-template-columns repeat(5, 1fr)
-  grid-template-rows 165px 165px 25px auto
+  grid-template-rows 165px 165px 20px auto
   justify-content space-around
 
 .main-container
@@ -261,6 +277,9 @@ export default {
     font-size 12px
     line-height 1.4
     color #dd913f
+  .new
+    font-size 12px
+    color #ED0B0B
 
 .description
   max-height calc(13px * 1.4 * 3)

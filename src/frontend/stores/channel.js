@@ -1,4 +1,5 @@
 import APIClient from '../libs/api-client'
+import moment from 'moment'
 
 export default {
   state: {
@@ -19,8 +20,14 @@ export default {
       state.top.main = null
       state.top.sub = []
       const selections = []
+      const now = moment()
       const pages = payload.pages
       pages.forEach((page, i) => {
+        const curatedTime = moment(page.curated_at)
+        const diff = now.diff(curatedTime, 'hours')
+        if(diff < 3){
+          page.isNew = true
+        }
         const scores = page.scores
         scores.forEach((score) => {
           if (score.score >= 5) {
@@ -30,7 +37,7 @@ export default {
             if (!page.categoriesStr) {
               page.categoriesStr = score.category.title
             } else {
-              page.categoriesStr = page.categoriesStr + "," + score.category.title
+              page.categoriesStr = page.categoriesStr + ", " + score.category.title
             }
           }
         })
