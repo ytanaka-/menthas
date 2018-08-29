@@ -1,21 +1,24 @@
 <template>
-  <div class="App">
+  <div class="app">
     <Header/>
     <Navigation/>
     <router-view keep-alive/>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Header from './Header.vue';
 import Navigation from './Navigation.vue';
+import Footer from './Footer.vue';
 
 export default {
   name: 'App',
 
   components: {
     Header,
-    Navigation
+    Navigation,
+    Footer
   },
 
   data: () => ({
