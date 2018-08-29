@@ -47,6 +47,10 @@ export default {
 .navigation-wrap
   overflow scroll
   -webkit-overflow-scrolling touch
+  -ms-overflow-style none
+
+.navigation-wrap::-webkit-scrollbar
+  display none
 
 .navigation-container
   width 100%
