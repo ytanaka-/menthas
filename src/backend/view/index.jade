@@ -10,9 +10,16 @@ html
     meta(property="og:url" content="http://menthas.com/")
     meta(name="keywords" content="menthas プログラマ ニュース")
     meta(name="description" content="Menthas(メンタス)は、プログラマ向けニュースキュレーションサービスです。フロントエンドからインフラ、機械学習やVRといった様々なジャンルの旬な情報を提供します。")
+    meta(name="msapplication-TileColor" content="#da532c")
+    meta(name="theme-color" content="#ffffff")
     title Menthas.com
 
-    link(rel="icon" href="/images/favicon.ico")
+    link(rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png")
+    link(rel="manifest" href="/site.webmanifest")
+    link(rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5")
+
     link(rel='alternate', type='application/rss+xml' title='all' href='/all/rss')
     if channel
       link(rel='alternate', type='application/rss+xml' title='#{channel}' href='/#{channel}/rss')
