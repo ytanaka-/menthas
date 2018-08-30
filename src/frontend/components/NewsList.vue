@@ -212,23 +212,24 @@ export default {
   padding 0 10px
   display grid
   grid-template-columns repeat(5, 1fr)
-  grid-template-rows 165px 165px 20px auto
+  grid-template-rows auto-fit auto-fit auto
   justify-content space-around
 
 .main-container
   grid-column 1 / 4
   grid-row 1 / 4
-  margin-right 35px
+  margin-right 30px
   padding 0px 6px
 
 .top-box
-  display grid
-  grid-template-rows minmax(150px, 230px) min-content min-content
+  display flex
+  flex-direction column
+  margin-bottom 35px
   .thumbnail-box
     a img
       object-fit cover
       width 100%
-      max-height 100%
+      height 220px
       clip-path polygon(0 0, 100% 0, 100% 100%, 0 95%)
       -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 95%)
   .title
@@ -237,10 +238,12 @@ export default {
       font-size 20px
       line-height 1.6
   .meta-info
-    min-height calc(12px * 1.4 * 3)
+    max-height calc(12px * 1.4 * 3)
 
 .sub-container
   grid-column 4 / 6
+  min-height 130px
+  margin-bottom 20px
   .title
     max-height calc(17px * 1.4 * 3)
     margin-top 0px
@@ -321,12 +324,14 @@ export default {
     margin-right 0px
 
   .top-box
-    grid-template-rows minmax(50px, 150px) min-content min-content
     .title
       max-height calc(17px * 1.4 * 3)
       a
         font-size 17px
         line-height 1.4
+    .thumbnail-box
+      a img
+        height 150px
 
   .sub-container
     grid-column 1 / 6
