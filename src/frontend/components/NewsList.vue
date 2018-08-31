@@ -345,13 +345,13 @@ export default {
 
   .list-container
     .thumbnail-box
-      width 80px
-      height 60px
+      width 72px
+      height 54px
       margin-right 15px
       a img
         object-fit cover
-        width 80px
-        height 60px
+        width 72px
+        height 54px
 
   .title
     max-height calc(16px * 1.5 * 3)
