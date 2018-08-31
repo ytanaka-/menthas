@@ -212,7 +212,7 @@ export default {
   padding 0 10px
   display grid
   grid-template-columns repeat(5, 1fr)
-  grid-template-rows auto-fit auto-fit auto
+  grid-template-rows min-content min-content auto
   justify-content space-around
 
 .main-container
