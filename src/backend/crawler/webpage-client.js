@@ -2,7 +2,7 @@ const client = require("cheerio-httpcli")
 const request = require("request")
 const validator = require('validator')
 
-// 最大受信量を3MBに制限
+// 最大受信量を2MBに制限
 client.set('maxDataSize', 1024 * 1024 * 2);
 
 class WebPageClient {
@@ -53,10 +53,7 @@ class WebPageClient {
           page.host_name = res.request.host;
         }
 
-        let description = $("meta[property='og:description']").attr("content") || $("meta[name='description']").attr("content");
-        if (description) {
-          description = description.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '');
-        }
+        const description = $("meta[property='og:description']").attr("content") || $("meta[name='description']").attr("content");
         page.description = description
 
         // AMP対応していれば対象URLを取得
