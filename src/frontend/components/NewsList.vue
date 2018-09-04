@@ -243,7 +243,7 @@ export default {
 .sub-container
   grid-column 4 / 6
   min-height 130px
-  margin-bottom 20px
+  margin-bottom 15px
   .title
     max-height calc(17px * 1.4 * 3)
     margin-top 0px
