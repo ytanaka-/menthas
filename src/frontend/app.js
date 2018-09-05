@@ -20,6 +20,12 @@ const router = new VueRouter({
   }
 })
 
+router.afterEach((to, from) => {
+  if (window.gtag != undefined) {
+    gtag('config', 'UA-63592648-1', {'page_path': to.path});
+  }
+})
+
 Vue.use(VueRouter);
 Vue.use(Vue2TouchEvents, { swipeTolerance: 150 });
 

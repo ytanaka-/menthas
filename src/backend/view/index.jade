@@ -5,11 +5,11 @@ html
     meta(name="viewport",content="width=device-width, initial-scale=1")
     meta(property="og:type" content="website")
     meta(property="og:title" content="Menthas")
-    meta(property="og:description" content="Menthas(メンタス)は、プログラマ向けニュースキュレーションサービスです。フロントエンドからインフラ、機械学習やVRといった様々なジャンルの旬な情報を提供します。")
+    meta(property="og:description" content="Menthas(メンタス)は、プログラマ向けニュースキュレーションサービスです。フロントエンドからインフラ、機械学習やVRといった様々なジャンルの最新情報を提供します。")
     meta(property="og:site_name" content="menthas.com")
-    meta(property="og:url" content="http://menthas.com/")
+    meta(property="og:url" content="https://menthas.com/")
     meta(name="keywords" content="menthas プログラマ ニュース")
-    meta(name="description" content="Menthas(メンタス)は、プログラマ向けニュースキュレーションサービスです。フロントエンドからインフラ、機械学習やVRといった様々なジャンルの旬な情報を提供します。")
+    meta(name="description" content="Menthas(メンタス)は、プログラマ向けニュースキュレーションサービスです。フロントエンドからインフラ、機械学習やVRといった様々なジャンルの最新情報を提供します。")
     meta(name="msapplication-TileColor" content="#da532c")
     meta(name="theme-color" content="#ffffff")
     title Menthas.com
@@ -23,6 +23,15 @@ html
     link(rel='alternate', type='application/rss+xml' title='all' href='/all/rss')
     if channel
       link(rel='alternate', type='application/rss+xml' title='#{channel}' href='/#{channel}/rss')
+
+    if process.env.NODE_ENV == 'production'
+      script(async src="https://www.googletagmanager.com/gtag/js?id=UA-63592648-1")
+      script.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-63592648-1');
+
 
   body
     div#app
