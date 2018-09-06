@@ -13,8 +13,8 @@
   "engines": {
     "node": "10.x"
   },
-  "author": "ytanaka-",
-  "license": "",
+  "author": "yu_tanaka",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
     "cheerio-httpcli": "^0.7.3",
