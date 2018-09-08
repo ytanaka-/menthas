@@ -48,9 +48,14 @@ router.get('/:channel/rss', (req, res) => {
       }
     });
     pages.forEach((page) => {
+      let title = String(page.title);
+      let description = String(page.description);
+      // RSSに制御文字が含まれているとエラーになるので、W3Cに従ってタブ/キャリッジリターン/ラインフィード以外は削除
+      title = title.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
+      description = description.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
       const p = {
-        title: page.title,
-        description: page.description,
+        title: title,
+        description: description,
         url: page.url,
         date: page.curated_at
       }
