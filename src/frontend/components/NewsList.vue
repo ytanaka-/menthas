@@ -352,15 +352,24 @@ export default {
         object-fit cover
         width 72px
         height 54px
+    .meta-info
+      max-height calc(11px * 1.4 * 2)
+      .meta-info-text
+        font-size 11px
+    .highly-influential
+      font-size 11px
+    .new
+      font-size 11px
+
+    .description
+      max-height calc(12px * 1.4 * 3 - 1px)
+      .description-text
+        font-size 12px
 
   .title
     max-height calc(16px * 1.5 * 3)
     a
       font-size 16px
       line-height 1.5
-  .description
-    max-height calc(12px * 1.4 * 3 - 1px)
-    .description-text
-      font-size 12px
 
 </style>
