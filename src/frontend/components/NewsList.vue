@@ -358,5 +358,9 @@ export default {
     a
       font-size 16px
       line-height 1.5
+  .description
+    max-height calc(12px * 1.4 * 3 - 1px)
+    .description-text
+      font-size 12px
 
 </style>
