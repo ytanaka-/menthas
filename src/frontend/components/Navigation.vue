@@ -66,7 +66,7 @@ ul
   list-style-type none
 
 .channel-section
-  margin 0 5px
+  margin 0 4px
   min-width 50px
   a
     display block
