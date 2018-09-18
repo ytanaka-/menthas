@@ -86,6 +86,7 @@ ul
 
 @media screen and (max-width: 480px)
   .channel-section
+    margin 0 5px
     a
       height 42px
       line-height 40px
