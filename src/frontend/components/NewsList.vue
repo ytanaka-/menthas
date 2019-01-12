@@ -9,7 +9,7 @@
             </a>
           </div>
           <div class="title">
-            <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url)" target="_blank">
+            <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank">
               <p>{{top.main.title}}</p>
             </a>
           </div>
