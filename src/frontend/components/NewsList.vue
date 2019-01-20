@@ -78,8 +78,8 @@
           </div>
         </div>
       </template>
-      <template v-for="(page) in pages">
-        <div class="list-container" v-bind:key="page._id">
+      <template v-for="(page, index) in pages">
+        <div class="list-container" v-bind:class="{'gradual0': index == 0, 'gradual1': index == 1, 'gradual2': index == 2, 'gradual3': index == 3}" v-bind:key="page._id">
           <div class="thumbnail-box">
             <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank">
               <img v-bind:src="page.thumbnail" @error="listImageLoadError"/>
@@ -208,7 +208,7 @@ export default {
 
 <style lang="stylus">
 .newslist
-  max-width 950px
+  max-width 930px
   margin 0 auto
   padding-top 20px
 
@@ -229,13 +229,13 @@ export default {
   padding 0 10px
   display grid
   grid-template-columns repeat(5, 1fr)
-  grid-template-rows min-content min-content auto
+  grid-template-rows 160px min-content auto
   justify-content space-around
 
 .main-container
   grid-column 1 / 4
   grid-row 1 / 4
-  margin-right 30px
+  margin-right 20px
   padding 0px 6px
 
 .top-box
@@ -247,8 +247,8 @@ export default {
       object-fit cover
       width 100%
       height 220px
-      clip-path polygon(0 0, 100% 0, 100% 100%, 0 95%)
-      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 95%)
+      clip-path polygon(0 0, 100% 0, 100% 100%, 0 97%)
+      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 97%)
   .title
     max-height calc(20px * 1.6 * 3)
     a
@@ -260,6 +260,7 @@ export default {
 .sub-container
   grid-column 4 / 6
   min-height 130px
+  margin-left 10px
   margin-bottom 15px
   .title
     max-height calc(17px * 1.4 * 3)
@@ -272,9 +273,9 @@ export default {
     margin 2px 0px
 
 .text-box
-  display grid
-  grid-template-rows min-content min-content auto
   width 100%
+  max-height 149px
+  overflow hidden
 
 .title
   max-height calc(17px * 1.5 * 3)
@@ -310,9 +311,18 @@ export default {
     line-height 1.4
     color #222
 
+.gradual0
+  max-width 930px !important
+.gradual1
+  max-width 900px !important
+.gradual2
+  max-width 850px !important
+.gradual3
+  max-width 780px !important
 
 .list-container
   grid-column 1 / 6
+  max-width 710px
   display flex
   overflow hidden
   border-top 1px solid #e0e0e0
