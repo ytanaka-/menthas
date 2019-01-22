@@ -372,6 +372,7 @@ export default {
         line-height 1.4
 
   .list-container
+    padding 10px 6px
     .thumbnail-box
       width 72px
       height 54px
@@ -384,15 +385,19 @@ export default {
       max-height calc(11px * 1.4 * 2)
       .meta-info-text
         font-size 11px
+        line-height 1.4
     .highly-influential
       font-size 11px
     .new
       font-size 11px
+    .text-box
+      margin-bottom 6px
 
     .description
-      max-height calc(12px * 1.4 * 3 - 1px)
+      max-height calc(12px * 1.4 * 3)
       .description-text
         font-size 12px
+        line-height 1.4
 
   .title
     max-height calc(16px * 1.5 * 3)
