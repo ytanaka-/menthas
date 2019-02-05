@@ -4,12 +4,12 @@
       <template v-if="top.main != null">
         <div class="main-container top-box">
           <div class="thumbnail-box">
-            <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank">
+            <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank" rel="noopener">
               <img v-bind:src="top.main.thumbnail" @error="imageLoadError"/>
             </a>
           </div>
           <div class="title">
-            <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank">
+            <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank" rel="noopener">
               <p>{{top.main.title}}</p>
             </a>
           </div>
@@ -30,7 +30,7 @@
         <div class="sub-container">
           <div class="text-box">
             <div class="title">
-              <a v-bind:href="top.sub[0].url" v-on:click="sendGAClick(top.sub[0].url, 2)" target="_blank">
+              <a v-bind:href="top.sub[0].url" v-on:click="sendGAClick(top.sub[0].url, 2)" target="_blank" rel="noopener">
                 <p>{{top.sub[0].title}}</p>
               </a>
             </div>
@@ -55,7 +55,7 @@
         <div class="sub-container">
           <div class="text-box">
             <div class="title">
-              <a v-bind:href="top.sub[1].url" v-on:click="sendGAClick(top.sub[1].url, 2)" target="_blank">
+              <a v-bind:href="top.sub[1].url" v-on:click="sendGAClick(top.sub[1].url, 2)" target="_blank" rel="noopener">
                 <p>{{top.sub[1].title}}</p>
               </a>
             </div>
@@ -81,13 +81,13 @@
       <template v-for="(page, index) in pages">
         <div class="list-container" v-bind:class="{'gradual0': index == 0, 'gradual1': index == 1, 'gradual2': index == 2, 'gradual3': index == 3}" v-bind:key="page._id">
           <div class="thumbnail-box">
-            <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank">
+            <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank" rel="noopener">
               <img v-bind:src="page.thumbnail" @error="listImageLoadError"/>
             </a>
           </div>
           <div class="text-box">
             <div class="title">
-              <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank">
+              <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank" rel="noopener">
                 <p>{{page.title}}</p>
               </a>
             </div>
