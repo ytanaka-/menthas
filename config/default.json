@@ -8,8 +8,8 @@
   },
   "curated_threshold": 3,
   "top_threshold": 3,
-  "page_size": 30,
+  "page_size": 40,
   "rss_size": 25,
-  "selection_size": 50,
+  "selection_size": 60,
   "mmr_rel_weight": 0.65
 }
