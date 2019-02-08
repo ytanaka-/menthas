@@ -1,11 +1,12 @@
 const express = require('express');
-const path = require('path')
+const path = require('path');
 const favicon = require('serve-favicon');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-const config = require('config')
-mongoose.connect(process.env.MONGO_URL || config.mongo.URL)
+mongoose.set('useCreateIndex', true);
+const config = require('config');
+mongoose.connect(process.env.MONGO_URL || config.mongo.URL, { useNewUrlParser: true });
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
@@ -20,7 +21,7 @@ server.use('/', require('./controller/index'));
 server.use('/api/', require('./controller/api'));
 
 server.set('views', path.join(__dirname, 'view'));
-server.set('view engine', 'jade');
+server.set('view engine', 'pug');
 server.disable('x-powered-by');
 
 server.listen(port, (err) => {
