@@ -16,6 +16,7 @@
   "author": "yu_tanaka",
   "license": "MIT",
   "dependencies": {
+    "bayes": "0.0.7",
     "body-parser": "^1.18.3",
     "cheerio-httpcli": "^0.7.3",
     "config": "^2.0.1",

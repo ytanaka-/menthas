@@ -10,6 +10,6 @@
   "top_threshold": 3,
   "page_size": 35,
   "rss_size": 25,
-  "selection_size": 55,
+  "selection_size": 80,
   "mmr_rel_weight": 0.65
 }
