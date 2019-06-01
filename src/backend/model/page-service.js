@@ -2,6 +2,7 @@ const Page = require("./page")
 const moment = require('moment')
 const NaiveBayesClient = require('./classifier/naive-bayes-client')
 const config = require('config')
+const TOP_SELECTION_SIZE = config.top_selection_size
 const SELECTION_SIZE = config.selection_size
 const MMR_REL_WEIGHT = config.mmr_rel_weight
 
@@ -9,7 +10,7 @@ class PageService {
 
   curatedNewsSelect(threshold, size){
     return new Promise((resolve, reject) => {
-      Page.findCuratedNews(threshold, SELECTION_SIZE)
+      Page.findCuratedNews(threshold, TOP_SELECTION_SIZE)
       .then((pages)=>{
         const _pages = NaiveBayesClient.filteringNews(pages)
         const selectionPages = this._diversifiedSelect(_pages, size, ["all"])

@@ -8,7 +8,7 @@ class NaiveBayesClient {
   filteringNews(pages) {
     const list = []
     pages.forEach((page) => {
-      let isPickuped = false
+      let isPassed = false
       const hostName = page.host_name
       const scores = page.scores
       scores.forEach((score) => {
@@ -18,11 +18,11 @@ class NaiveBayesClient {
         // いずれかのcategoryが1なら通過としておく
         const result = classifier.categorize(features)
         if (result == 1) {
-          isPickuped = true
+          isPassed = true
         }
       })
 
-      if (isPickuped) {
+      if (isPassed) {
         list.push(page)
       }
     })
