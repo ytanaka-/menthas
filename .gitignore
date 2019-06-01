@@ -8,3 +8,4 @@ setups
 .cache
 config/production.json
 public/assets
+src/backend/model/classifier/nb-classifier.json
