@@ -1,9 +1,17 @@
 const NaiveBayes = require('bayes')
-const stateJson = require('./nb-classifier.json')
-const classifier = NaiveBayes.fromJson(JSON.stringify(stateJson))
-classifier.tokenizer = function (array) { return array }
+const Store = require("./store")
 
 class NaiveBayesClient {
+
+  constructor(){
+    this.loadClassifer()
+  }
+
+  async loadClassifer() {
+    const doc = await Store.findOne({name: "naive-bayes-state"}).exec()
+    this.classifier = NaiveBayes.fromJson(doc.state)
+    this.classifier.tokenizer = function (array) { return array }
+  }
 
   filteringNews(pages) {
     const list = []
@@ -16,7 +24,7 @@ class NaiveBayesClient {
         features.push(score.category.name)
         features.push(score.curated_by)
         // いずれかのcategoryが1なら通過としておく
-        const result = classifier.categorize(features)
+        const result = this.classifier.categorize(features)
         if (result == 1) {
           isPassed = true
         }
