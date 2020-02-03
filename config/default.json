@@ -1,6 +1,6 @@
 {
   "mongo": {
-    "URL": "mongodb://localhost/menthas-v4"
+    "URL": "mongodb://localhost/menthas-example"
   },
 
   "crawler": {
