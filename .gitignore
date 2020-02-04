@@ -8,3 +8,4 @@ setups
 .cache
 config/production.json
 public/assets
+.idea
