@@ -21,4 +21,8 @@ MongoDB, Node.js etc...
 
 ### Contributing
 
-TBD
+```
+$ mongorestore --host localhost --db menthas-example examples/data
+$ npm install
+$ npm run start
+```

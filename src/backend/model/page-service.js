@@ -12,7 +12,10 @@ class PageService {
     return new Promise((resolve, reject) => {
       Page.findCuratedNews(threshold, TOP_SELECTION_SIZE)
       .then((pages)=>{
-        const _pages = NaiveBayesClient.filteringNews(pages)
+        let _pages = pages
+        if (process.env.NODE_ENV == 'production') {
+          _pages = NaiveBayesClient.filteringNews(pages)
+        }
         const selectionPages = this._diversifiedSelect(_pages, size, ["all"])
         resolve(selectionPages)
       }).catch((err)=>{
