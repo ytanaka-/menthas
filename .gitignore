@@ -8,3 +8,5 @@ setups
 .cache
 config/production.json
 public/assets
+dict
+src/etc/model
