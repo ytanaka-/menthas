@@ -6,7 +6,8 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 const config = require('config');
-mongoose.connect(process.env.MONGO_URL || config.mongo.URL, { useNewUrlParser: true });
+const DB_NAME = process.env.MONGO_DB_NAME ||  config.mongo.DB_NAME;
+mongoose.connect(process.env.MONGO_URL || config.mongo.URL, { dbName: DB_NAME, useNewUrlParser: true, useUnifiedTopology: true });
 
 const dev = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 3000;
