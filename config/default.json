@@ -1,6 +1,7 @@
 {
   "mongo": {
-    "URL": "mongodb://localhost/menthas-example"
+    "URL": "mongodb://localhost/",
+    "DB_NAME": "menthas-example"
   },
 
   "crawler": {
@@ -12,5 +13,6 @@
   "rss_size": 25,
   "top_selection_size": 100,
   "selection_size": 60,
-  "mmr_rel_weight": 0.65
+  "mmr_rel_weight": 0.65,
+  "contents_score_weight": 2.25
 }

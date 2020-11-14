@@ -40,7 +40,7 @@ const pageSchema = new Schema({
   amphtml: {
     type: String
   },
-  tags: {
+  features: {
     type: [{
       type: String
     }],

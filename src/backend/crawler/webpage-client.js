@@ -1,5 +1,4 @@
 const client = require("cheerio-httpcli")
-const request = require("request")
 const validator = require('validator')
 
 // 最大受信量を2MBに制限

@@ -1,6 +1,5 @@
 const Page = require("./page")
 const moment = require('moment')
-const NaiveBayesClient = require('./classifier/naive-bayes-client')
 const config = require('config')
 const TOP_SELECTION_SIZE = config.top_selection_size
 const SELECTION_SIZE = config.selection_size
@@ -12,11 +11,7 @@ class PageService {
     return new Promise((resolve, reject) => {
       Page.findCuratedNews(threshold, TOP_SELECTION_SIZE)
       .then((pages)=>{
-        let _pages = pages
-        if (process.env.NODE_ENV == 'production') {
-          _pages = NaiveBayesClient.filteringNews(pages)
-        }
-        const selectionPages = this._diversifiedSelect(_pages, size, ["all"])
+        const selectionPages = this._diversifiedSelect(pages, size, ["all"])
         resolve(selectionPages)
       }).catch((err)=>{
         reject(err);
@@ -68,9 +63,6 @@ class PageService {
         })
         // 類似度計測用に使う要素
         const union = [hostName, category.name].concat(category.curator)
-        if (category.score > 5) {
-          category.score = 5
-        }
         // 時間経過からrelを算出
         const rel = category.score / ((diff + 2) ^ 0.5)
         // 類似度を算出

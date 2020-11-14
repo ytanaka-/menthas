@@ -1,22 +1,29 @@
 const hatebuClient = require("./hatebu-client")
 const webpageClient = require("./webpage-client")
+const contentsClient = require("./contents-client")
 const Category = require("../model/category")
 const Page = require("../model/page")
+const config = require('config')
+const CONTENTS_SCORE_WEIGHT = config.contents_score_weight
 const CURATE_THRESHOLD = 3
 const MAX_THRESHOLD = 4
 
 class NewsCrawler {
+
+  async init() {
+    await contentsClient.build();
+  }
 
   async checkCategory(categoryName) {
     try {
       const category = await Category.findByName(categoryName);
       // curatorのlistは先頭がscoreが高いので逆順にする
       const curators = category.curators.reverse();
-      for(const curator of curators){
+      for (const curator of curators) {
         await this.checkCurator(curator, category);
         await this.sleep(1000);
       }
-    } catch (err){
+    } catch (err) {
       console.error(err);
     }
     console.log(`CheckCategory[${categoryName}] is completed.`)
@@ -24,8 +31,8 @@ class NewsCrawler {
 
   async checkCurator(curator, category) {
     console.log(`CheckCurator[${curator}] is starting.`);
-    const links = await this.fetchCuratorRSS(curator);
-    for(const link of links){
+    const links = await this.fetchCuratorRecentRSS(curator);
+    for (const link of links) {
       try {
         const message = await this.fetchWebPageAndUpdateScore(link.url, curator, category);
         if (message) {
@@ -36,7 +43,7 @@ class NewsCrawler {
           }
         }
         await this.sleep(300);
-      } catch (err){
+      } catch (err) {
         console.error(err);
       }
     }
@@ -51,36 +58,38 @@ class NewsCrawler {
     });
   }
 
-  fetchCuratorRSS(curator) {
+  fetchCuratorRecentRSS(curator) {
     return new Promise((resolve, reject) => {
       hatebuClient.getBookmarkerLinkList(curator, 0, (err, links) => {
         if (err) {
           console.error(err);
           return reject(err);
         }
-        resolve(links);
+        const recentLinks = [];
+        const now = new Date();
+        // 3日以上古いブクマは対象外とする
+        for (const link of links) {
+          const diff = (now - new Date(link.date)) / (1000 * 60 * 60 * 24);
+          if (diff < 3) {
+            recentLinks.push(link);
+          }
+        }
+        resolve(recentLinks);
       });
     });
   }
 
-  fetchWebPageAndUpdateScore(url, curator, category) {
-    return new Promise((resolve, reject) => {
-      Page.findByUrl(url)
-        .then((page) => {
-          if (!page) {
-            return this.registerPage(url, curator, category);
-          }
-          return this.updateScore(page, curator, category);
-        }).then((message) => {
-          resolve(message);
-        }).catch((err) => {
-          reject(err);
-        });
-    });
+  async fetchWebPageAndUpdateScore(url, curator, category) {
+    const page = await Page.findByUrl(url);
+    if (!page) {
+      return await this.registerPage(url, curator, category);
+    } else {
+      return await this.updateScore(page, curator, category);
+    }
   }
 
-  updateScore(page, curator, category) {
-    return new Promise((resolve, reject) => {
+  async updateScore(page, curator, category) {
+    try {
       let updateScores = page.scores;
       let curated_at = page.curated_at;
       let isAlreadyCurated = false;
@@ -107,72 +116,65 @@ class NewsCrawler {
           }*/
         }
       });
-      if (isUpdatedCuratedTime){
+      if (isUpdatedCuratedTime) {
         curated_at = Date.now();
       }
       if (isAlreadyCurated) {
-        return resolve("already curated.");
+        return console.log("already curated.");
       } else if (!isCuratedInCategory) {
         // 対象CuratorがまだCategoryのScoreに登録されていない場合
         let _score = 1;
-        const _str = page.title + ":" + page.description
-        if (category.tags.some((tag) => { return !!~_str.indexOf(tag) }) == true) {
-          _score = _score + 2;
-        }
+        const _str = page.title + "\n" + page.description;
+        const features = contentsClient.getFeatures(_str);
+        const similarity = await contentsClient.fetchSimilarity(category.name, features);
+        _score = _score + CONTENTS_SCORE_WEIGHT * similarity;
         updateScores.push({
           category: category._id,
           score: _score,
           curated_by: [curator]
-        })
-      }
-      Page.findOneAndUpdate({ _id: page._id }, { scores: updateScores, curated_at: curated_at })
-        .then(() => resolve("updated."))
-        .catch((err) => {
-          if(err.code == 11000){
-            return resolve("already exists.");
-          }
-          reject(err);
-        })
-    });
-  }
-
-  registerPage(url, curator, category) {
-    return new Promise((resolve, reject) => {
-      webpageClient.fetch(url)
-        .then((page) => {
-          let _score = 1;
-          const _str = page.title + ":" + page.description
-          // indexOfが値が存在しない場合に-1を返すのを利用
-          if (category.tags.some((tag) => { return !!~_str.indexOf(tag) }) == true) {
-            _score = _score + 2;
-          }
-
-          const newPage = new Page({
-            url: page.url,
-            title: page.title,
-            description: page.description,
-            thumbnail: page.thumbnail,
-            host_name: page.host_name,
-            amphtml: page.amphtml,
-            scores: [{
-              category: category._id,
-              score: _score,
-              curated_by: [curator]
-            }]
-          })
-          
-          return newPage.save();
-        }).then(() => {
-          resolve("new page is registered.");
-        }).catch((err) => {
-          if(err.code == 11000){
-            return resolve("already exists.");
-          }
-          reject(err);
         });
-    });
+      }
+      await Page.findOneAndUpdate({ _id: page._id }, { scores: updateScores, curated_at: curated_at });
+      console.log("updated.");
+    } catch (err) {
+      if (err.code == 11000) {
+        console.log("already exists.");
+      }
+      throw err;
+    };
   }
 
+  async registerPage(url, curator, category) {
+    try {
+      const page = await webpageClient.fetch(url);
+      let _score = 1;
+      const _str = page.title + "\n" + page.description;
+      const features = contentsClient.getFeatures(_str);
+      const similarity = await contentsClient.fetchSimilarity(category.name, features);
+      _score = _score + CONTENTS_SCORE_WEIGHT * similarity;
+      const newPage = new Page({
+        url: page.url,
+        title: page.title,
+        description: page.description,
+        thumbnail: page.thumbnail,
+        host_name: page.host_name,
+        amphtml: page.amphtml,
+        features: features,
+        scores: [{
+          category: category._id,
+          score: _score,
+          curated_by: [curator]
+        }]
+      });
+      await newPage.save();
+      console.log("new page is registered.");
+    } catch (err) {
+      if (err.code == 11000) {
+        console.log("already exists.");
+      }
+      throw err;
+    }
+  }
 }
 
 module.exports = new NewsCrawler()
