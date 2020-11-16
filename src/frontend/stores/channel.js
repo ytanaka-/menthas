@@ -30,7 +30,7 @@ export default {
         }
         const scores = page.scores
         scores.forEach((score) => {
-          if (score.score >= 5) {
+          if (score.score > 6) {
             page.isInfluential = true
           }
           if (score.score >= 3) {
