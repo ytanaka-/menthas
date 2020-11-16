@@ -10,10 +10,6 @@ const MAX_THRESHOLD = 4
 
 class NewsCrawler {
 
-  async init() {
-    await contentsClient.build();
-  }
-
   async checkCategory(categoryName) {
     try {
       const category = await Category.findByName(categoryName);

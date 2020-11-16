@@ -8,7 +8,6 @@ mongoose.connect(process.env.MONGO_URL || config.mongo.URL, { dbName: DB_NAME, u
 const category = process.argv[2];
 
 (async () => {
-  await crawler.init();
   if (category) {
     await crawler.checkCategory(category);
   } else {
