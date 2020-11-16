@@ -11,6 +11,9 @@ class ContentsClient {
 
   async fetchSimilarity(category, features) {
     let featuresStr = features.toString();
+    if (!featuresStr) {
+      featuresStr = "[]";
+    }
     featuresStr = encodeURIComponent(featuresStr);
     const response = await fetch(`${ENDPOINT}/api/similarity?category=${category}&features=${featuresStr}`);
     const result = await response.json();
