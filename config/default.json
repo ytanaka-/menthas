@@ -8,7 +8,7 @@
     "UA": "request"
   },
   "curated_threshold": 3,
-  "top_threshold": 4,
+  "top_threshold": 3.5,
   "page_size": 35,
   "rss_size": 25,
   "top_selection_size": 100,

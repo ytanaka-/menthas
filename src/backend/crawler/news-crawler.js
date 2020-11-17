@@ -147,7 +147,8 @@ class NewsCrawler {
       const _str = page.title + "\n" + page.description;
       const features = contentsClient.getFeatures(_str);
       const similarity = await contentsClient.fetchSimilarity(category.name, features);
-      _score = _score + CONTENTS_SCORE_WEIGHT * similarity;
+      _score = _score + CONTENTS_SCORE_WEIGHT * Math.tanh(3 * similarity - 1.25); // tanhで調整, 0.6辺りを変曲点にする
+      
       const newPage = new Page({
         url: page.url,
         title: page.title,
