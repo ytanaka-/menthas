@@ -5,6 +5,7 @@ const Category = require("../model/category")
 const Page = require("../model/page")
 const config = require('config')
 const CONTENTS_SCORE_WEIGHT = config.contents_score_weight
+const SIMILARITY_SCORE_WEIGHT = config.similarity_score_weight
 const CURATE_THRESHOLD = 3
 const MAX_THRESHOLD = 4
 
@@ -123,7 +124,13 @@ class NewsCrawler {
         const _str = page.title + "\n" + page.description;
         const features = contentsClient.getFeatures(_str);
         const similarity = await contentsClient.fetchSimilarity(category.name, features);
-        _score = _score + CONTENTS_SCORE_WEIGHT * similarity;
+        if (similarity != 0.0) {
+          _score = _score + SIMILARITY_SCORE_WEIGHT * Math.tanh(3 * similarity - 1.25); // tanhで調整, 0.6辺りを変曲点にする
+        }
+        // indexOfが値が存在しない場合に-1を返すのを利用
+        if (category.tags.some((tag) => { return !!~_str.indexOf(tag) }) == true) {
+          _score = _score + CONTENTS_SCORE_WEIGHT * 1;
+        }
         updateScores.push({
           category: category._id,
           score: _score,
@@ -148,7 +155,10 @@ class NewsCrawler {
       const features = contentsClient.getFeatures(_str);
       const similarity = await contentsClient.fetchSimilarity(category.name, features);
       if (similarity != 0.0) {
-        _score = _score + CONTENTS_SCORE_WEIGHT * Math.tanh(3 * similarity - 1.25); // tanhで調整, 0.6辺りを変曲点にする
+        _score = _score + SIMILARITY_SCORE_WEIGHT * Math.tanh(3 * similarity - 1.25);
+      }
+      if (category.tags.some((tag) => { return !!~_str.indexOf(tag) }) == true) {
+        _score = _score + CONTENTS_SCORE_WEIGHT * 1;
       }
       const newPage = new Page({
         url: page.url,
