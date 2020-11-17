@@ -14,5 +14,5 @@
   "top_selection_size": 100,
   "selection_size": 60,
   "mmr_rel_weight": 0.65,
-  "contents_score_weight": 2.25
+  "contents_score_weight": 2
 }
