@@ -62,7 +62,10 @@ class PageService {
           }
         })
         // 類似度計測用に使う要素
-        const union = [hostName, category.name].concat(category.curator)
+        let union = [hostName, category.name].concat(category.curator)
+        if (page.features) {
+          union = union.concat(page.features)
+        }
         // 時間経過からrelを算出
         const rel = category.score / ((diff + 2) ^ 0.75)
         // 類似度を算出
