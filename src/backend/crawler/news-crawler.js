@@ -117,7 +117,7 @@ class NewsCrawler {
         curated_at = Date.now();
       }
       if (isAlreadyCurated) {
-        return console.log("already curated.");
+        return "already curated.";
       } else if (!isCuratedInCategory) {
         // 対象CuratorがまだCategoryのScoreに登録されていない場合
         let _score = 1;
