@@ -23,7 +23,7 @@ class NewsCrawler {
     } catch (err) {
       console.error(err);
     }
-    console.log(`CheckCategory[${categoryName}] is completed.`)
+    console.log(`CheckCategory[${categoryName}] complete.`)
   }
 
   async checkCurator(curator, category) {
@@ -44,7 +44,7 @@ class NewsCrawler {
         console.error(err);
       }
     }
-    console.log(`CheckCurator[${curator}] is completed.`);
+    console.log(`CheckCurator[${curator}] complete.`);
   }
 
   sleep(time) {
@@ -138,10 +138,10 @@ class NewsCrawler {
         });
       }
       await Page.findOneAndUpdate({ _id: page._id }, { scores: updateScores, curated_at: curated_at });
-      console.log("updated.");
+      return "updated.";
     } catch (err) {
       if (err.code == 11000) {
-        console.log("already exists.");
+        return "already exists.";
       }
       throw err;
     };
@@ -175,10 +175,10 @@ class NewsCrawler {
         }]
       });
       await newPage.save();
-      console.log("new page is registered.");
+      return "new page is registered.";
     } catch (err) {
       if (err.code == 11000) {
-        console.log("already exists.");
+        return "already exists.";
       }
       throw err;
     }
