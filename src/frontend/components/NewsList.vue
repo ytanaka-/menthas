@@ -208,7 +208,7 @@ export default {
 
 <style lang="stylus">
 .newslist
-  max-width 930px
+  max-width 1100px
   margin 0 auto
   padding-top 20px
 
@@ -246,9 +246,9 @@ export default {
     a img
       object-fit cover
       width 100%
-      height 220px
-      clip-path polygon(0 0, 100% 0, 100% 100%, 0 97%)
-      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 97%)
+      height 260px
+      clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
+      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
   .title
     max-height calc(20px * 1.6 * 3)
     a
