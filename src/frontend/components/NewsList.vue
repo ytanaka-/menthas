@@ -300,7 +300,9 @@ export default {
   display flex
   flex-direction column
   margin-right 27px
-  margin-bottom 35px
+  margin-bottom 25px
+  padding-bottom 20px
+  border-bottom 1px solid #CCC
   .thumbnail-box
     margin-top 4px
     a img
@@ -311,10 +313,10 @@ export default {
       -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
   .title
     margin-top 6px
-    margin-bottom 8px
+    margin-bottom 6px
     a
       font-size 20px
-      line-height 1.6
+      line-height 1.5
 
 .top-sub-container
   width calc(100% * 1/2)
