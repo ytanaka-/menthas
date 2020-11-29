@@ -224,7 +224,7 @@ export default {
 
 <style lang="stylus">
 :root
-  --list-width "min(100vw, 1050px)" % null
+  --list-width "min(100vw, 1030px)" % null
   --top-main-width calc(var(--list-width) * 5.7/10)
   --top-sub-width calc(var(--list-width) * 4.3/10)
   --top-main-image-height calc(var(--top-main-width) * 4.5/10)
@@ -274,7 +274,6 @@ export default {
   -webkit-line-clamp 2
   -webkit-box-orient vertical
   overflow hidden
-  text-overflow ellipsis
   .meta-info-text
     font-size 11px
     line-height 1.4
@@ -311,7 +310,7 @@ export default {
       clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
       -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
   .title
-    margin-top 8px
+    margin-top 6px
     margin-bottom 8px
     a
       font-size 20px
@@ -352,7 +351,6 @@ export default {
   width 100%
   min-height 90px
   margin-bottom 20px
-  overflow hidden
   .title
     margin-bottom 5px
     a
@@ -365,8 +363,7 @@ export default {
 .list-container
   max-width 800px
   display flex
-  overflow hidden
-  border-top 1px solid #e0e0e0
+  border-top 1px solid #ccc
   padding 12px 6px
   .text-box
     flex 1
@@ -387,15 +384,47 @@ export default {
 
 
 @media screen and (max-width: 480px)
-  .news-container
-    grid-template-rows auto
-  .main-container
-    grid-column 1 / 6
-    margin-right 0px
+  .top-container-wrap
+    display block
+  
+  .top-main-container
+    width 100%
+
+  .top-sub-container-wrap
+    width 100%
+    display block
+
+  .top-sub-container
+    width 100%
+    padding-top 20px
+    border-top 1px solid #ccc
+    .thumbnail-box
+      a img
+        object-fit cover
+        width 100%
+        height 120px
+    .title
+      a
+        font-size 17px
+        line-height 1.4
+
+  .text-box
+    min-height 60px
+
+  .top-section-container-wrap
+    width 100%
+    margin-bottom 20px
+    border-left 0px solid #CCC
+
+  .top-section-container
+    margin-left 0px
+    padding-top 10px
+    border-top 1px solid #ccc
 
   .top-box
+    margin-right 0px
+    margin-bottom 10px
     .title
-      max-height calc(17px * 1.4 * 3)
       a
         font-size 17px
         line-height 1.4
@@ -403,16 +432,6 @@ export default {
       a img
         height 150px
 
-  .sub-container
-    grid-column 1 / 6
-    margin-left 0px
-    padding 12px 6px
-    border-top 1px solid #e0e0e0
-    .title
-      max-height calc(17px * 1.4 * 3)
-      a
-        font-size 17px
-        line-height 1.4
 
   .list-container
     padding 10px 6px
@@ -425,7 +444,6 @@ export default {
         width 72px
         height 54px
     .meta-info
-      max-height calc(11px * 1.4 * 2)
       .meta-info-text
         font-size 11px
         line-height 1.4
@@ -435,15 +453,11 @@ export default {
       font-size 11px
     .text-box
       margin-bottom 6px
-
     .description
-      max-height calc(12px * 1.4 * 3)
       .description-text
         font-size 12px
         line-height 1.4
-
   .title
-    max-height calc(16px * 1.5 * 3)
     a
       font-size 16px
       line-height 1.5

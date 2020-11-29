@@ -55,7 +55,7 @@ export default {
 .navigation-container
   width 100%
   height 100%
-  min-width 900px
+  min-width 950px
   display flex
   justify-content center
   -webkit-justify-content center
@@ -71,7 +71,7 @@ ul
   a
     display block
     height 35px
-    padding 0 5px
+    padding 0 6px
     text-align center
     line-height 33px
     text-decoration none
