@@ -2,15 +2,15 @@ import Vue from 'vue';
 import VueRouter from 'vue-router'
 import Vue2TouchEvents from 'vue2-touch-events'
 import App from './components/App.vue'
-import NewsList from './components/NewsList.vue'
+import NewsList2 from './components/NewsList2.vue'
 import { store } from './stores/index'
 import Prot from './components/Prot.vue';
 
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/', component: Prot },
-    { path: '/:channel', component: Prot, props: true }
+    { path: '/', component: NewsList2 },
+    { path: '/:channel', component: NewsList2, props: true }
   ],
   scrollBehavior (to, from, savedPosition) {
     let y = 0

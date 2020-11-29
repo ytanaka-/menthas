@@ -79,7 +79,7 @@ ul
     font-size 13px
     white-space nowrap
   a:hover,a:focus
-    color #1C5D99
+    color #17538a
   .router-link-active
     box-sizing border-box
     border-bottom 2px solid #222
