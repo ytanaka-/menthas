@@ -53,11 +53,11 @@ export default {
         selections.push(i);
       })
       selections.forEach((index, i)=>{
+        // サムネイルが設定されていない場合はここで代替
+        if (!pages[index].thumbnail) {
+          pages[index].thumbnail = "/images/no-image.png";
+        }
         if (i == 0){
-          // サムネイルが設定されていない場合はここで代替
-          if (!pages[index].thumbnail) {
-            pages[index].thumbnail = "/images/no-image.png";
-          }
           state.top.main = pages[index]
         } else if (i < 3){
           state.top.sub.push(pages[index])

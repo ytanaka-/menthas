@@ -32,7 +32,7 @@
           </div>
         </div>
         <div class="top-sub-container-wrap">
-        <template v-for="(sub) in top.sub">
+        <template v-for="sub in top.sub">
           <div class="top-sub-container" v-bind:key="sub._id">
             <div class="thumbnail-box">
               <a v-bind:href="sub.url" v-on:click="sendGAClick(sub.url, 1)" target="_blank" rel="noopener">
@@ -64,36 +64,68 @@
         </div>
         </div>
         <div class="top-section-container-wrap">
-        <template v-for="(item) in top.sections">
-          <div class="top-section-container" v-bind:key="item._id">
-            <div class="text-box">
-              <div class="title">
-                <a v-bind:href="item.url" v-on:click="sendGAClick(item.url, 2)" target="_blank" rel="noopener">
-                  <p>{{item.title}}</p>
-                </a>
-              </div>
-              <div class="meta-info">
-                <p class="meta-info-text">
-                  from: {{item.host_name}}, {{item.categoriesStr}}
-                <template v-if="item.isInfluential == true">
-                  ,
-                  <span class="highly-influential">Highly Influential News</span>
-                </template>
-                <template v-if="item.isNew == true">
-                  ,
-                  <span class="new">New!</span>
-                </template>
-                </p>
-              </div>
-              <div class="description">
-                <p class="description-text">{{item.description}}</p>
+          <template v-for="item in top.sections">
+            <div class="top-section-container" v-bind:key="item._id">
+              <div class="text-box">
+                <div class="title">
+                  <a v-bind:href="item.url" v-on:click="sendGAClick(item.url, 2)" target="_blank" rel="noopener">
+                    <p>{{item.title}}</p>
+                  </a>
+                </div>
+                <div class="meta-info">
+                  <p class="meta-info-text">
+                    from: {{item.host_name}}, {{item.categoriesStr}}
+                  <template v-if="item.isInfluential == true">
+                    ,
+                    <span class="highly-influential">Highly Influential News</span>
+                  </template>
+                  <template v-if="item.isNew == true">
+                    ,
+                    <span class="new">New!</span>
+                  </template>
+                  </p>
+                </div>
+                <div class="description">
+                  <p class="description-text">{{item.description}}</p>
+                </div>
               </div>
             </div>
-          </div>
-        </template>
+          </template>
         </div>
       </template>
       </div>
+      <template v-for="page in pages">
+        <div class="list-container" v-bind:key="page._id">
+          <div class="thumbnail-box">
+            <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank" rel="noopener">
+              <img v-bind:src="page.thumbnail" @error="listImageLoadError"/>
+            </a>
+          </div>
+          <div class="text-box">
+            <div class="title">
+              <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank" rel="noopener">
+                <p>{{page.title}}</p>
+              </a>
+            </div>
+            <div class="meta-info">
+              <p class="meta-info-text">
+                from: {{page.host_name}}, {{page.categoriesStr}}
+              <template v-if="page.isInfluential == true">
+                ,
+                <span class="highly-influential">Highly Influential News</span>
+              </template>
+              <template v-if="page.isNew == true">
+                ,
+                <span class="new">New!</span>
+              </template>
+              </p>
+            </div>
+            <div class="description">
+              <p class="description-text">{{page.description}}</p>
+            </div>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -193,10 +225,10 @@ export default {
 <style lang="stylus">
 :root
   --list-width "min(100vw, 1050px)" % null
-  --top-main-width calc(var(--list-width) * 5.8/10)
-  --top-sub-width calc(var(--list-width) * 4.2/10)
+  --top-main-width calc(var(--list-width) * 5.7/10)
+  --top-sub-width calc(var(--list-width) * 4.3/10)
   --top-main-image-height calc(var(--top-main-width) * 4.5/10)
-  --top-sub-image-height calc(var(--top-sub-width) * 4/10)
+  --top-sub-image-height calc(var(--top-sub-width) * 3.9/10)
 
 .newslist
   max-width var(--list-width)
@@ -268,9 +300,10 @@ export default {
 .top-box
   display flex
   flex-direction column
-  margin-right 25px
+  margin-right 27px
   margin-bottom 35px
   .thumbnail-box
+    margin-top 4px
     a img
       object-fit cover
       width 100%
@@ -278,15 +311,15 @@ export default {
       clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
       -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
   .title
-    margin-top 5px
-    margin-bottom 5px
+    margin-top 8px
+    margin-bottom 8px
     a
       font-size 20px
       line-height 1.6
 
 .top-sub-container
   width calc(100% * 1/2)
-  margin-right 25px
+  margin-right 27px
   .thumbnail-box
     a img
       object-fit cover
@@ -306,45 +339,51 @@ export default {
 
 .top-section-container-wrap
   width var(--top-sub-width)
+  margin-bottom 27px
   border-left 1px solid #CCC
 
 .top-section-container
-  margin-left 20px
+  margin-left 23px
+  .text-box
+    min-height 130px
+    margin-bottom 30px
 
 .text-box
   width 100%
-  min-height 130px
-  margin-bottom 30px
+  min-height 90px
+  margin-bottom 20px
   overflow hidden
   .title
     margin-bottom 5px
     a
-      font-size 17px
+      font-size 16px
   .meta-info
     margin-bottom 5px
   .description-text
     font-size 12px
 
 .list-container
-  max-width 750px
+  max-width 800px
   display flex
   overflow hidden
   border-top 1px solid #e0e0e0
   padding 12px 6px
-
   .text-box
     flex 1
-
+    margin-top 5px
+    a
+      font-size 17px
   .thumbnail-box
     width 120px
     height 90px
     margin 10px 0px
-    margin-right 25px
-
+    margin-right 28px
     a img
       object-fit cover
       width 120px
       height 90px
+  .meta-info
+    margin-bottom 10px
 
 
 @media screen and (max-width: 480px)
