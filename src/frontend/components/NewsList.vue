@@ -1,85 +1,101 @@
 <template>
   <div class="newslist" v-touch:swipe="swipeHandler">
     <div class="news-container">
+      <div class="top-container-wrap">
       <template v-if="top.main != null">
-        <div class="main-container top-box">
-          <div class="thumbnail-box">
-            <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank" rel="noopener">
-              <img v-bind:src="top.main.thumbnail" @error="imageLoadError"/>
-            </a>
-          </div>
-          <div class="title">
-            <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank" rel="noopener">
-              <p>{{top.main.title}}</p>
-            </a>
-          </div>
-          <div class="meta-info">
-            <p class="meta-info-text">
-              from: {{top.main.host_name}}, {{top.main.categoriesStr}}
-            <template v-if="top.main.isInfluential == true">
-              ,
-              <span class="highly-influential">Highly Influential News</span>
-            </template>
-            <template v-if="top.main.isNew == true">
-              ,
-              <span class="new">New!</span>
-            </template>
-            </p>
-          </div>
-        </div>
-        <div class="sub-container">
-          <div class="text-box">
+        <div class="top-left-container">
+          <div class="top-main-container">
+            <div class="top-box">
+            <div class="thumbnail-box">
+              <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank" rel="noopener">
+                <img v-bind:src="top.main.thumbnail" @error="imageLoadError"/>
+              </a>
+            </div>
             <div class="title">
-              <a v-bind:href="top.sub[0].url" v-on:click="sendGAClick(top.sub[0].url, 2)" target="_blank" rel="noopener">
-                <p>{{top.sub[0].title}}</p>
+              <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank" rel="noopener">
+                <p>{{top.main.title}}</p>
               </a>
             </div>
             <div class="meta-info">
               <p class="meta-info-text">
-                from: {{top.sub[0].host_name}}, {{top.sub[0].categoriesStr}}
-              <template v-if="top.sub[0].isInfluential == true">
+                from: {{top.main.host_name}}, {{top.main.categoriesStr}}
+              <template v-if="top.main.isInfluential == true">
                 ,
                 <span class="highly-influential">Highly Influential News</span>
               </template>
-              <template v-if="top.sub[0].isNew == true">
+              <template v-if="top.main.isNew == true">
                 ,
                 <span class="new">New!</span>
               </template>
               </p>
             </div>
-            <div class="description">
-              <p class="description-text">{{top.sub[0].description}}</p>
-            </div>
           </div>
         </div>
-        <div class="sub-container">
-          <div class="text-box">
-            <div class="title">
-              <a v-bind:href="top.sub[1].url" v-on:click="sendGAClick(top.sub[1].url, 2)" target="_blank" rel="noopener">
-                <p>{{top.sub[1].title}}</p>
+        <div class="top-sub-container-wrap">
+        <template v-for="sub in top.sub">
+          <div class="top-sub-container" v-bind:key="sub._id">
+            <div class="thumbnail-box">
+              <a v-bind:href="sub.url" v-on:click="sendGAClick(sub.url, 1)" target="_blank" rel="noopener">
+                <img v-bind:src="sub.thumbnail" @error="imageLoadError"/>
               </a>
-            </div>
-            <div class="meta-info">
-              <p class="meta-info-text">
-                from: {{top.sub[1].host_name}}, {{top.sub[1].categoriesStr}}
-              <template v-if="top.sub[1].isInfluential == true">
-                ,
-                <span class="highly-influential">Highly Influential News</span>
-              </template>
-              <template v-if="top.sub[1].isNew == true">
-                ,
-                <span class="new">New!</span>
-              </template>
-              </p>
-            </div>
-            <div class="description">
-              <p class="description-text">{{top.sub[1].description}}</p>
+              </div>
+            <div class="text-box">
+              <div class="title">
+                <a v-bind:href="sub.url" v-on:click="sendGAClick(sub.url, 2)" target="_blank" rel="noopener">
+                  <p>{{sub.title}}</p>
+                </a>
+              </div>
+              <div class="meta-info">
+                <p class="meta-info-text">
+                  from: {{sub.host_name}}, {{sub.categoriesStr}}
+                <template v-if="sub.isInfluential == true">
+                  ,
+                  <span class="highly-influential">Highly Influential News</span>
+                </template>
+                <template v-if="sub.isNew == true">
+                  ,
+                  <span class="new">New!</span>
+                </template>
+                </p>
+              </div>
             </div>
           </div>
+        </template>
+        </div>
+        </div>
+        <div class="top-section-container-wrap">
+          <template v-for="item in top.sections">
+            <div class="top-section-container" v-bind:key="item._id">
+              <div class="text-box">
+                <div class="title">
+                  <a v-bind:href="item.url" v-on:click="sendGAClick(item.url, 2)" target="_blank" rel="noopener">
+                    <p>{{item.title}}</p>
+                  </a>
+                </div>
+                <div class="meta-info">
+                  <p class="meta-info-text">
+                    from: {{item.host_name}}, {{item.categoriesStr}}
+                  <template v-if="item.isInfluential == true">
+                    ,
+                    <span class="highly-influential">Highly Influential News</span>
+                  </template>
+                  <template v-if="item.isNew == true">
+                    ,
+                    <span class="new">New!</span>
+                  </template>
+                  </p>
+                </div>
+                <div class="description">
+                  <p class="description-text">{{item.description}}</p>
+                </div>
+              </div>
+            </div>
+          </template>
         </div>
       </template>
-      <template v-for="(page, index) in pages">
-        <div class="list-container" v-bind:class="{'gradual0': index == 0, 'gradual1': index == 1, 'gradual2': index == 2, 'gradual3': index == 3}" v-bind:key="page._id">
+      </div>
+      <template v-for="page in pages">
+        <div class="list-container" v-bind:key="page._id">
           <div class="thumbnail-box">
             <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank" rel="noopener">
               <img v-bind:src="page.thumbnail" @error="listImageLoadError"/>
@@ -207,140 +223,167 @@ export default {
 </script>
 
 <style lang="stylus">
+:root
+  --list-width "min(100vw, 1050px)" % null
+  --top-main-width calc(var(--list-width) * 5.7/10)
+  --top-sub-width calc(var(--list-width) * 4.3/10)
+  --top-main-image-height calc(var(--top-main-width) * 4.5/10)
+  --top-sub-image-height calc(var(--top-sub-width) * 3.9/10)
+
 .newslist
-  max-width 1100px
+  max-width var(--list-width)
   margin 0 auto
   padding-top 20px
-
   a
-    color #1C5D99
+    color #17538a
     font-weight bold
     font-size 22px
     word-wrap break-word
     text-decoration none
   a:visited
-    color #6E97BE
+    color #6991b8
     text-decoration: none
   a:hover, a:focus
     text-decoration underline
 
 .news-container
   margin auto
-  padding 0 10px
-  display grid
-  grid-template-columns repeat(5, 1fr)
-  grid-template-rows 160px min-content auto
-  justify-content space-around
+  padding 0 20px
 
-.main-container
-  grid-column 1 / 4
-  grid-row 1 / 4
-  margin-right 20px
-  padding 0px 6px
-
-.top-box
+.top-container-wrap
   display flex
-  flex-direction column
-  margin-bottom 35px
-  .thumbnail-box
-    a img
-      object-fit cover
-      width 100%
-      height 260px
-      clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
-      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
-  .title
-    max-height calc(20px * 1.6 * 3)
-    a
-      font-size 20px
-      line-height 1.6
-  .meta-info
-    max-height calc(12px * 1.4 * 3)
 
-.sub-container
-  grid-column 4 / 6
-  min-height 130px
-  margin-left 10px
-  margin-bottom 15px
-  .title
-    max-height calc(17px * 1.4 * 3)
-    margin-top 0px
-    margin-bottom 3px
-    a
-      font-size 17px
-      line-height 1.4
-  .meta-info
-    margin 2px 0px
+.top-main-container
+  width var(--top-main-width)
 
-.text-box
-  width 100%
-  max-height 149px
-  overflow hidden
+.top-sub-container-wrap
+  width var(--top-main-width)
+  display flex
 
 .title
-  max-height calc(17px * 1.5 * 3)
-  margin 6px 0px
+  display -webkit-box
+  -webkit-line-clamp 3
+  -webkit-box-orient vertical
   overflow hidden
   a
-    font-size 17px
+    font-size 18px
     line-height 1.5
 
 .meta-info
-  max-height calc(12px * 1.4 * 2)
-  margin 3px 0px
+  display -webkit-box
+  -webkit-line-clamp 2
+  -webkit-box-orient vertical
   overflow hidden
   text-overflow ellipsis
   .meta-info-text
-    font-size 12px
+    font-size 11px
     line-height 1.4
     color #8C8C8C
   .highly-influential
-    font-size 12px
+    font-size 11px
     line-height 1.4
     color #dd913f
   .new
-    font-size 12px
+    font-size 11px
     color #ED0B0B
 
 .description
-  max-height calc(13px * 1.4 * 3)
-  margin 6px 0px
+  display -webkit-box
+  -webkit-line-clamp 3
+  -webkit-box-orient vertical
   overflow hidden
   .description-text
     font-size 13px
     line-height 1.4
     color #222
 
-.gradual0
-  max-width 930px !important
-.gradual1
-  max-width 900px !important
-.gradual2
-  max-width 850px !important
-.gradual3
-  max-width 780px !important
+.top-box
+  display flex
+  flex-direction column
+  margin-right 27px
+  margin-bottom 35px
+  .thumbnail-box
+    margin-top 4px
+    a img
+      object-fit cover
+      width 100%
+      height var(--top-main-image-height)
+      clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
+      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
+  .title
+    margin-top 8px
+    margin-bottom 8px
+    a
+      font-size 20px
+      line-height 1.6
+
+.top-sub-container
+  width calc(100% * 1/2)
+  margin-right 27px
+  .thumbnail-box
+    a img
+      object-fit cover
+      width 100%
+      height var(--top-sub-image-height)
+      clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
+      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
+  .title
+    margin-top 5px
+    margin-bottom 5px
+    a
+      font-size 16px
+      line-height 1.4
+  .meta-info
+    margin 2px 0px
+
+
+.top-section-container-wrap
+  width var(--top-sub-width)
+  margin-bottom 27px
+  border-left 1px solid #CCC
+
+.top-section-container
+  margin-left 23px
+  .text-box
+    min-height 130px
+    margin-bottom 30px
+
+.text-box
+  width 100%
+  min-height 90px
+  margin-bottom 20px
+  overflow hidden
+  .title
+    margin-bottom 5px
+    a
+      font-size 16px
+  .meta-info
+    margin-bottom 5px
+  .description-text
+    font-size 12px
 
 .list-container
-  grid-column 1 / 6
-  max-width 710px
+  max-width 800px
   display flex
   overflow hidden
   border-top 1px solid #e0e0e0
   padding 12px 6px
-
   .text-box
     flex 1
-
+    margin-top 5px
+    a
+      font-size 17px
   .thumbnail-box
     width 120px
     height 90px
     margin 10px 0px
-    margin-right 25px
-
+    margin-right 28px
     a img
       object-fit cover
       width 120px
       height 90px
+  .meta-info
+    margin-bottom 10px
 
 
 @media screen and (max-width: 480px)
