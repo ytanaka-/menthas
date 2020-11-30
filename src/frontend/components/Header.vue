@@ -23,17 +23,18 @@ export default {
 <style lang="stylus">
 .header
   width 100%
-  height 62px
+  height 65px
   background #222
 .header-container
-  max-width 950px
+  max-width 1030px
   margin 0 auto
 .logo
   padding 7px
+  margin-left 5px
 
 .logo-img
   width auto
-  height 48px
+  height 50px
   background: url("../images/logo.svg") no-repeat
 
 @media screen and (max-width: 480px)

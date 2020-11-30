@@ -40,6 +40,8 @@ html
 body
   background-color #FFF
   font-size 100%
+
+.app
   height 100%
   width 100%
 

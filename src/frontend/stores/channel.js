@@ -7,7 +7,8 @@ export default {
     pages: [],
     top: {
       main: null,
-      sub: []
+      sub: [],
+      sections: []
     }
   },
   mutations: {
@@ -19,18 +20,19 @@ export default {
       // channel更新時のためにtopを初期化
       state.top.main = null
       state.top.sub = []
+      state.top.sections = []
       const selections = []
       const now = moment()
       const pages = payload.pages
       pages.forEach((page, i) => {
         const curatedTime = moment(page.curated_at)
         const diff = now.diff(curatedTime, 'hours')
-        if(diff < 3){
+        if(diff < 6){
           page.isNew = true
         }
         const scores = page.scores
         scores.forEach((score) => {
-          if (score.score >= 5) {
+          if (score.score > 6) {
             page.isInfluential = true
           }
           if (score.score >= 3) {
@@ -43,22 +45,24 @@ export default {
         })
       })
 
-      // 上位3つをtop領域に割り当てるための処理
+      // 上位7つをtop領域に割り当てるための処理
       pages.some((page, i) => {
-        if (i >= 3) {
+        if (i >= 7) {
           return true
         }
         selections.push(i);
       })
       selections.forEach((index, i)=>{
+        // サムネイルが設定されていない場合はここで代替
+        if (!pages[index].thumbnail) {
+          pages[index].thumbnail = "/images/no-image.png";
+        }
         if (i == 0){
-          // サムネイルが設定されていない場合はここで代替
-          if (!pages[index].thumbnail) {
-            pages[index].thumbnail = "/images/no-image.png";
-          }
           state.top.main = pages[index]
-        }else{
+        } else if (i < 3){
           state.top.sub.push(pages[index])
+        } else {
+          state.top.sections.push(pages[index])
         }
       })
       

@@ -1,0 +1,6 @@
+bottle==0.12.18
+gensim==3.8.3
+numpy==1.18.5
+pymongo==3.11.0
+scikit-learn==0.23.2
+dnspython==2.0.0
