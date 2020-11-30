@@ -30,6 +30,7 @@ export default {
   margin 0 auto
 .logo
   padding 7px
+  margin-left 5px
 
 .logo-img
   width auto

@@ -227,7 +227,7 @@ export default {
   --list-width "min(100vw, 1030px)" % null
   --top-main-width calc(var(--list-width) * 5.6/10)
   --top-sub-width calc(var(--list-width) * 4.4/10)
-  --top-main-image-height calc(var(--top-main-width) * 4.4/10)
+  --top-main-image-height calc(var(--top-main-width) * 4.55/10)
   --top-sub-image-height calc(var(--top-sub-width) * 3.7/10)
 
 .newslist
@@ -260,7 +260,7 @@ export default {
   width var(--top-main-width)
   display flex
   box-sizing border-box
-  padding-right 5px
+  padding-right 2px
 
 .title
   display -webkit-box
@@ -301,7 +301,7 @@ export default {
 .top-box
   display flex
   flex-direction column
-  margin-right 25px
+  margin-right 26px
   margin-bottom 26px
   padding-bottom 19px
   border-bottom 1px solid #ccc
@@ -311,18 +311,17 @@ export default {
       object-fit cover
       width 100%
       height var(--top-main-image-height)
-      clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
-      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
+      clip-path polygon(0 0, 100% 0, 100% 100%, 0 99%)
+      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 99%)
   .title
-    margin-top 6px
+    margin-top 8px
     margin-bottom 8px
     a
-      font-size 20px
-      line-height 1.5
+      font-size 19px
 
 .top-sub-container
   width calc(100% * 1/2)
-  margin-right 20px
+  margin-right 23px
   .thumbnail-box
     a img
       object-fit cover
@@ -349,7 +348,7 @@ export default {
   border-left 1px solid #CCC
 
 .top-section-container
-  margin-left 23px
+  margin-left 24px
   .text-box
     min-height 130px
     margin-bottom 25px
@@ -357,7 +356,7 @@ export default {
 .text-box
   width 100%
   min-height 100px
-  margin-bottom 22px
+  margin-bottom 20px
   .title
     margin-bottom 5px
     a
