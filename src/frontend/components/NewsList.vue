@@ -227,8 +227,8 @@ export default {
   --list-width "min(100vw, 1030px)" % null
   --top-main-width calc(var(--list-width) * 5.6/10)
   --top-sub-width calc(var(--list-width) * 4.4/10)
-  --top-main-image-height calc(var(--top-main-width) * 4.5/10)
-  --top-sub-image-height calc(var(--top-sub-width) * 3.9/10)
+  --top-main-image-height calc(var(--top-main-width) * 4.4/10)
+  --top-sub-image-height calc(var(--top-sub-width) * 3.7/10)
 
 .newslist
   max-width var(--list-width)
@@ -259,6 +259,8 @@ export default {
 .top-sub-container-wrap
   width var(--top-main-width)
   display flex
+  box-sizing border-box
+  padding-right 5px
 
 .title
   display -webkit-box
@@ -299,12 +301,12 @@ export default {
 .top-box
   display flex
   flex-direction column
-  margin-right 27px
-  margin-bottom 25px
+  margin-right 25px
+  margin-bottom 26px
   padding-bottom 19px
   border-bottom 1px solid #ccc
   .thumbnail-box
-    margin-top 4px
+    margin-top 2px
     a img
       object-fit cover
       width 100%
@@ -320,14 +322,14 @@ export default {
 
 .top-sub-container
   width calc(100% * 1/2)
-  margin-right 27px
+  margin-right 20px
   .thumbnail-box
     a img
       object-fit cover
       width 100%
       height var(--top-sub-image-height)
-      clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
-      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 98%)
+      clip-path polygon(0 0, 100% 0, 100% 100%, 0 99%)
+      -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 99%)
   .title
     margin-top 4px
     margin-bottom 5px
@@ -338,7 +340,7 @@ export default {
   .meta-info
     margin 2px 0px
   .text-box
-    min-height 90px
+    min-height 85px
 
 
 .top-section-container-wrap
@@ -350,12 +352,12 @@ export default {
   margin-left 23px
   .text-box
     min-height 130px
-    margin-bottom 30px
+    margin-bottom 25px
 
 .text-box
   width 100%
   min-height 100px
-  margin-bottom 20px
+  margin-bottom 22px
   .title
     margin-bottom 5px
     a
@@ -379,7 +381,7 @@ export default {
     width 120px
     height 90px
     margin 10px 0px
-    margin-right 28px
+    margin-right 20px
     a img
       object-fit cover
       width 120px
