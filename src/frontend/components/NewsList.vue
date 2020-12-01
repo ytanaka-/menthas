@@ -413,7 +413,7 @@ export default {
         height 120px
     .title
       a
-        font-size 15px
+        font-size 16px
         line-height 1.4
 
   .text-box
@@ -464,14 +464,14 @@ export default {
     .text-box
       margin-bottom 6px
       a
-        font-size 15px
+        font-size 16px
     .description
       .description-text
         font-size 12px
         line-height 1.4
   .title
     a
-      font-size 15px
+      font-size 16px
       line-height 1.5
   .description
     -webkit-line-clamp 2
