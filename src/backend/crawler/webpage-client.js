@@ -22,11 +22,7 @@ class WebPageClient {
         // 短縮URLやリダイレクトされていると同じエントリが重複して生成されてしまう
         let page = {
           url: res.request.href,
-          title: $("title").text(),
-          redirected: false
-        }
-        if (url != res.request.href) {
-          page.redirected = true
+          title: $("title").text()
         }
         if (!validator.isURL(url, { protocols: ['http','https']})) {
           return reject(new Error("Failed to validate URL."));

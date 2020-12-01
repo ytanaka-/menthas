@@ -356,7 +356,7 @@ export default {
 .text-box
   width 100%
   min-height 100px
-  margin-bottom 20px
+  margin-bottom 15px
   .title
     margin-bottom 5px
     a
@@ -402,8 +402,10 @@ export default {
 
   .top-sub-container
     width 100%
-    padding-top 20px
+    padding-top 15px
     border-top 1px solid #ccc
+    .text-box
+      min-height 75px
     .thumbnail-box
       a img
         object-fit cover
@@ -411,7 +413,7 @@ export default {
         height 120px
     .title
       a
-        font-size 17px
+        font-size 15px
         line-height 1.4
 
   .text-box
@@ -419,7 +421,7 @@ export default {
 
   .top-section-container-wrap
     width 100%
-    margin-bottom 20px
+    margin-bottom 15px
     border-left 0px solid #CCC
 
   .top-section-container
@@ -429,10 +431,11 @@ export default {
 
   .top-box
     margin-right 0px
-    margin-bottom 10px
+    margin-bottom 5px
+    border-bottom 0px solid #ccc;
     .title
       a
-        font-size 17px
+        font-size 16px
         line-height 1.4
     .thumbnail-box
       a img
@@ -441,6 +444,7 @@ export default {
 
   .list-container
     padding 10px 6px
+    min-height 140px
     .thumbnail-box
       width 72px
       height 54px
@@ -459,13 +463,17 @@ export default {
       font-size 11px
     .text-box
       margin-bottom 6px
+      a
+        font-size 15px
     .description
       .description-text
         font-size 12px
         line-height 1.4
   .title
     a
-      font-size 16px
+      font-size 15px
       line-height 1.5
+  .description
+    -webkit-line-clamp 2
 
 </style>
