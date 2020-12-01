@@ -64,10 +64,10 @@ class NewsCrawler {
         }
         const recentLinks = [];
         const now = new Date();
-        // 3日以上古いブクマは対象外とする
+        // 1日以上古いブクマは対象外とする
         for (const link of links) {
           const diff = (now - new Date(link.date)) / (1000 * 60 * 60 * 24);
-          if (diff < 3) {
+          if (diff < 1) {
             recentLinks.push(link);
           }
         }
