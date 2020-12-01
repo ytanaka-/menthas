@@ -230,6 +230,9 @@ export default {
   --top-main-image-height calc(var(--top-main-width) * 4.55/10)
   --top-sub-image-height calc(var(--top-sub-width) * 3.7/10)
 
+a
+  text-decoration none
+
 .newslist
   max-width var(--list-width)
   margin 0 auto
@@ -238,11 +241,8 @@ export default {
     color #17538a
     font-weight bold
     font-size 22px
-    word-wrap break-word
-    text-decoration none
   a:visited
     color #6991b8
-    text-decoration: none
   a:hover, a:focus
     text-decoration underline
 
@@ -405,7 +405,7 @@ export default {
     padding-top 15px
     border-top 1px solid #ccc
     .text-box
-      min-height 75px
+      min-height 80px
     .thumbnail-box
       a img
         object-fit cover
@@ -421,7 +421,7 @@ export default {
 
   .top-section-container-wrap
     width 100%
-    margin-bottom 15px
+    margin-bottom 20px
     border-left 0px solid #CCC
 
   .top-section-container
@@ -431,7 +431,7 @@ export default {
 
   .top-box
     margin-right 0px
-    margin-bottom 5px
+    margin-bottom 10px
     border-bottom 0px solid #ccc;
     .title
       a
@@ -444,15 +444,15 @@ export default {
 
   .list-container
     padding 10px 6px
-    min-height 140px
+    min-height 150px
     .thumbnail-box
-      width 72px
-      height 54px
+      width 68px
+      height 51px
       margin-right 15px
       a img
         object-fit cover
-        width 72px
-        height 54px
+        width 68px
+        height 51px
     .meta-info
       .meta-info-text
         font-size 11px

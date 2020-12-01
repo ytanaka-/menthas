@@ -34,6 +34,12 @@ router.get('/channels/:name', (req, res) => {
     }
     return PageService.curatedNewsSelectByCategory(channel.name, channel.categories, CURATED_THRESHOLD, PAGE_SIZE)
   }).then((pages)=>{
+    pages.forEach((page) => {
+      const description = page.description;
+      if (description && description.length > 300) {
+        page.description = description.substr(0, 300);
+      }
+    })
     return res.json({
       pages: pages
     });
