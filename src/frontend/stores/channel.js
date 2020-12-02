@@ -27,7 +27,7 @@ export default {
       pages.forEach((page, i) => {
         const curatedTime = moment(page.curated_at)
         const diff = now.diff(curatedTime, 'hours')
-        if(diff < 12){
+        if(diff < 8){
           page.isNew = true
         }
         const scores = page.scores
