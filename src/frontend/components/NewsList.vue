@@ -444,10 +444,11 @@ a
 
   .list-container
     padding 10px 6px
-    min-height 150px
+    min-height 130px
     .thumbnail-box
       width 68px
       height 51px
+      padding-top 1px
       margin-right 15px
       a img
         object-fit cover
@@ -473,7 +474,5 @@ a
     a
       font-size 16px
       line-height 1.5
-  .description
-    -webkit-line-clamp 2
 
 </style>
