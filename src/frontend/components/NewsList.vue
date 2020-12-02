@@ -370,7 +370,7 @@ a
   max-width 800px
   display flex
   border-top 1px solid #ccc
-  padding 12px 6px
+  padding 11px 6px
   .text-box
     flex 1
     margin-top 5px
