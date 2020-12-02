@@ -390,6 +390,10 @@ a
 
 
 @media screen and (max-width: 480px)
+  .newslist
+    padding-top 15px
+  .news-container
+    padding 0 15px
   .top-container-wrap
     display block
   
@@ -405,7 +409,7 @@ a
     padding-top 15px
     border-top 1px solid #ccc
     .text-box
-      min-height 80px
+      min-height 75px
     .thumbnail-box
       a img
         object-fit cover
@@ -446,14 +450,14 @@ a
     padding 10px 6px
     min-height 130px
     .thumbnail-box
-      width 68px
-      height 51px
+      width 64px
+      height 48px
       padding-top 1px
       margin-right 15px
       a img
         object-fit cover
-        width 68px
-        height 51px
+        width 64px
+        height 48px
     .meta-info
       .meta-info-text
         font-size 11px

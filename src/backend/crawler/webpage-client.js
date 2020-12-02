@@ -24,17 +24,22 @@ class WebPageClient {
           url: res.request.href,
           title: $("title").text()
         }
-        if (!validator.isURL(url, { protocols: ['http','https']})) {
+        // canonical属性がある場合はそのURLを優先して二重登録を防ぐ
+        const canonial = $("link[rel='canonical']").attr('href');
+        if (canonial) {
+          page.url = canonial;
+        }
+        if (!validator.isURL(page.url, { protocols: ['http','https']})) {
           return reject(new Error("Failed to validate URL."));
         }
-        if (typeof page.title === "undefined" || page.title === "") {
-          return reject(new Error("Page title is empty."));
-        }
-
+        
         // og:titleがある場合はそちらを優先
         const ogTitle = $("meta[property='og:title']").attr("content");
         if (typeof ogTitle !== "undefined" && ogTitle !== "") {
           page.title = ogTitle;
+        }
+        if (typeof page.title === "undefined" || page.title === "") {
+          return reject(new Error("Page title is empty."));
         }
 
         page.thumbnail = $("meta[property='og:image']").attr("content");
