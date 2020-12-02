@@ -224,7 +224,7 @@ export default {
 
 <style lang="stylus">
 :root
-  --list-width "min(100vw, 1030px)" % null
+  --list-width "min(100vw, 1000px)" % null
   --top-main-width calc(var(--list-width) * 5.6/10)
   --top-sub-width calc(var(--list-width) * 4.4/10)
   --top-main-image-height calc(var(--top-main-width) * 4.55/10)

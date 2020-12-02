@@ -26,11 +26,11 @@ export default {
   height 65px
   background #222
 .header-container
-  max-width 1030px
+  max-width 1000px
   margin 0 auto
 .logo
   padding 7px
-  margin-left 5px
+  margin-left 3px
 
 .logo-img
   width auto
