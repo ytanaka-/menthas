@@ -367,7 +367,7 @@ a
     font-size 12px
 
 .list-container
-  max-width 800px
+  max-width 785px
   display flex
   border-top 1px solid #ccc
   padding 11px 6px
