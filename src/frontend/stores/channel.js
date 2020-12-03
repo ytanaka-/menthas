@@ -1,5 +1,5 @@
 import APIClient from '../libs/api-client'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
   state: {
@@ -22,10 +22,10 @@ export default {
       state.top.sub = []
       state.top.sections = []
       const selections = []
-      const now = moment()
+      const now = dayjs()
       const pages = payload.pages
       pages.forEach((page, i) => {
-        const curatedTime = moment(page.curated_at)
+        const curatedTime = dayjs(page.curated_at)
         const diff = now.diff(curatedTime, 'hours')
         if(diff < 8){
           page.isNew = true

@@ -1,5 +1,5 @@
 const Page = require("./page")
-const moment = require('moment')
+const dayjs = require('dayjs')
 const config = require('config')
 const TOP_SELECTION_SIZE = config.top_selection_size
 const SELECTION_SIZE = config.selection_size
@@ -38,7 +38,7 @@ class PageService {
     }
     const selectedPages = []
     const selectedPageUnions = []
-    const now = moment()
+    const now = dayjs()
     // categoriesはmongooseのidの配列なので文字列にする
     const _categories = []
     categories.forEach((category)=>{
@@ -49,7 +49,7 @@ class PageService {
       pages.forEach((page, index) => {
         const scores = page.scores
         const hostName = page.host_name
-        const curatedTime = moment(page.curated_at)
+        const curatedTime = dayjs(page.curated_at)
         const diff = now.diff(curatedTime, 'hours')
         const category = {}
         scores.forEach((score) => {
