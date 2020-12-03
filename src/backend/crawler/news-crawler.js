@@ -59,7 +59,6 @@ class NewsCrawler {
     return new Promise((resolve, reject) => {
       hatebuClient.getBookmarkerLinkList(curator, 0, (err, links) => {
         if (err) {
-          console.error(err);
           return reject(err);
         }
         const recentLinks = [];
