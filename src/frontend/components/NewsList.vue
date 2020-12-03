@@ -227,7 +227,7 @@ export default {
   --list-width "min(100vw, 1000px)" % null
   --top-main-width calc(var(--list-width) * 5.6/10)
   --top-sub-width calc(var(--list-width) * 4.4/10)
-  --top-main-image-height calc(var(--top-main-width) * 4.55/10)
+  --top-main-image-height calc(var(--top-main-width) * 4.5/10)
   --top-sub-image-height calc(var(--top-sub-width) * 3.7/10)
 
 a
@@ -314,7 +314,7 @@ a
       clip-path polygon(0 0, 100% 0, 100% 100%, 0 99%)
       -webkit-clip-path polygon(0 0, 100% 0, 100% 100%, 0 99%)
   .title
-    margin-top 8px
+    margin-top 6px
     margin-bottom 8px
     a
       font-size 19px
