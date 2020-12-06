@@ -1,8 +1,10 @@
 import APIClient from '../libs/api-client'
 import dayjs from 'dayjs'
+const delayMs = 100;
 
 export default {
   state: {
+    loading: false,
     channels: [],
     pages: [],
     top: {
@@ -12,6 +14,9 @@ export default {
     }
   },
   mutations: {
+    setLoading(state, payload) {
+      state.loading = payload.loading
+    },
     setChannels(state, payload) {
       state.channels = payload.channels
     },
@@ -100,6 +105,10 @@ export default {
     },
 
     getChannelPages({ commit }, channelName) {
+      // ProgressTimeLatchを導入する。delayMsが経つまではtrueにしない
+      const timeoutID = setTimeout(() => {
+        commit('setLoading', {loading: true})
+      }, delayMs);
       APIClient.getChannel(channelName)
         .then((result) => {
           const status = result.status;
@@ -109,6 +118,8 @@ export default {
                 pages: data.pages,
                 channelName: channelName
               })
+              clearTimeout(timeoutID);
+              commit('setLoading', {loading: false})
             }).catch((error) => {
               throw error;
             })
@@ -116,11 +127,16 @@ export default {
             throw new Error(`[ServerError] StatusCode:${status}`)
           }
         }).catch((error) => {
+          clearTimeout(timeoutID);
+          commit('setLoading', {loading: false})
           commit('setError', error)
         })
     }
   },
   getters: {
+    loading(state) {
+      return state.loading
+    },
     channels(state) {
       return state.channels
     },

@@ -1,138 +1,149 @@
 <template>
   <div class="newslist" v-touch:swipe="swipeHandler">
     <div class="news-container">
-      <div class="top-container-wrap">
-      <template v-if="top.main != null">
-        <div class="top-left-container">
-          <div class="top-main-container">
-            <div class="top-box">
-            <div class="thumbnail-box">
-              <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank" rel="noopener">
-                <img v-bind:src="top.main.thumbnail" @error="imageLoadError"/>
-              </a>
-            </div>
-            <div class="title">
-              <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank" rel="noopener">
-                <p>{{top.main.title}}</p>
-              </a>
-            </div>
-            <div class="meta-info">
-              <p class="meta-info-text">
-                from: {{top.main.host_name}}, {{top.main.categoriesStr}}
-              <template v-if="top.main.isInfluential == true">
-                ,
-                <span class="highly-influential">Highly Influential News</span>
-              </template>
-              <template v-if="top.main.isNew == true">
-                ,
-                <span class="new">New!</span>
-              </template>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="top-sub-container-wrap">
-        <template v-for="sub in top.sub">
-          <div class="top-sub-container" v-bind:key="sub._id">
-            <div class="thumbnail-box">
-              <a v-bind:href="sub.url" v-on:click="sendGAClick(sub.url, 1)" target="_blank" rel="noopener">
-                <img v-bind:src="sub.thumbnail" @error="imageLoadError"/>
-              </a>
-              </div>
-            <div class="text-box">
-              <div class="title">
-                <a v-bind:href="sub.url" v-on:click="sendGAClick(sub.url, 2)" target="_blank" rel="noopener">
-                  <p>{{sub.title}}</p>
-                </a>
-              </div>
-              <div class="meta-info">
-                <p class="meta-info-text">
-                  from: {{sub.host_name}}, {{sub.categoriesStr}}
-                <template v-if="sub.isInfluential == true">
-                  ,
-                  <span class="highly-influential">Highly Influential News</span>
-                </template>
-                <template v-if="sub.isNew == true">
-                  ,
-                  <span class="new">New!</span>
-                </template>
-                </p>
-              </div>
-            </div>
-          </div>
-        </template>
-        </div>
-        </div>
-        <div class="top-section-container-wrap">
-          <template v-for="item in top.sections">
-            <div class="top-section-container" v-bind:key="item._id">
-              <div class="text-box">
+      <template v-if="loading">
+        <vue-loading class="loading" type="bars" color="#333" :size="{ width: '24px', height: '24px' }"/>
+      </template>
+      <template v-else>
+        <div class="top-container-wrap">
+        <template v-if="top.main != null">
+          <div class="top-left-container">
+            <div class="top-main-container">
+              <div class="top-box">
+                <div class="thumbnail-box">
+                  <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank" rel="noopener">
+                    <img v-bind:src="top.main.thumbnail" @error="imageLoadError"/>
+                  </a>
+                </div>
                 <div class="title">
-                  <a v-bind:href="item.url" v-on:click="sendGAClick(item.url, 2)" target="_blank" rel="noopener">
-                    <p>{{item.title}}</p>
+                  <a v-bind:href="top.main.url" v-on:click="sendGAClick(top.main.url, 1)" target="_blank" rel="noopener">
+                    <p>{{top.main.title}}</p>
                   </a>
                 </div>
                 <div class="meta-info">
                   <p class="meta-info-text">
-                    from: {{item.host_name}}, {{item.categoriesStr}}
-                  <template v-if="item.isInfluential == true">
+                    from: {{top.main.host_name}}, {{top.main.categoriesStr}}
+                  <template v-if="top.main.isInfluential == true">
                     ,
                     <span class="highly-influential">Highly Influential News</span>
                   </template>
-                  <template v-if="item.isNew == true">
+                  <template v-if="top.main.isNew == true">
                     ,
                     <span class="new">New!</span>
                   </template>
                   </p>
                 </div>
-                <div class="description">
-                  <p class="description-text">{{item.description}}</p>
-                </div>
               </div>
             </div>
-          </template>
-        </div>
-      </template>
-      </div>
-      <template v-for="page in pages">
-        <div class="list-container" v-bind:key="page._id">
-          <div class="thumbnail-box">
-            <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank" rel="noopener">
-              <img v-bind:src="page.thumbnail" @error="listImageLoadError"/>
-            </a>
+            <div class="top-sub-container-wrap">
+            <template v-for="sub in top.sub">
+              <div class="top-sub-container" v-bind:key="sub._id">
+                <div class="thumbnail-box">
+                  <a v-bind:href="sub.url" v-on:click="sendGAClick(sub.url, 1)" target="_blank" rel="noopener">
+                    <img v-bind:src="sub.thumbnail" @error="imageLoadError"/>
+                  </a>
+                  </div>
+                <div class="text-box">
+                  <div class="title">
+                    <a v-bind:href="sub.url" v-on:click="sendGAClick(sub.url, 2)" target="_blank" rel="noopener">
+                      <p>{{sub.title}}</p>
+                    </a>
+                  </div>
+                  <div class="meta-info">
+                    <p class="meta-info-text">
+                      from: {{sub.host_name}}, {{sub.categoriesStr}}
+                    <template v-if="sub.isInfluential == true">
+                      ,
+                      <span class="highly-influential">Highly Influential News</span>
+                    </template>
+                    <template v-if="sub.isNew == true">
+                      ,
+                      <span class="new">New!</span>
+                    </template>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </template>
+            </div>
           </div>
-          <div class="text-box">
-            <div class="title">
+          <div class="top-section-container-wrap">
+            <template v-for="item in top.sections">
+              <div class="top-section-container" v-bind:key="item._id">
+                <div class="text-box">
+                  <div class="title">
+                    <a v-bind:href="item.url" v-on:click="sendGAClick(item.url, 2)" target="_blank" rel="noopener">
+                      <p>{{item.title}}</p>
+                    </a>
+                  </div>
+                  <div class="meta-info">
+                    <p class="meta-info-text">
+                      from: {{item.host_name}}, {{item.categoriesStr}}
+                    <template v-if="item.isInfluential == true">
+                      ,
+                      <span class="highly-influential">Highly Influential News</span>
+                    </template>
+                    <template v-if="item.isNew == true">
+                      ,
+                       <span class="new">New!</span>
+                    </template>
+                    </p>
+                  </div>
+                  <div class="description">
+                    <p class="description-text">{{item.description}}</p>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+        </div>
+        <template v-for="page in pages">
+          <div class="list-container" v-bind:key="page._id">
+            <div class="thumbnail-box">
               <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank" rel="noopener">
-                <p>{{page.title}}</p>
+                <img v-bind:src="page.thumbnail" @error="listImageLoadError"/>
               </a>
             </div>
-            <div class="meta-info">
-              <p class="meta-info-text">
-                from: {{page.host_name}}, {{page.categoriesStr}}
-              <template v-if="page.isInfluential == true">
-                ,
-                <span class="highly-influential">Highly Influential News</span>
-              </template>
-              <template v-if="page.isNew == true">
-                ,
-                <span class="new">New!</span>
-              </template>
-              </p>
-            </div>
-            <div class="description">
-              <p class="description-text">{{page.description}}</p>
+            <div class="text-box">
+              <div class="title">
+                <a v-bind:href="page.url" v-on:click="sendGAClick(page.url)" target="_blank" rel="noopener">
+                  <p>{{page.title}}</p>
+                </a>
+              </div>
+              <div class="meta-info">
+                <p class="meta-info-text">
+                  from: {{page.host_name}}, {{page.categoriesStr}}
+                <template v-if="page.isInfluential == true">
+                  ,
+                  <span class="highly-influential">Highly Influential News</span>
+                </template>
+                <template v-if="page.isNew == true">
+                  ,
+                  <span class="new">New!</span>
+                </template>
+                </p>
+              </div>
+              <div class="description">
+                <p class="description-text">{{page.description}}</p>
+              </div>
             </div>
           </div>
-        </div>
+        </template>
       </template>
     </div>
   </div>
 </template>
 
 <script>
+import { VueLoading } from 'vue-loading-template'
+
 export default {
   name: "NewsList",
+
+  components: {
+    VueLoading
+  },
 
   props: {
     channel: String
@@ -158,6 +169,9 @@ export default {
     }
   },
   computed: {
+    loading() {
+      return this.$store.getters.loading;
+    },
     pages() {
       return this.$store.getters.pages;
     },
@@ -233,6 +247,9 @@ export default {
 a
   text-decoration none
 
+.loading
+  padding-bottom 15px
+
 .newslist
   max-width var(--list-width)
   margin 0 auto
@@ -247,6 +264,7 @@ a
     text-decoration underline
 
 .news-container
+  min-height 100vh
   margin auto
   padding 0 20px
 
