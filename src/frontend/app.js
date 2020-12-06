@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
 import Vue2TouchEvents from 'vue2-touch-events'
+import VueLoading from 'vue-loading-template'
 import App from './components/App.vue'
 import NewsList from './components/NewsList.vue'
 import { store } from './stores/index'
@@ -27,6 +28,7 @@ router.afterEach((to, from) => {
 })
 
 Vue.use(VueRouter);
+Vue.use(VueLoading);
 Vue.use(Vue2TouchEvents, { swipeTolerance: 150 });
 
 new Vue({
