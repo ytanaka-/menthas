@@ -2,7 +2,7 @@
   <div v-show="pages.length > 0" class="footer">
     <div class="footer-container">
       <div class="info1">
-        <span>Menthas関連リンク: 仕組み(準備中), <a href="https://twitter.com/_ytanaka_">開発者Twitter</a>, <a href="https://github.com/ytanaka-/menthas">Github</a></span>
+        <span>Menthas関連リンク: <a href="/privacy_policy">プライバシーポリシー</a>, <a href="https://twitter.com/_ytanaka_">開発者Twitter</a>, <a href="https://github.com/ytanaka-/menthas">Github</a></span>
       </div>
       <div class="info2">
         <span>Menthasはユーザビリティの改善や分析のためGoogleAnalyticsを使用しています</span>

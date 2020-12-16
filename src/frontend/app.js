@@ -4,12 +4,14 @@ import Vue2TouchEvents from 'vue2-touch-events'
 import VueLoading from 'vue-loading-template'
 import App from './components/App.vue'
 import NewsList from './components/NewsList.vue'
+import PrivacyPolicy from './components/PrivacyPolicy.vue'
 import { store } from './stores/index'
 
 const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/', component: NewsList },
+    { path: '/privacy_policy', component: PrivacyPolicy },
     { path: '/:channel', component: NewsList, props: true }
   ],
   scrollBehavior (to, from, savedPosition) {
