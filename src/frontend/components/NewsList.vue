@@ -241,7 +241,7 @@ export default {
   --list-width "min(100vw, 1000px)" % null
   --top-main-width calc(var(--list-width) * 5.6/10)
   --top-sub-width calc(var(--list-width) * 4.4/10)
-  --top-main-image-height calc(var(--top-main-width) * 4.5/10)
+  --top-main-image-height calc(var(--top-main-width) * 4.4/10)
   --top-sub-image-height calc(var(--top-sub-width) * 3.7/10)
 
 a
@@ -362,7 +362,7 @@ a
 
 .top-section-container-wrap
   width var(--top-sub-width)
-  margin-bottom 27px
+  margin-bottom 25px
   border-left 1px solid #CCC
 
 .top-section-container
