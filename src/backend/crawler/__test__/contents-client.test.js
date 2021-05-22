@@ -21,24 +21,22 @@ describe('unit test', () => {
   });
 
   it("getFeatures", () => {
-    const _str = "Node.js\nJavaScriptについて";
+    const _str = "TypeScriptとJavaScriptについて";
     const result = contentsClient.getFeatures(_str);
-    expect(result).toEqual(["Node.js", "JavaScript"]);
+    expect(result).toEqual(["TypeScript", "JavaScript"]);
   });
 
-  it("extractTokenizedFeatures", () => {
-    const _tokens = [
-      ['Test', '名詞', '固有名詞', '組織', '*', '*', '*', '*'],
-      [
-        '処理', '名詞',
-        'サ変接続', '*',
-        '*', '*',
-        '*', '処理',
-        'ショリ', 'ショリ'
-      ], ['EOS']
-    ]
-    const result = contentsClient.extractTokenizedFeatures(_tokens);
-    expect(result).toEqual(["Test", "処理"]);
+  it("extractFeatureSegments", () => {
+    const _tokens = ["これ","は","test","の","テスト","です","。"];
+    const result = contentsClient.extractFeatureSegments(_tokens);
+    expect(result).toEqual(["test", "テスト"]);
+  });
+
+  it("segmenter", () => {
+    const _str = "これはtestのテストです。文字列を分かち書きできるか判定します。";
+    const segs = contentsClient.getFeatures(_str);
+    const result = contentsClient.extractFeatureSegments(segs);
+    expect(result).toEqual(["test", "テスト", "文字列", "分かち", "書き", "判定"]);
   });
 
 });
