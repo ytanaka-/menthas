@@ -311,6 +311,8 @@ a
   -webkit-line-clamp 3
   -webkit-box-orient vertical
   overflow hidden
+  word-wrap break-word
+  word-break break-word
   .description-text
     font-size 13px
     line-height 1.4
