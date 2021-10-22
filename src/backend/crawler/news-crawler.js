@@ -120,7 +120,7 @@ class NewsCrawler {
       } else if (!isCuratedInCategory) {
         // 対象CuratorがまだCategoryのScoreに登録されていない場合
         let _score = 1;
-        const _str = page.title + "\n" + page.description;
+        const _str = page.title + " " + page.description;
         const features = contentsClient.getFeatures(_str);
         const similarity = await contentsClient.fetchSimilarity(category.name, features);
         if (similarity != 0.0) {
@@ -150,7 +150,7 @@ class NewsCrawler {
     try {
       const page = await webpageClient.fetch(url);
       let _score = 1;
-      const _str = page.title + "\n" + page.description;
+      const _str = page.title + " " + page.description;
       const features = contentsClient.getFeatures(_str);
       const similarity = await contentsClient.fetchSimilarity(category.name, features);
       if (similarity != 0.0) {
