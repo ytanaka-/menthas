@@ -39,7 +39,7 @@ class HatebuClient {
 
   getBookmarkerRSS(name, offset, cb) {
     let options = {
-      url: `http://b.hatena.ne.jp/${name}/rss?of=${offset}`,
+      url: `https://b.hatena.ne.jp/${name}/rss?of=${offset}`,
       headers: {
         "User-Agent": UA
       }
