@@ -179,7 +179,7 @@ ul {
 }
 
 .channel-section .router-link-active {
-    box-sizing: border-box border-box;
+    box-sizing: border-box;
     border-bottom: 2px solid #222;
 }
 

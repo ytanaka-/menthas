@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { getChannels } from '../libs/api-client';
 
 const Navigation = () => {
@@ -24,14 +24,14 @@ const Navigation = () => {
               return (
                 <li className="channel-section" key={channel.name}>
                   {channel.name === 'all' && (
-                    <Link to="/">
+                    <NavLink to="/" className={({ isActive }) => (isActive ? 'router-link-active' : '')}>
                       <span className="navigation-channel-text">{channel.title}</span>
-                    </Link>
+                    </NavLink>
                   )}
                   {channel.name !== 'all' && (
-                    <Link to={channel.name}>
+                    <NavLink to={channel.name} className={({ isActive }) => (isActive ? 'router-link-active' : '')}>
                       <span className="navigation-channel-text">{channel.title}</span>
-                    </Link>
+                    </NavLink>
                   )}
                 </li>
               )
