@@ -28,6 +28,7 @@
     "pug": "^3.0.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-loading": "^2.0.3",
     "react-router-dom": "^6.3.0",
     "rss": "^1.2.2",
     "serve-favicon": "^2.5.0",

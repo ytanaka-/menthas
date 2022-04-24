@@ -9,15 +9,6 @@ router.afterEach((to, from) => {
     gtag('config', 'UA-63592648-1', {'page_path': to.path});
   }
 })
-new Vue({
-  router,
-  store,
-  el: '#app',
-  render: h => h(App),
-  created () {
-    this.$store.dispatch('getChannels', {})
-  }
-});
 */
 
 const container = document.getElementById('app');

@@ -16,6 +16,7 @@ a {
 
 .newslist {
   max-width: var(--list-width);
+  min-height: 100vh;
   margin: 0 auto;
   padding-top: 20px;
 }
@@ -126,13 +127,23 @@ a {
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 99%);
 }
 
-.top-box .title {
+.top-box .text-box .title {
   margin-top: 6px;
   margin-bottom: 8px;
 }
 
-.top-box .title a {
+.top-box .text-box .title a {
   font-size: 19px;
+}
+
+/* 調整 */
+.top-main-container .text-box {
+  width: 100%;
+  min-height: 0px;
+  margin-bottom: 0px;
+}
+.top-main-container .text-box .meta-info {
+  margin-bottom: 0px;
 }
 
 .top-sub-container {
