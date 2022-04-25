@@ -25,77 +25,6 @@ const sendGAClick = (url, pos) => {
   }
 }
 
-function reduce(state, action) {
-  switch (action.type) {
-    case "setChannelPages":
-      return { ...state, pages: action.payload.pages, top: action.payload.top }
-    case "setLoading":
-      return { ...state, loading: action.payload.loading }
-    default:
-      throw new Error();
-  }
-}
-
-function createTopAndListNews(pages) {
-  const now = dayjs();
-  const top = {
-    main: null,
-    sub: [],
-    sections: []
-  };
-  const selections = [];
-  pages.forEach((page, i) => {
-    const curatedTime = dayjs(page.curated_at)
-    const diff = now.diff(curatedTime, 'hours')
-    if (diff < 8) {
-      page.isNew = true;
-    }
-    const scores = page.scores
-    scores.forEach((score) => {
-      if (score.score > 6) {
-        page.isInfluential = true;
-      }
-      if (score.score >= 3) {
-        if (!page.categoriesStr) {
-          page.categoriesStr = score.category.title
-        } else {
-          page.categoriesStr = page.categoriesStr + ", " + score.category.title
-        }
-      }
-    })
-  });
-  // 上位7つをtop領域に割り当てるための処理
-  pages.some((page, i) => {
-    if (i >= 7) {
-      return true;
-    }
-    selections.push(i);
-  })
-  selections.forEach((index, i) => {
-    // サムネイルが設定されていない場合はここで代替
-    if (!pages[index].thumbnail) {
-      pages[index].thumbnail = "/images/no-image.png";
-    }
-    if (i == 0) {
-      top.main = pages[index]
-    } else if (i < 3) {
-      top.sub.push(pages[index])
-    } else {
-      top.sections.push(pages[index])
-    }
-  });
-  const _pages = [];
-  pages.forEach((page, i) => {
-    if (!selections.includes(i)) {
-      if (!page.thumbnail) {
-        page.thumbnail = "/images/no-image-big.png";
-      }
-      _pages.push(page)
-    }
-  });
-  return { top, pages: _pages };
-}
-
 const NewsList = () => {
   const params = useParams();
   const [state, dispatch] = useReducer(reduce, {
@@ -139,6 +68,15 @@ const NewsList = () => {
     el.target.src = "/images/no-image-big.png";
   }
 
+  if (state.loading) {
+    return (
+      <div className="newslist">
+        <div className="loading">
+         <ReactLoading type={"bars"} color={"#333"} height={"24px"} width={"24px"}/>
+        </div>
+      </div>
+    )
+  }
   return (
     <>
       <div className="newslist">
@@ -226,6 +164,77 @@ const MetaInfo = ({ page, isDescription = true }) => {
       )}
     </div>
   );
+}
+
+function reduce(state, action) {
+  switch (action.type) {
+    case "setChannelPages":
+      return { ...state, pages: action.payload.pages, top: action.payload.top }
+    case "setLoading":
+      return { ...state, loading: action.payload.loading }
+    default:
+      throw new Error();
+  }
+}
+
+function createTopAndListNews(pages) {
+  const now = dayjs();
+  const top = {
+    main: null,
+    sub: [],
+    sections: []
+  };
+  const selections = [];
+  pages.forEach((page, i) => {
+    const curatedTime = dayjs(page.curated_at)
+    const diff = now.diff(curatedTime, 'hours')
+    if (diff < 8) {
+      page.isNew = true;
+    }
+    const scores = page.scores
+    scores.forEach((score) => {
+      if (score.score > 6) {
+        page.isInfluential = true;
+      }
+      if (score.score >= 3) {
+        if (!page.categoriesStr) {
+          page.categoriesStr = score.category.title
+        } else {
+          page.categoriesStr = page.categoriesStr + ", " + score.category.title
+        }
+      }
+    })
+  });
+  // 上位7つをtop領域に割り当てるための処理
+  pages.some((page, i) => {
+    if (i >= 7) {
+      return true;
+    }
+    selections.push(i);
+  })
+  selections.forEach((index, i) => {
+    // サムネイルが設定されていない場合はここで代替
+    if (!pages[index].thumbnail) {
+      pages[index].thumbnail = "/images/no-image.png";
+    }
+    if (i == 0) {
+      top.main = pages[index]
+    } else if (i < 3) {
+      top.sub.push(pages[index])
+    } else {
+      top.sections.push(pages[index])
+    }
+  });
+  const _pages = [];
+  pages.forEach((page, i) => {
+    if (!selections.includes(i)) {
+      if (!page.thumbnail) {
+        page.thumbnail = "/images/no-image-big.png";
+      }
+      _pages.push(page)
+    }
+  });
+  return { top, pages: _pages };
 }
 
 export default NewsList;
