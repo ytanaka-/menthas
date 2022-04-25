@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter,
   Routes,
   Route,
+  useLocation
 } from "react-router-dom";
 import Header from './Header.jsx';
 import Navigation from './Navigation.jsx';
@@ -13,7 +14,7 @@ import Footer from './Footer.jsx';
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="app">
+      <GtagWrapper>
         <Header />
         <Navigation />
         <Routes>
@@ -22,9 +23,24 @@ const App = () => {
           <Route index element={<NewsList />} />
         </Routes>
         <Footer />
-      </div>
+      </GtagWrapper>
     </BrowserRouter>
   );
+}
+
+const GtagWrapper = ({children}) => {
+  const location = useLocation();
+  useEffect(() => {
+    if (window.gtag != undefined) {
+      gtag('config', 'UA-63592648-1', {'page_path': location.pathname});
+    }
+  }, [location.pathname]);
+
+  return (
+    <div className="app">
+      {children}
+    </div>
+  )
 }
 
 export default App;
