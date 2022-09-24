@@ -1,20 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { getChannels } from '../libs/api-client';
 
-const Navigation = () => {
-  const [channels, setChannels] = useState([]);
-  useEffect(() => {
-    (async () => {
-      const result = await getChannels();
-      const status = result.status;
-      if (status === 200) {
-        const data = await result.json();
-        setChannels(data.channels);
-      }
-    })();
-  }, []);
-
+const Navigation = ({channels}) => {
+  
   return (
     <>
       <div className="navigation">

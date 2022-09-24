@@ -45,6 +45,24 @@ ul {
     background: url("../images/logo.svg") no-repeat;
 }
 
+.swipe {
+    width: 100vw;
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.swipe-item {
+    width: 100vw;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+}
+
+.swipe::-webkit-scrollbar {
+    display:none;
+}
+
 @media screen and (max-width: 480px) {
     .header {
         height: 55px;

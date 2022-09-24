@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer } from "react";
-import { useParams } from "react-router-dom";
 import { getChannel } from '../libs/api-client';
 import dayjs from 'dayjs';
 import ReactLoading from "react-loading";
@@ -7,26 +6,7 @@ import "../css/news-list.css";
 
 const delayMs = 100;
 
-const sendGAClick = (url, pos) => {
-  if (window.gtag != undefined) {
-    let position;
-    if (pos == 1) {
-      position = "position_top";
-    } else if (pos == 2) {
-      position = "position_side";
-    } else {
-      position = "position_list";
-    }
-    window.gtag('event', 'click', {
-      'event_category': position,
-      'event_label': url,
-      'transport_type': 'beacon'
-    });
-  }
-}
-
-const NewsList = () => {
-  const params = useParams();
+const NewsList = ({channelName}) => {
   const [state, dispatch] = useReducer(reduce, {
     loading: false,
     top: {
@@ -39,7 +19,6 @@ const NewsList = () => {
 
   useEffect(() => {
     (async () => {
-      const channelName = !params.channel ? "all" : params.channel;
       // ProgressTimeLatchを導入する。delayMsが経つまではtrueにしない
       const timeoutID = setTimeout(() => {
         dispatch({ type: 'setLoading', payload: { loading: true } });
@@ -58,7 +37,7 @@ const NewsList = () => {
       clearTimeout(timeoutID);
       dispatch({ type: 'setLoading', payload: { loading: false } });
     })();
-  }, [params.channel]);
+  }, [channelName]);
 
   const imageLoadError = (el) => {
     el.target.src = "/images/no-image.png";
@@ -235,6 +214,24 @@ function createTopAndListNews(pages) {
     }
   });
   return { top, pages: _pages };
+}
+
+const sendGAClick = (url, pos) => {
+  if (window.gtag != undefined) {
+    let position;
+    if (pos == 1) {
+      position = "position_top";
+    } else if (pos == 2) {
+      position = "position_side";
+    } else {
+      position = "position_list";
+    }
+    window.gtag('event', 'click', {
+      'event_category': position,
+      'event_label': url,
+      'transport_type': 'beacon'
+    });
+  }
 }
 
 export default NewsList;
