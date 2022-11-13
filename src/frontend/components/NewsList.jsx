@@ -1,4 +1,5 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useState, useReducer, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { getChannel } from '../libs/api-client';
 import dayjs from 'dayjs';
 import ReactLoading from "react-loading";
@@ -6,9 +7,8 @@ import "../css/news-list.css";
 
 const delayMs = 100;
 
-const NewsList = ({channelName}) => {
-  const [state, dispatch] = useReducer(reduce, {
-    loading: false,
+const NewsList = ({ state, dispatch }) => {
+  const [contents, setContents] = useState({
     top: {
       main: null,
       sub: [],
@@ -18,31 +18,43 @@ const NewsList = ({channelName}) => {
   });
 
   useEffect(() => {
-    (async () => {
-      // ProgressTimeLatchを導入する。delayMsが経つまではtrueにしない
-      const timeoutID = setTimeout(() => {
-        dispatch({ type: 'setLoading', payload: { loading: true } });
-      }, delayMs);
-      const result = await getChannel(channelName);
-      const status = result.status;
-      if (status === 200) {
-        const data = await result.json();
-        const { top, pages } = createTopAndListNews(data.pages);
-        dispatch({
-          type: 'setChannelPages', payload: {
+    const current = state.currentChannel;
+    if (state.news.has(current)) {
+      const { top, pages } = createTopAndListNews(state.news.get(current));
+      setContents({
+        top, pages
+      });
+    } else {
+      (async () => {
+        // ProgressTimeLatchを導入する。delayMsが経つまではtrueにしない
+        const timeoutID = setTimeout(() => {
+          dispatch({ type: 'setLoading', payload: { loading: true } });
+        }, delayMs);
+        const result = await getChannel(current);
+        const status = result.status;
+        if (status === 200) {
+          const data = await result.json();
+          const { top, pages } = createTopAndListNews(data.pages);
+          setContents({
             top, pages
-          }
-        });
-      }
-      clearTimeout(timeoutID);
-      dispatch({ type: 'setLoading', payload: { loading: false } });
-    })();
-  }, [channelName]);
+          });
+          dispatch({
+            type: 'setNews', payload: {
+              channel: current,
+              pages: data.pages
+            }
+          });
+        }
+        clearTimeout(timeoutID);
+        dispatch({ type: 'setLoading', payload: { loading: false } });
+      })();
+    }
+  }, [state.currentChannel]);
 
   const imageLoadError = (el) => {
     el.target.src = "/images/no-image.png";
   }
-  
+
   const listImageLoadError = (el) => {
     el.target.src = "/images/no-image-big.png";
   }
@@ -51,30 +63,31 @@ const NewsList = ({channelName}) => {
     return (
       <div className="newslist">
         <div className="loading">
-         <ReactLoading type={"bars"} color={"#333"} height={"24px"} width={"24px"}/>
+          <ReactLoading type={"bars"} color={"#333"} height={"24px"} width={"24px"} />
         </div>
       </div>
     )
   }
+
   return (
     <>
-      <div className="newslist">
+      <div className="newslist" >
         <div className="news-container">
           <div className="top-container-wrap">
-            {state.top.main !== null && (
+            {contents.top.main !== null && (
               <>
                 <div className="top-left-container">
                   <div className="top-main-container">
                     <div className="top-box">
-                      <Thumbnail page={state.top.main} onClick={() => sendGAClick(state.top.main.url, 1)} onLoadError={() => imageLoadError()} />
-                      <MetaInfo page={state.top.main} isDescription={false} />
+                      <Thumbnail page={contents.top.main} onLoadError={() => imageLoadError()} />
+                      <MetaInfo page={contents.top.main} isDescription={false} />
                     </div>
                   </div>
                   <div className="top-sub-container-wrap">
-                    {state.top.sub.map((page) => {
+                    {contents.top.sub.map((page) => {
                       return (
                         <div className="top-sub-container" key={page._id}>
-                          <Thumbnail page={page} onClick={() => sendGAClick(page.url, 1)} onLoadError={() => imageLoadError()} />
+                          <Thumbnail page={page} onLoadError={() => imageLoadError()} />
                           <MetaInfo page={page} isDescription={false} />
                         </div>
                       )
@@ -82,9 +95,9 @@ const NewsList = ({channelName}) => {
                   </div>
                 </div>
                 <div className="top-section-container-wrap">
-                  {state.top.sections.map((page) => {
+                  {contents.top.sections.map((page) => {
                     return (
-                      <div className="top-section-container" key={page._id} onClick={() => sendGAClick(page.url, 2)} >
+                      <div className="top-section-container" key={page._id} >
                         <MetaInfo page={page} />
                       </div>
                     );
@@ -93,10 +106,10 @@ const NewsList = ({channelName}) => {
               </>
             )}
           </div>
-          {state.pages.map((page) => {
+          {contents.pages.map((page) => {
             return (
               <div className="list-container" key={page._id}>
-                <Thumbnail page={page} onClick={() => sendGAClick(page.url)} onLoadError={() => listImageLoadError()} />
+                <Thumbnail page={page} onLoadError={() => listImageLoadError()} />
                 <MetaInfo page={page} />
               </div>
             );
@@ -121,7 +134,7 @@ const MetaInfo = ({ page, isDescription = true }) => {
   return (
     <div className="text-box">
       <div className="title">
-        <a href={page.url} onClick={sendGAClick(page.url)} target="_blank" rel="noopener">
+        <a href={page.url} target="_blank" rel="noopener">
           <p>{page.title}</p>
         </a>
       </div>
@@ -143,17 +156,6 @@ const MetaInfo = ({ page, isDescription = true }) => {
       )}
     </div>
   );
-}
-
-function reduce(state, action) {
-  switch (action.type) {
-    case "setChannelPages":
-      return { ...state, pages: action.payload.pages, top: action.payload.top }
-    case "setLoading":
-      return { ...state, loading: action.payload.loading }
-    default:
-      throw new Error();
-  }
 }
 
 function createTopAndListNews(pages) {
@@ -214,24 +216,6 @@ function createTopAndListNews(pages) {
     }
   });
   return { top, pages: _pages };
-}
-
-const sendGAClick = (url, pos) => {
-  if (window.gtag != undefined) {
-    let position;
-    if (pos == 1) {
-      position = "position_top";
-    } else if (pos == 2) {
-      position = "position_side";
-    } else {
-      position = "position_list";
-    }
-    window.gtag('event', 'click', {
-      'event_category': position,
-      'event_label': url,
-      'transport_type': 'beacon'
-    });
-  }
 }
 
 export default NewsList;

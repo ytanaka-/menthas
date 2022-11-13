@@ -48,13 +48,15 @@ ul {
 .swipe {
     width: 100vw;
     display: flex;
+    flex-flow: row nowrap;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
 }
 
 .swipe-item {
-    width: 100vw;
+    width: 100%;
+    flex-shrink: 0;
     scroll-snap-align: center;
     scroll-snap-stop: always;
 }
