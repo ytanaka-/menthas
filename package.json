@@ -48,7 +48,7 @@
     "nock": "^13.0.4",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
-    "svg-url-loader": "^2.3.2",
+    "svg-url-loader": "^8.0.0",
     "url-loader": "^1.0.1",
     "vue-loader": "^15.2.7",
     "vue-style-loader": "^4.1.1",
