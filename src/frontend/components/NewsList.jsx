@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useReducer, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { getChannel } from '../libs/api-client';
 import dayjs from 'dayjs';
 import ReactLoading from "react-loading";
@@ -7,7 +6,7 @@ import "../css/news-list.css";
 
 const delayMs = 100;
 
-const NewsList = ({ state, dispatch }) => {
+const NewsList = ({ category, state, dispatch }) => {
   const [contents, setContents] = useState({
     top: {
       main: null,
@@ -18,9 +17,8 @@ const NewsList = ({ state, dispatch }) => {
   });
 
   useEffect(() => {
-    const current = state.currentChannel;
-    if (state.news.has(current)) {
-      const { top, pages } = createTopAndListNews(state.news.get(current));
+    if (state.news.has(category)) {
+      const { top, pages } = createTopAndListNews(state.news.get(category));
       setContents({
         top, pages
       });
@@ -30,7 +28,7 @@ const NewsList = ({ state, dispatch }) => {
         const timeoutID = setTimeout(() => {
           dispatch({ type: 'setLoading', payload: { loading: true } });
         }, delayMs);
-        const result = await getChannel(current);
+        const result = await getChannel(category);
         const status = result.status;
         if (status === 200) {
           const data = await result.json();
@@ -40,7 +38,7 @@ const NewsList = ({ state, dispatch }) => {
           });
           dispatch({
             type: 'setNews', payload: {
-              channel: current,
+              channel: category,
               pages: data.pages
             }
           });
@@ -49,7 +47,7 @@ const NewsList = ({ state, dispatch }) => {
         dispatch({ type: 'setLoading', payload: { loading: false } });
       })();
     }
-  }, [state.currentChannel]);
+  }, [category]);
 
   const imageLoadError = (el) => {
     el.target.src = "/images/no-image.png";
@@ -180,7 +178,7 @@ function createTopAndListNews(pages) {
       if (score.score >= 3) {
         if (!page.categoriesStr) {
           page.categoriesStr = score.category.title
-        } else {
+        } else if (!page.categoriesStr.includes(page.categoriesStr)) {
           page.categoriesStr = page.categoriesStr + ", " + score.category.title
         }
       }

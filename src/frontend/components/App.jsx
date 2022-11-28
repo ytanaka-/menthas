@@ -1,11 +1,10 @@
-import React, { useEffect, useReducer, useContext } from "react";
+import React, { useEffect, useReducer } from "react";
 import {
   BrowserRouter,
   Routes,
   Route,
   useLocation
 } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import Header from './Header.jsx';
 import Navigation from './Navigation.jsx';
 import NewsList from './NewsList.jsx';
@@ -105,8 +104,11 @@ const SwipeWrapper = ({ state, dispatch }) => {
     <>
       <div className="swipe">
         <div className="swipe-item" >
-          <NewsList state={state} dispatch={dispatch} />
-        </div>    
+          <NewsList category={state.currentChannel} state={state} dispatch={dispatch} />
+        </div>   
+        <div className="swipe-item" >
+          <NewsList category={"javascript"} state={state} dispatch={dispatch} />
+        </div> 
       </div>
     </>
   );
