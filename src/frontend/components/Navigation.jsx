@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { MenthasContext } from "./App";
 
-const Navigation = ({currentChannel, channels}) => {
+const Navigation = () => {
+  const { state } = useContext(MenthasContext);
+  const { channels, currentChannel } = state;
   return (
     <>
       <div className="navigation">
@@ -21,7 +24,7 @@ const Navigation = ({currentChannel, channels}) => {
   );
 }
 
-const NavigationItem = ({currentChannel, channel}) => {
+const NavigationItem = ({ currentChannel, channel }) => {
   const isActive = currentChannel == channel.name;
   const to = channel.name === "all" ? "/" : channel.name;
   return (

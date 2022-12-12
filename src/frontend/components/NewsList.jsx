@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { getChannel } from '../libs/api-client';
 import dayjs from 'dayjs';
 import ReactLoading from "react-loading";
 import "../css/news-list.css";
+import { MenthasContext } from "./App";
 
 const delayMs = 100;
 
-const NewsList = ({ category, state, dispatch }) => {
+const NewsList = ({ category }) => {
+  const { state, dispatch } = useContext(MenthasContext);
+  const { news, loading } = state;
   const [contents, setContents] = useState({
     top: {
       main: null,
@@ -17,8 +20,8 @@ const NewsList = ({ category, state, dispatch }) => {
   });
 
   useEffect(() => {
-    if (state.news.has(category)) {
-      const { top, pages } = createTopAndListNews(state.news.get(category));
+    if (news.has(category)) {
+      const { top, pages } = createTopAndListNews(news.get(category));
       setContents({
         top, pages
       });
@@ -57,7 +60,7 @@ const NewsList = ({ category, state, dispatch }) => {
     el.target.src = "/images/no-image-big.png";
   }
 
-  if (state.loading) {
+  if (loading) {
     return (
       <div className="newslist">
         <div className="loading">
@@ -95,7 +98,7 @@ const NewsList = ({ category, state, dispatch }) => {
                 <div className="top-section-container-wrap">
                   {contents.top.sections.map((page) => {
                     return (
-                      <div className="top-section-container" key={page._id} >
+                      <div className="top-section-container" key={page._id}>
                         <MetaInfo page={page} />
                       </div>
                     );
@@ -118,10 +121,10 @@ const NewsList = ({ category, state, dispatch }) => {
   );
 }
 
-const Thumbnail = ({ page, onClick, onLoadError }) => {
+const Thumbnail = ({ page, onLoadError }) => {
   return (
     <div className="thumbnail-box">
-      <a href={page.url} onClick={onClick} target="_blank" rel="noopener">
+      <a href={page.url} target="_blank" rel="noopener">
         <img src={page.thumbnail} onError={onLoadError} />
       </a>
     </div>

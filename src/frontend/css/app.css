@@ -47,6 +47,7 @@ ul {
 
 .swipe {
     width: 100vw;
+    min-height: 100vh;
     display: flex;
     flex-flow: row nowrap;
     overflow-x: scroll;
@@ -194,13 +195,14 @@ ul {
     white-space: nowrap;
 }
 
-.channel-section a:hover, a:focus {
+.channel-section a:hover {
     color: #17538a;
 }
 
 .channel-section .router-link-active {
     box-sizing: border-box;
     border-bottom: 2px solid #222;
+    color: #17538a;
 }
 
 @media screen and (max-width: 480px) {

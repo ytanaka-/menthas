@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useRef, createContext, useContext } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -29,7 +29,7 @@ function reduce(state, action) {
   }
 }
 
-function getPathnameToChannelName(pathname) {
+function getChannelNameFromPath(pathname) {
   if (pathname === "/") {
     return "all";
   }
@@ -40,12 +40,15 @@ function getPathnameToChannelName(pathname) {
   return "all";
 }
 
-const App = () => {
+
+export const MenthasContext = createContext();
+
+export const App = () => {
   const [state, dispatch] = useReducer(reduce, {
     loading: false,
     channels: [],
     news: new Map(),
-    currentChannel: getPathnameToChannelName(location.pathname)
+    currentChannel: getChannelNameFromPath(location.pathname)
   });
   useEffect(() => {
     (async () => {
@@ -63,66 +66,92 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
-      <GtagWrapper state={state} dispatch={dispatch} >
-        <Header />
-        <Navigation currentChannel={state.currentChannel} channels={state.channels} />
-        <Routes>
-          <Route path="privacy_policy" element={<PrivacyPolicy />} />
-          <Route path=":channel" element={<SwipeWrapper state={state} dispatch={dispatch} />} />
-          <Route index element={<SwipeWrapper state={state} dispatch={dispatch} />} />
-        </Routes>
-        <Footer />
-      </GtagWrapper>
-    </BrowserRouter>
+    <MenthasContext.Provider value={{ state, dispatch }}>
+      <BrowserRouter>
+        <AppWrapper>
+          <Header />
+          <Navigation />
+          <Routes>
+            <Route path="privacy_policy" element={<PrivacyPolicy />} />
+            <Route path=":channel" element={<SwipeWrapper />} />
+            <Route index element={<SwipeWrapper />} />
+          </Routes>
+          <Footer />
+        </AppWrapper>
+      </BrowserRouter>
+    </MenthasContext.Provider>
   );
 }
 
-const SwipeWrapper = ({ state, dispatch }) => {
-  /*
-  const params = useParams();
-  const channelName = state.currentChannel;
-  if (channels.length === 0) {
-    return null;
+// useObserverみたいなのを作る
+const SwipeWrapper = () => {
+  const { state, dispatch } = useContext(MenthasContext);
+  const { channels, currentChannel } = state;
+  const index = channels.findIndex(channel => channel.name === currentChannel);
+  const containerRef = useRef();
+  const itemsRef = useRef([]);
+  useEffect(() => {
+    if (containerRef.current && channels.length > 0) {
+      containerRef.current.style.scrollBehavior = "unset";
+      const target = itemsRef.current[index];
+      if (target) {
+        target.scrollIntoView(true);
+        window.scrollTo(0, 0);
+      }
+      containerRef.current.style.scrollBehavior = "smooth";
+    }
+  }, [channels, currentChannel]);
+
+  const channelsRef = useRef(null);
+  const currentChannelRef = useRef(null);
+  channelsRef.current = channels;
+  currentChannelRef.current = currentChannel;
+  const onScroll = (ev) => {
+    const index = channelsRef.current.findIndex(channel => channel.name === currentChannelRef.current);
+    const scrollLeft = ev.target.scrollLeft;
+    const width = ev.target.getBoundingClientRect().width;
+    const ratio = (scrollLeft - width * index) / width;
+    let nextChannel;
+    if (ratio <= -1.0) {
+      nextChannel = channelsRef.current[index-1].name;
+    } else if (ratio >= 1.0) {
+      nextChannel = channelsRef.current[index+1].name;
+    }
+    if (nextChannel) {
+      dispatch({
+        type: 'setCurrentChannel', payload: {
+          currentChannel: nextChannel
+        }
+      });
+    }
   }
-  const index = channels.findIndex(channel => channel.name === channelName);
-  const viewChannelNames = [];
-  if (index === 0) {
-    viewChannelNames.push(channels[0].name);
-    viewChannelNames.push(channels[1].name);
-  } else if (index === channels.length - 1) {
-    viewChannelNames.push(channels[channels.length - 2].name);
-    viewChannelNames.push(channels[channels.length - 1].name);
-  } else {
-    viewChannelNames.push(channels[index - 1].name);
-    viewChannelNames.push(channels[index].name);
-    viewChannelNames.push(channels[index + 1].name);
-  }
-  */
+  useEffect(() => {
+    containerRef.current.addEventListener('scroll', onScroll);
+    return () => containerRef.current.removeEventListener('scroll', onScroll);
+  }, [])
 
   return (
     <>
-      <div className="swipe">
-        <div className="swipe-item" >
-          <NewsList category={state.currentChannel} state={state} dispatch={dispatch} />
-        </div>   
-        <div className="swipe-item" >
-          <NewsList category={"javascript"} state={state} dispatch={dispatch} />
-        </div> 
+      <div className="swipe" ref={containerRef}>
+        {channels.map((channel, i) => {
+          return (
+            <div className="swipe-item" data-name={channel.name} key={channel.name} ref={el => itemsRef.current[i] = el} >
+              <NewsList category={channel.name} />
+            </div>
+          )
+        })}
       </div>
     </>
   );
 }
 
-const GtagWrapper = ({ state, dispatch, children }) => {
+const AppWrapper = ({ children }) => {
+  const { dispatch } = useContext(MenthasContext);
   const location = useLocation();
   useEffect(() => {
-    if (window.gtag != undefined) {
-      gtag('config', 'UA-63592648-1', { 'page_path': location.pathname });
-    }
     dispatch({
       type: 'setCurrentChannel', payload: {
-        currentChannel: getPathnameToChannelName(location.pathname)
+        currentChannel: getChannelNameFromPath(location.pathname)
       }
     });
   }, [location.pathname]);
@@ -133,5 +162,3 @@ const GtagWrapper = ({ state, dispatch, children }) => {
     </div>
   )
 }
-
-export default App;
