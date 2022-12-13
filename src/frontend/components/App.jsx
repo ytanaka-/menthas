@@ -12,35 +12,6 @@ import PrivacyPolicy from './PrivacyPolicy.jsx';
 import Footer from './Footer.jsx';
 import { getChannels } from '../libs/api-client';
 
-function reduce(state, action) {
-  switch (action.type) {
-    case "setLoading":
-      return { ...state, loading: action.payload.loading }
-    case "setChannels":
-      return { ...state, channels: action.payload.channels }
-    case "setNews": {
-      state.news.set(action.payload.channel, action.payload.pages)
-      return state;
-    }
-    case "setCurrentChannel":
-      return { ...state, currentChannel: action.payload.currentChannel }
-    default:
-      throw new Error();
-  }
-}
-
-function getChannelNameFromPath(pathname) {
-  if (pathname === "/") {
-    return "all";
-  }
-  const s = pathname.split('/');
-  if (s.length > 0) {
-    return s[1];
-  }
-  return "all";
-}
-
-
 export const MenthasContext = createContext();
 
 export const App = () => {
@@ -152,4 +123,32 @@ const AppWrapper = ({ children }) => {
       {children}
     </div>
   )
+}
+
+function reduce(state, action) {
+  switch (action.type) {
+    case "setLoading":
+      return { ...state, loading: action.payload.loading }
+    case "setChannels":
+      return { ...state, channels: action.payload.channels }
+    case "setNews": {
+      state.news.set(action.payload.channel, action.payload.pages)
+      return state;
+    }
+    case "setCurrentChannel":
+      return { ...state, currentChannel: action.payload.currentChannel }
+    default:
+      throw new Error();
+  }
+}
+
+function getChannelNameFromPath(pathname) {
+  if (pathname === "/") {
+    return "all";
+  }
+  const s = pathname.split('/');
+  if (s.length > 0) {
+    return s[1];
+  }
+  return "all";
 }

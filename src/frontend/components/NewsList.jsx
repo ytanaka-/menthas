@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import { getChannel } from '../libs/api-client';
-import dayjs from 'dayjs';
 import ReactLoading from "react-loading";
-import "../css/news-list.css";
+import dayjs from 'dayjs';
+import { getChannel } from '../libs/api-client';
 import { MenthasContext } from "./App";
+import "../css/news-list.css";
 
 const delayMs = 100;
 
@@ -80,7 +80,7 @@ const NewsList = ({ category, isActive }) => {
                 <div className="top-left-container">
                   <div className="top-main-container">
                     <div className="top-box">
-                      <Thumbnail page={contents.top.main} onLoadError={() => imageLoadError()} />
+                      <Thumbnail page={contents.top.main} onLoadError={imageLoadError} />
                       <MetaInfo page={contents.top.main} isDescription={false} />
                     </div>
                   </div>
@@ -88,7 +88,7 @@ const NewsList = ({ category, isActive }) => {
                     {contents.top.sub.map((page) => {
                       return (
                         <div className="top-sub-container" key={page._id}>
-                          <Thumbnail page={page} onLoadError={() => imageLoadError()} />
+                          <Thumbnail page={page} onLoadError={imageLoadError} />
                           <MetaInfo page={page} isDescription={false} />
                         </div>
                       )
@@ -110,7 +110,7 @@ const NewsList = ({ category, isActive }) => {
           {contents.pages.map((page) => {
             return (
               <div className="list-container" key={page._id}>
-                <Thumbnail page={page} onLoadError={() => listImageLoadError()} />
+                <Thumbnail page={page} onLoadError={listImageLoadError} />
                 <MetaInfo page={page} />
               </div>
             );
