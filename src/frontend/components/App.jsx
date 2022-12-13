@@ -88,6 +88,11 @@ const SwipeWrapper = () => {
           currentChannel: nextChannel
         }
       });
+      if (nextChannel === "all") {
+        history.pushState(null, null, "/");
+      } else {
+        history.pushState(null, null, `/${nextChannel}`);
+      }
     }
   }
 
