@@ -7,9 +7,10 @@ import { MenthasContext } from "./App";
 
 const delayMs = 100;
 
-const NewsList = ({ category }) => {
+const NewsList = ({ category, isActive }) => {
   const { state, dispatch } = useContext(MenthasContext);
-  const { news, loading } = state;
+  const { news } = state;
+  const [loading, setLoading] = useState(true);
   const [contents, setContents] = useState({
     top: {
       main: null,
@@ -25,11 +26,11 @@ const NewsList = ({ category }) => {
       setContents({
         top, pages
       });
-    } else {
+    } else if (isActive) {
       (async () => {
         // ProgressTimeLatchを導入する。delayMsが経つまではtrueにしない
         const timeoutID = setTimeout(() => {
-          dispatch({ type: 'setLoading', payload: { loading: true } });
+          setLoading(true);
         }, delayMs);
         const result = await getChannel(category);
         const status = result.status;
@@ -47,10 +48,10 @@ const NewsList = ({ category }) => {
           });
         }
         clearTimeout(timeoutID);
-        dispatch({ type: 'setLoading', payload: { loading: false } });
+        setLoading(false);
       })();
     }
-  }, [category]);
+  }, [category, isActive]);
 
   const imageLoadError = (el) => {
     el.target.src = "/images/no-image.png";
@@ -69,7 +70,6 @@ const NewsList = ({ category }) => {
       </div>
     )
   }
-
   return (
     <>
       <div className="newslist" >

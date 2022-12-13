@@ -45,7 +45,6 @@ export const MenthasContext = createContext();
 
 export const App = () => {
   const [state, dispatch] = useReducer(reduce, {
-    loading: false,
     channels: [],
     news: new Map(),
     currentChannel: getChannelNameFromPath(location.pathname)
@@ -83,7 +82,6 @@ export const App = () => {
   );
 }
 
-// useObserverみたいなのを作る
 const SwipeWrapper = () => {
   const { state, dispatch } = useContext(MenthasContext);
   const { channels, currentChannel } = state;
@@ -96,26 +94,22 @@ const SwipeWrapper = () => {
       const target = itemsRef.current[index];
       if (target) {
         target.scrollIntoView(true);
+        // チャンネルを切り替えたときに、スクロール位置を保つ
         window.scrollTo(0, 0);
       }
       containerRef.current.style.scrollBehavior = "smooth";
     }
   }, [channels, currentChannel]);
 
-  const channelsRef = useRef(null);
-  const currentChannelRef = useRef(null);
-  channelsRef.current = channels;
-  currentChannelRef.current = currentChannel;
   const onScroll = (ev) => {
-    const index = channelsRef.current.findIndex(channel => channel.name === currentChannelRef.current);
     const scrollLeft = ev.target.scrollLeft;
     const width = ev.target.getBoundingClientRect().width;
     const ratio = (scrollLeft - width * index) / width;
     let nextChannel;
     if (ratio <= -1.0) {
-      nextChannel = channelsRef.current[index-1].name;
+      nextChannel = channels[index - 1].name;
     } else if (ratio >= 1.0) {
-      nextChannel = channelsRef.current[index+1].name;
+      nextChannel = channels[index + 1].name;
     }
     if (nextChannel) {
       dispatch({
@@ -125,18 +119,15 @@ const SwipeWrapper = () => {
       });
     }
   }
-  useEffect(() => {
-    containerRef.current.addEventListener('scroll', onScroll);
-    return () => containerRef.current.removeEventListener('scroll', onScroll);
-  }, [])
 
   return (
     <>
-      <div className="swipe" ref={containerRef}>
+      <div className="swipe" onScroll={onScroll} ref={containerRef} >
         {channels.map((channel, i) => {
+          const isActive = i >= index - 1 && i <= index + 1;
           return (
             <div className="swipe-item" data-name={channel.name} key={channel.name} ref={el => itemsRef.current[i] = el} >
-              <NewsList category={channel.name} />
+              <NewsList category={channel.name} isActive={isActive} />
             </div>
           )
         })}
