@@ -13,6 +13,7 @@ import Footer from './Footer.jsx';
 import { getChannels } from '../libs/api-client';
 
 export const MenthasContext = createContext();
+const kActivateNextNum = 1;
 
 export const App = () => {
   const [state, dispatch] = useReducer(reduce, {
@@ -106,7 +107,7 @@ const SwipeWrapper = () => {
     <>
       <div className="swipe" onScroll={onScroll} ref={containerRef} >
         {channels.map((channel, i) => {
-          const isActive = i >= index - 1 && i <= index + 1;
+          const isActive = i >= index - kActivateNextNum && i <= index + kActivateNextNum;
           return (
             <div className="swipe-item" data-name={channel.name} key={channel.name} ref={el => itemsRef.current[i] = el} >
               <NewsList category={channel.name} isActive={isActive} />

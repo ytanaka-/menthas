@@ -35,6 +35,7 @@ ul {
 }
 
 .logo {
+    height: 100%;
     padding: 7px;
     margin-left: 3px;
 }
@@ -42,7 +43,6 @@ ul {
 .logo-img {
     width: auto;
     height: 50px;
-    background: url("../images/logo.svg") no-repeat;
 }
 
 .swipe {
@@ -68,11 +68,11 @@ ul {
 
 @media screen and (max-width: 480px) {
     .header {
-        height: 55px;
+        height: 60px;
     }
 
     .logo-img {
-        height: 41px;
+        height: 46px;
     }
 }
 
@@ -164,6 +164,7 @@ ul {
 }
 
 .navigation-wrap::-webkit-scrollbar {
+    height: 100%;
     display: none;
 }
 
@@ -206,13 +207,19 @@ ul {
 }
 
 @media screen and (max-width: 480px) {
+    .navigation {
+        margin-top: -1px;
+        border-top: 1px solid #ccc;
+    }
     .channel-section {
         margin: 0 5px;
+        margin-top: 1px;
     }
 
     .channel-section a {
         height: 42px;
         line-height: 40px;
+        font-size: 14px;
     }
 
     .router-link-active {
