@@ -64,9 +64,15 @@ const SwipeWrapper = () => {
       containerRef.current.style.scrollBehavior = "unset";
       const target = itemsRef.current[index];
       if (target) {
+        const scrollY = window.scrollY;
+        const offsetTop = containerRef.current.offsetTop;
         target.scrollIntoView(true);
-        // チャンネルを切り替えたときに、スクロール位置を保つ
-        window.scrollTo(0, 0);
+        if (scrollY < offsetTop) {
+          window.scrollTo(0, 0);
+        } else {
+          // チャンネルを切り替えたときに、ある程度スクロールしていたら位置を保つ
+          window.scrollTo(0, scrollY);
+        }
       }
       containerRef.current.style.scrollBehavior = "smooth";
     }

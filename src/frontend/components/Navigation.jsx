@@ -30,7 +30,7 @@ const NavigationItem = ({ currentChannel, channel }) => {
   const ref = useRef();
   useEffect(() => {
     if (isActive && ref.current) {
-      ref.current.scrollIntoView(true);
+      ref.current.scrollIntoView();
     }
   }, [currentChannel, isActive]);
   return (
