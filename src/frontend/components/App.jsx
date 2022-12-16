@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, createContext, useContext } from "react";
+import React, { useEffect, useReducer, useRef, createContext, useContext, useState } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -79,16 +79,24 @@ const SwipeWrapper = () => {
     }
   }, [channels, currentChannel]);
 
+  const [timerId, setTimerId] = useState();
   const onScroll = (ev) => {
+    clearTimeout(timerId);
+    const _id = setTimeout(() => syncChannelTab(ev), 100);
+    setTimerId(_id);
+  }
+  const syncChannelTab = (ev) => {
     const scrollLeft = ev.target.scrollLeft;
     const width = ev.target.getBoundingClientRect().width;
+    // scroll終了時にいくつタブを動いたかを計算する
     const ratio = (scrollLeft - width * index) / width;
-    let nextChannel;
-    if (ratio <= -1.0) {
-      nextChannel = channels[index - 1].name;
-    } else if (ratio >= 1.0) {
-      nextChannel = channels[index + 1].name;
+    // snapの度合いがほぼ完了していない状態でチャンネルを切り替えるとチラつく
+    // roundしているのはスマホの場合なぜか微小な誤差が出てピッタリratioが整数にならないため
+    const moveNum = Math.round(ratio * 100000) / 100000;
+    if (!Number.isInteger(moveNum) || moveNum === 0) {
+      return;
     }
+    const nextChannel = channels[index + moveNum].name;
     if (nextChannel) {
       dispatch({
         type: 'setCurrentChannel', payload: {
