@@ -92,7 +92,7 @@ const SwipeWrapper = () => {
     const ratio = (scrollLeft - width * index) / width;
     // snapの度合いがほぼ完了していない状態でチャンネルを切り替えるとチラつく
     // roundしているのはスマホの場合なぜか微小な誤差が出てピッタリratioが整数にならないため
-    const moveNum = Math.round(ratio * 100000) / 100000;
+    const moveNum = Math.round(ratio * 1000000) / 1000000;
     if (!Number.isInteger(moveNum) || moveNum === 0) {
       return;
     }

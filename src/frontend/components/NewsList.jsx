@@ -5,8 +5,6 @@ import { getChannel } from '../libs/api-client';
 import { MenthasContext } from "./App";
 import "../css/news-list.css";
 
-const delayMs = 100;
-
 const NewsList = ({ category, isActive }) => {
   const { state, dispatch } = useContext(MenthasContext);
   const { news } = state;
@@ -28,10 +26,6 @@ const NewsList = ({ category, isActive }) => {
       });
     } else if (isActive) {
       (async () => {
-        // ProgressTimeLatchを導入する。delayMsが経つまではtrueにしない
-        const timeoutID = setTimeout(() => {
-          setLoading(true);
-        }, delayMs);
         const result = await getChannel(category);
         const status = result.status;
         if (status === 200) {
@@ -47,7 +41,6 @@ const NewsList = ({ category, isActive }) => {
             }
           });
         }
-        clearTimeout(timeoutID);
         setLoading(false);
       })();
     }
