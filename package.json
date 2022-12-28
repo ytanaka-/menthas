@@ -20,7 +20,7 @@
     "cheerio-httpcli": "^0.8.3",
     "config": "^2.0.1",
     "dayjs": "^1.9.6",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "helmet": "^3.21.2",
     "mongoose": "^5.11.10",
     "node-fetch": "^2.6.1",
