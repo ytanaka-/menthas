@@ -1,5 +1,4 @@
 const path = require('path')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
   mode: 'development',
@@ -8,48 +7,38 @@ module.exports = {
 
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, 'public/assets')
+    path: path.join(__dirname, 'public/assets'),
+    assetModuleFilename: 'images/[hash][ext][query]'
+  },
+  
+  resolve: {
+    extensions: [".js", ".jsx", ".ts"]
   },
 
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      },
-      {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
-      },
-      {
-        test: /\.styl(us)?$/,
-        use: [
-          'vue-style-loader',
-          'css-loader',
-          'stylus-loader'
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: [
-            "vue-style-loader",
-            "css-loader",
-        ],
-      },
-      {
-        test: /\.svg$/,
         use: {
-            loader: 'svg-url-loader',
-            options: {
-                noquotes: true
-            }
+          loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.svg/,
+        type: 'asset/resource'
       }
     ]
-  },
-
-  plugins: [
-    new VueLoaderPlugin()
-  ]
+  }
 };
