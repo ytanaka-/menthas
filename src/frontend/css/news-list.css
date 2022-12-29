@@ -1,5 +1,5 @@
 :root {
-  --list-width: min(100vw, 1000px);
+  --list-width: min(100vw, 1020px);
   --top-main-width: calc(var(--list-width) * 5.6/10);
   --top-sub-width: calc(var(--list-width) * 4.4/10);
   --top-main-image-height: calc(var(--top-main-width) * 4.4/10);
@@ -25,13 +25,13 @@ a {
 }
 
 .newslist a {
-  color: #17538a;
+  color: #0f3875;
   font-weight: bold;
   font-size: 22px;
 }
 
 .newslist a:visited {
-  color: #6991b8;
+  color: #145DA0;
 }
 
 .newslist a:hover, a:focus {
@@ -169,8 +169,8 @@ a {
 }
 
 .top-sub-container .title a {
-  font-size: 16px;
-  line-height: 1.4;
+  font-size: 17px;
+  line-height: 1.3;
 }
 
 .top-sub-container .meta-info {
@@ -193,7 +193,11 @@ a {
 
 .top-section-container .text-box {
   min-height: 130px;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
+}
+
+.top-section-container .text-box .description {
+  -webkit-line-clamp: 2;
 }
 
 .text-box {
@@ -203,15 +207,15 @@ a {
 }
 
 .text-box .title {
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 
 .text-box .title a {
-  font-size: 16px;
+  font-size: 17px;
 }
 
 .text-box .meta-info {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .text-box .description-text {
@@ -219,7 +223,7 @@ a {
 }
 
 .list-container {
-  max-width: 785px;
+  max-width: 900px;
   display: flex;
   border-top: 1px solid #ccc;
   padding: 11px 6px;
@@ -290,7 +294,7 @@ a {
   }
 
   .top-sub-container .title a {
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.4;
   }
 
@@ -317,7 +321,7 @@ a {
   }
 
   .top-box .title a {
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.4;
   }
 
@@ -364,13 +368,17 @@ a {
     font-size: 16px;
   }
 
+  .list-container .text-box .description {
+    -webkit-line-clamp: 2;
+  }
+
   .list-container .description .description-text {
     font-size: 12px;
     line-height: 1.4;
   }
 
   .title a {
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.5;
   }
 }

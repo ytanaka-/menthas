@@ -30,7 +30,7 @@ ul {
 }
 
 .header-container {
-    max-width: 1000px;
+    max-width: 1020px;
     margin: 0 auto;
 }
 
@@ -68,7 +68,7 @@ ul {
 
 @media screen and (max-width: 480px) {
     .header {
-        height: 60px;
+        height: 58px;
     }
 
     .logo-img {
@@ -217,8 +217,8 @@ ul {
     }
 
     .channel-section a {
-        height: 42px;
-        line-height: 40px;
+        height: 40px;
+        line-height: 38px;
         font-size: 14px;
     }
 
