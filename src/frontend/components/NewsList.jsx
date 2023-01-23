@@ -129,11 +129,11 @@ const MetaInfo = ({ page, isDescription = true }) => {
     <div className="text-box">
       <div className="title">
         <a href={page.url} target="_blank" rel="noopener">
-          <p>{page.title}</p>
+          {page.title}
         </a>
       </div>
       <div className="meta-info">
-        <p className="meta-info-text">
+        <div className="meta-info-text">
           from: {page.host_name}, {page.categoriesStr}
           {page.isInfluential && (
             <span>, <span className="highly-influential">Highly Influential News</span></span>
@@ -141,11 +141,11 @@ const MetaInfo = ({ page, isDescription = true }) => {
           {page.isNew && (
             <span>, <span className="new">New!</span></span>
           )}
-        </p>
+        </div>
       </div>
       {isDescription && (
         <div className="description">
-          <p className="description-text">{page.description}</p>
+          <div className="description-text">{page.description}</div>
         </div>
       )}
     </div>
