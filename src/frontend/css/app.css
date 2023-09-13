@@ -40,13 +40,13 @@ ul {
 
 .logo {
     height: 100%;
-    padding-top: 5px;
-    margin-left: 10px;
+    padding-top: 3px;
+    margin-left: 12px;
 }
 
 .logo-img {
     width: auto;
-    height: 42px;
+    height: 45px;
 }
 
 .swipe {
@@ -76,7 +76,7 @@ ul {
     }
 
     .logo-img {
-        height: 36px;
+        height: 42px;
     }
 }
 
@@ -86,7 +86,7 @@ ul {
 }
 
 .footer-container {
-    max-width: 980px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px 0;
     border-top: 1px solid #ccc;
@@ -195,19 +195,19 @@ ul {
     text-align: center;
     line-height: 33px;
     text-decoration: none;
-    color: #222;
+    color: #000;
     font-size: 13px;
     white-space: nowrap;
 }
 
 .channel-section a:hover {
-    color: #17538a;
+    color: #184175;
 }
 
 .channel-section .router-link-active {
     box-sizing: border-box;
     border-bottom: 2px solid #222;
-    color: #17538a;
+    color: #184175;
 }
 
 @media screen and (max-width: 480px) {

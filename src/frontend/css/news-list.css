@@ -1,11 +1,11 @@
 :root {
-  --base-margin: 25px;
-  --base-padding: 30px;
-  --list-width: min(100vw, 1000px);
+  --base-margin: 28px;
+  --base-padding: 28px;
+  --list-width: min(100vw, 1020px);
   --top-main-width: calc(var(--list-width) * 5.6/10);
   --top-sub-width: calc(var(--list-width) * 4.4/10);
-  --top-main-image-height: calc(var(--top-main-width) * 4.4/10);
-  --top-sub-image-height: calc(var(--top-sub-width) * 3.7/10);
+  --top-main-image-height: calc(var(--top-main-width) * 4.0/10);
+  --top-sub-image-height: calc(var(--top-sub-width) * 3.1/10);
 }
 
 a {
@@ -82,7 +82,7 @@ a {
 .meta-info .meta-info-text {
   font-size: 11px;
   line-height: 1.4;
-  color: #8c8c8c;
+  color: #555;
 }
 
 .meta-info .highly-influential {
@@ -108,7 +108,6 @@ a {
 .description .description-text {
   font-size: 13px;
   line-height: 1.4;
-  color: #222;
 }
 
 .top-box {
@@ -152,7 +151,7 @@ a {
 
 .top-sub-container {
   width: calc(100% * 1 / 2);
-  margin-right: var(--base-margin);
+  padding-right: var(--base-padding);
   padding-top: var(--base-padding);
 }
 
@@ -185,13 +184,13 @@ a {
 
 .top-section-container-wrap {
   width: var(--top-sub-width);
-  margin-bottom: var(--base-margin);
+  margin-bottom: 23px;
   border-left: 1px solid var(--base-border-color);
 }
 
 .top-section-container {
-  margin-left: var(--base-margin);
-  margin-bottom: 20px;
+  padding-left: var(--base-padding);
+  margin-bottom: 15px;
   border-bottom: 1px solid var(--base-border-color);
 }
 
@@ -210,7 +209,7 @@ a {
 .text-box {
   width: 100%;
   min-height: 100px;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .text-box .title {
@@ -245,8 +244,8 @@ a {
 }
 
 .list-container .thumbnail-box {
-  width: 145px;
-  height: 90px;
+  width: 150px;
+  height: 95px;
   margin: 10px 0px;
   margin-right: var(--base-margin);
 }
@@ -286,6 +285,7 @@ a {
   .top-sub-container {
     width: 100%;
     padding-top: 15px;
+    padding-right: 0px;
     border-top: 1px solid var(--base-border-color);
   }
 
@@ -311,11 +311,11 @@ a {
   .top-section-container-wrap {
     width: 100%;
     margin-bottom: 20px;
-    border-left: 0px solid var(--base-border-color);
+    border-left: none;
   }
 
   .top-section-container {
-    margin-left: 0px;
+    padding-left: 0px;
     padding-top: 10px;
     border-top: 1px solid var(--base-border-color);
     border-bottom: none;
@@ -323,9 +323,9 @@ a {
 
   .top-box {
     margin-right: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     padding-right: 0px;
-    border-bottom: 0px solid var(--base-border-color);
+    border-bottom: none;
   }
 
   .top-box .title a {
