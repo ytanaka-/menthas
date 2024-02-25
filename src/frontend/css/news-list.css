@@ -89,13 +89,16 @@ a {
   }
 }
 
+.news-link-box:hover {
+  .title {
+    text-decoration: underline;
+  }
+}
+
 .news-link-wrap {
   .title {
-    color: #0f3875;
+    color: #0f3875;;
     font-weight: bold;
-  }
-  .title:visited {
-    color: #145DA0;
   }
 }
 
