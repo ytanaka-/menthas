@@ -56,7 +56,7 @@ const NewsList = ({ category, isActive }) => {
 
   if (loading) {
     return (
-      <div className="newslist">
+      <div className="news-list">
         <div className="loading">
           <ReactLoading type={"bars"} color={"#333"} height={"24px"} width={"24px"} />
         </div>
@@ -65,7 +65,7 @@ const NewsList = ({ category, isActive }) => {
   }
   return (
     <>
-      <div className="newslist" >
+      <div className="news-list" >
         <div className="news-container">
           <div className="top-container-wrap">
             {contents.top.main !== null && (
@@ -73,16 +73,20 @@ const NewsList = ({ category, isActive }) => {
                 <div className="top-left-container">
                   <div className="top-main-container">
                     <div className="top-box">
-                      <Thumbnail page={contents.top.main} onLoadError={imageLoadError} />
-                      <MetaInfo page={contents.top.main} isDescription={false} />
+                      <NewsLink page={contents.top.main} >
+                        <Thumbnail page={contents.top.main} onLoadError={imageLoadError} />
+                        <MetaInfo page={contents.top.main} isDescription={false} />
+                      </NewsLink>
                     </div>
                   </div>
                   <div className="top-sub-container-wrap">
                     {contents.top.sub.map((page) => {
                       return (
                         <div className="top-sub-container" key={page._id}>
-                          <Thumbnail page={page} onLoadError={imageLoadError} />
-                          <MetaInfo page={page} isDescription={false} />
+                          <NewsLink page={page} >
+                            <Thumbnail page={page} onLoadError={imageLoadError} />
+                            <MetaInfo page={page} isDescription={false} />
+                          </NewsLink>
                         </div>
                       )
                     })}
@@ -92,7 +96,9 @@ const NewsList = ({ category, isActive }) => {
                   {contents.top.sections.map((page) => {
                     return (
                       <div className="top-section-container" key={page._id}>
-                        <MetaInfo page={page} />
+                        <NewsLink page={page} >
+                          <MetaInfo page={page} />
+                        </NewsLink>
                       </div>
                     );
                   })}
@@ -103,8 +109,10 @@ const NewsList = ({ category, isActive }) => {
           {contents.pages.map((page) => {
             return (
               <div className="list-container" key={page._id}>
-                <Thumbnail page={page} onLoadError={listImageLoadError} />
-                <MetaInfo page={page} />
+                <NewsLink page={page} >
+                  <Thumbnail page={page} onLoadError={listImageLoadError} />
+                  <MetaInfo page={page} />
+                </NewsLink>
               </div>
             );
           })}
@@ -114,12 +122,20 @@ const NewsList = ({ category, isActive }) => {
   );
 }
 
+const NewsLink = ({ page, children }) => {
+  return (
+    <div className="news-link-box">
+      <a className="news-link-wrap" href={page.url} target="_blank" rel="noopener">
+        {children}
+      </a>
+    </div>
+  );
+}
+
 const Thumbnail = ({ page, onLoadError }) => {
   return (
     <div className="thumbnail-box">
-      <a href={page.url} target="_blank" rel="noopener">
-        <img src={page.thumbnail} onError={onLoadError} />
-      </a>
+      <img src={page.thumbnail} onError={onLoadError} />
     </div>
   );
 }
@@ -128,9 +144,7 @@ const MetaInfo = ({ page, isDescription = true }) => {
   return (
     <div className="text-box">
       <div className="title">
-        <a href={page.url} target="_blank" rel="noopener">
-          {page.title}
-        </a>
+        {page.title}
       </div>
       <div className="meta-info">
         <div className="meta-info-text">
