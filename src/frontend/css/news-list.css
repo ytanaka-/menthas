@@ -92,7 +92,11 @@ a {
 .news-link-box:hover {
   .title {
     text-decoration: underline;
+    color: #145DA0;
+    scale: 1.0025;
   }
+  opacity: 0.9;
+  transition: all 0.3s;
 }
 
 .news-link-wrap {

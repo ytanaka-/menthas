@@ -16,6 +16,7 @@ html {
 body {
     background-color: #FFF;
     font-size: 100%;
+    -webkit-tap-highlight-color: transparent;
 }
 
 ul {
@@ -201,7 +202,7 @@ ul {
 }
 
 .channel-section a:hover {
-    color: #00000088;
+    color: #184175;
 }
 
 .channel-section .router-link-active {

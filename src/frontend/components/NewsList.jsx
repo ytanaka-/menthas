@@ -124,7 +124,7 @@ const NewsList = ({ category, isActive }) => {
 
 const NewsLink = ({ page, children }) => {
   return (
-    <div className="news-link-box">
+    <div className="news-link-box" >
       <a className="news-link-wrap" href={page.url} target="_blank" rel="noopener">
         {children}
       </a>
