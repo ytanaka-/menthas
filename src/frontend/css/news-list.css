@@ -93,7 +93,6 @@ a {
   .title {
     text-decoration: underline;
     color: #145DA0;
-    scale: 1.0025;
   }
   opacity: 0.9;
   transition: all 0.3s;
@@ -176,7 +175,6 @@ a {
 
 .top-section-container-wrap {
   width: var(--top-sub-width);
-  margin-bottom: 23px;
   border-left: 1px solid var(--base-border-color);
 }
 
@@ -192,6 +190,9 @@ a {
   }
   &:last-child {
     border-bottom: none;
+  }
+  .text-box {
+    margin-bottom: 20px;
   }
 }
 
