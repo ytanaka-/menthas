@@ -1,9 +1,9 @@
 :root {
   --base-margin: 28px;
   --base-padding: 28px;
-  --list-width: min(100vw, 1020px);
-  --top-main-width: calc(var(--list-width) * 5.6/10);
-  --top-sub-width: calc(var(--list-width) * 4.4/10);
+  --list-width: min(100vw, 1000px);
+  --top-main-width: calc(var(--list-width) * 5.4/10);
+  --top-sub-width: calc(var(--list-width) * 4.6/10);
   --top-main-image-height: calc(var(--top-main-width) * 4.0/10);
   --top-sub-image-height: calc(var(--top-sub-width) * 3.1/10);
 }
@@ -205,7 +205,8 @@ a {
     font-size: 17px;
   }
   .meta-info {
-    margin-bottom: 10px;
+    margin-left: 1px;
+    margin-bottom: 8px;
   }
   .description-text {
     font-size: 12px;

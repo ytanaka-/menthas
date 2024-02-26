@@ -10,3 +10,5 @@ config/develop.json
 config/production.json
 public/assets
 src/etc/model
+.vscode
+src/backend/crawler/__test__/crawler-e2e.test.js
