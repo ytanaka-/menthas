@@ -30,7 +30,7 @@ class HatebuClient {
   }
 
   async getBookmarkerRSS(name, offset) {
-    const url = `https://b.hatena.ne.jp/${name}/rss?of=${offset}`;
+    const url = `https://b.hatena.ne.jp/${name}/bookmark.rss?of=${offset}`;
     const options = {
       headers: {
         "User-Agent": UA
