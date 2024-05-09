@@ -1,9 +1,9 @@
-const mongoose = require('mongoose')
-const config = require('config')
-const crawler = require("./news-crawler")
-const Category = require("../model/category")
+const mongoose = require('mongoose');
+const config = require('config');
+const crawler = require("./news-crawler");
+const Category = require("../model/category");
 const DB_NAME = process.env.MONGO_DB_NAME ||  config.mongo.DB_NAME;
-mongoose.connect(process.env.MONGO_URL || config.mongo.URL, { dbName: DB_NAME, useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URL || config.mongo.URL, { dbName: DB_NAME });
 
 const category = process.argv[2];
 

@@ -1,13 +1,13 @@
-const hatebuClient = require("./hatebu-client")
-const webpageClient = require("./webpage-client")
-const contentsClient = require("./contents-client")
-const Category = require("../model/category")
-const Page = require("../model/page")
-const config = require('config')
-const CONTENTS_SCORE_WEIGHT = config.contents_score_weight
-const SIMILARITY_SCORE_WEIGHT = config.similarity_score_weight
-const CURATE_THRESHOLD = 3
-const MAX_THRESHOLD = 4
+const hatebuClient = require("./hatebu-client");
+const webpageClient = require("./webpage-client");
+const contentsClient = require("./contents-client");
+const Category = require("../model/category");
+const Page = require("../model/page");
+const config = require('config');
+const CONTENTS_SCORE_WEIGHT = config.contents_score_weight;
+const SIMILARITY_SCORE_WEIGHT = config.similarity_score_weight;
+const CURATE_THRESHOLD = 3;
+const MAX_THRESHOLD = 4;
 
 class NewsCrawler {
 
@@ -55,24 +55,18 @@ class NewsCrawler {
     });
   }
 
-  fetchCuratorRecentRSS(curator) {
-    return new Promise((resolve, reject) => {
-      hatebuClient.getBookmarkerLinkList(curator, 0, (err, links) => {
-        if (err) {
-          return reject(err);
-        }
-        const recentLinks = [];
-        const now = new Date();
-        // 1日以上古いブクマは対象外とする
-        for (const link of links) {
-          const diff = (now - new Date(link.date)) / (1000 * 60 * 60 * 24);
-          if (diff < 1) {
-            recentLinks.push(link);
-          }
-        }
-        resolve(recentLinks);
-      });
-    });
+  async fetchCuratorRecentRSS(curator) {
+    const links = await hatebuClient.getBookmarkerLinkList(curator, 0);
+    const recentLinks = [];
+    const now = new Date();
+    // 1日以上古いブクマは対象外とする
+    for (const link of links) {
+      const diff = (now - new Date(link.date)) / (1000 * 60 * 60 * 24);
+      if (diff < 1) {
+        recentLinks.push(link);
+      }
+    }  
+    return recentLinks;
   }
 
   async fetchWebPageAndUpdateScore(url, curator, category) {

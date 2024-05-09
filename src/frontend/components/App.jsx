@@ -127,6 +127,10 @@ const SwipeWrapper = () => {
   );
 }
 
+const isMaybeTouchDevice = () => {
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
 const AppWrapper = ({ children }) => {
   const { dispatch } = useContext(MenthasContext);
   const location = useLocation();
@@ -137,9 +141,15 @@ const AppWrapper = ({ children }) => {
       }
     });
   }, [location.pathname]);
+  const onContextMenu = (ev) => {
+    if (isMaybeTouchDevice()) {
+      // スマホ・タブレットの場合は長押しタップで右クリックメニューが出てしまうので無効化する
+      ev.preventDefault();
+    }
+  }
 
   return (
-    <div className="app">
+    <div className="app" onContextMenu={onContextMenu}>
       {children}
     </div>
   )

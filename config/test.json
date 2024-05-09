@@ -1,0 +1,19 @@
+{
+  "mongo": {
+    "URL": "mongodb://localhost/",
+    "DB_NAME": "test"
+  },
+
+  "crawler": {
+    "UA": "request"
+  },
+  "curated_threshold": 3,
+  "top_threshold": 3.5,
+  "page_size": 35,
+  "rss_size": 25,
+  "top_selection_size": 75,
+  "selection_size": 60,
+  "mmr_rel_weight": 0.65,
+  "contents_score_weight": 2,
+  "similarity_score_weight": 1.4
+}
