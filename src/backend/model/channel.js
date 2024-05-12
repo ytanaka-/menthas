@@ -1,42 +1,44 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const channelSchema = new Schema({
   name: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
-    type: String
+    type: String,
   },
   categories: {
-    type: [{
-      type: Schema.ObjectId,
-      ref: "Category"
-    }],
-    default: []
+    type: [
+      {
+        type: Schema.ObjectId,
+        ref: "Category",
+      },
+    ],
+    default: [],
   },
   position: {
     type: Number,
-    default: 0
-  }
+    default: 0,
+  },
 });
 
 channelSchema.statics = {
-  findAll(){
-    return this.model("Channel").find({}).sort({position: 1}).exec()
+  findAll() {
+    return this.model("Channel").find({}).sort({ position: 1 }).exec();
   },
 
-  findByName(channelName){
+  findByName(channelName) {
     return this.findOne({
-      name: channelName
-    }).exec()
-  }
-}
+      name: channelName,
+    }).exec();
+  },
+};
 
 module.exports = mongoose.model("Channel", channelSchema);

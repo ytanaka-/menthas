@@ -9,15 +9,22 @@ const Footer = () => {
       <div v-show="pages.length > 0" className="footer">
         <div className="footer-container">
           <div className="info1">
-            <span>Menthas関連リンク: <a href="/privacy_policy">プライバシーポリシー</a>, <a href={TWITTER_URL}>開発者Twitter</a>, <a href={GITHUB_URL}>Github</a></span>
+            <span>
+              Menthas関連リンク:{" "}
+              <a href="/privacy_policy">プライバシーポリシー</a>,{" "}
+              <a href={TWITTER_URL}>開発者Twitter</a>,{" "}
+              <a href={GITHUB_URL}>Github</a>
+            </span>
           </div>
           <div className="info2">
-            <span>Menthasはユーザビリティの改善や分析のためGoogleAnalyticsを使用しています</span>
+            <span>
+              Menthasはユーザビリティの改善や分析のためGoogleAnalyticsを使用しています
+            </span>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Footer;

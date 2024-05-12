@@ -1,94 +1,97 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const scoreSchema = new Schema({
   category: {
     type: Schema.ObjectId,
-    ref: "Category"
+    ref: "Category",
   },
-  score: { 
+  score: {
     type: Number,
-    default: 0
+    default: 0,
   },
   curated_by: {
-    type: [{
-      type: String
-    }],
-    default: []
-  }
-})
+    type: [
+      {
+        type: String,
+      },
+    ],
+    default: [],
+  },
+});
 
 const pageSchema = new Schema({
   url: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
-    type: String
+    type: String,
   },
   thumbnail: {
-    type: String
+    type: String,
   },
   host_name: {
-    type: String
+    type: String,
   },
   amphtml: {
-    type: String
+    type: String,
   },
   features: {
-    type: [{
-      type: String
-    }],
-    default: []
+    type: [
+      {
+        type: String,
+      },
+    ],
+    default: [],
   },
-  scores: [ scoreSchema ],
+  scores: [scoreSchema],
   created_at: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   curated_at: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 pageSchema.statics = {
   findByUrl(url) {
     return this.findOne({
-      url: url
-    }).exec()
+      url: url,
+    }).exec();
   },
 
-  findCuratedNews(threshold, size){
+  findCuratedNews(threshold, size) {
     return this.find({
-      "scores.score": { $gte: threshold }
+      "scores.score": { $gte: threshold },
     })
-    .sort({curated_at: -1})
-    .limit(size)
-    .populate('scores.category', 'name title')
-    .exec()
+      .sort({ curated_at: -1 })
+      .limit(size)
+      .populate("scores.category", "name title")
+      .exec();
   },
 
-  findCuratedNewsByCategory(categoryIds, threshold, size){
+  findCuratedNewsByCategory(categoryIds, threshold, size) {
     return this.find({
-      "scores": {
-        "$elemMatch": {
-          "category": { $in: categoryIds },
-          "score": { $gte: threshold }
-        }
-      }
+      scores: {
+        $elemMatch: {
+          category: { $in: categoryIds },
+          score: { $gte: threshold },
+        },
+      },
     })
-    .sort({curated_at: -1})
-    .limit(size)
-    .populate('scores.category', 'name title')
-    .exec()
-  }
-}
-
+      .sort({ curated_at: -1 })
+      .limit(size)
+      .populate("scores.category", "name title")
+      .exec();
+  },
+};
 
 module.exports = mongoose.model("Page", pageSchema);

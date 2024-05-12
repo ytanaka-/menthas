@@ -13,16 +13,19 @@ const Navigation = () => {
             {channels.map((channel) => {
               return (
                 <li className="channel-section" key={channel.name}>
-                  <NavigationItem currentChannel={currentChannel} channel={channel} />
+                  <NavigationItem
+                    currentChannel={currentChannel}
+                    channel={channel}
+                  />
                 </li>
-              )
+              );
             })}
           </ul>
         </div>
       </div>
     </>
   );
-}
+};
 
 const NavigationItem = ({ currentChannel, channel }) => {
   const isActive = currentChannel == channel.name;
@@ -35,11 +38,15 @@ const NavigationItem = ({ currentChannel, channel }) => {
   }, [currentChannel, isActive]);
   return (
     <>
-      <NavLink to={to} ref={ref} className={isActive ? 'router-link-active' : ''}>
+      <NavLink
+        to={to}
+        ref={ref}
+        className={isActive ? "router-link-active" : ""}
+      >
         <span className="navigation-channel-text">{channel.title}</span>
       </NavLink>
     </>
   );
-}
+};
 
 export default Navigation;

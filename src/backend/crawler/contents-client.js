@@ -1,10 +1,9 @@
-const fetch = require('node-fetch');
-const TinySegmenter = require('tiny-segmenter');
+const fetch = require("node-fetch");
+const TinySegmenter = require("tiny-segmenter");
 // 類似度を返すpythonサーバのエンドポイント
 const ENDPOINT = "http://localhost:5000";
 
 class ContentsClient {
-
   constructor() {
     this.segmenter = new TinySegmenter();
   }
@@ -15,7 +14,9 @@ class ContentsClient {
       featuresStr = "[]";
     }
     featuresStr = encodeURIComponent(featuresStr);
-    const response = await fetch(`${ENDPOINT}/api/similarity?category=${category}&features=${featuresStr}`);
+    const response = await fetch(
+      `${ENDPOINT}/api/similarity?category=${category}&features=${featuresStr}`,
+    );
     const result = await response.json();
     return result.similarity;
   }
@@ -28,7 +29,7 @@ class ContentsClient {
   extractFeatureSegments(segments) {
     const hiragana = new RegExp(/^[ぁ-んー　]*$/);
     const features = [];
-    segments.forEach(segment => {
+    segments.forEach((segment) => {
       if (segment.length < 2) {
         return;
       }

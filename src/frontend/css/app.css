@@ -1,233 +1,233 @@
 :root {
-    --base-border-color: #888;
+  --base-border-color: #888;
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-    height: 100%;
-    width: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans Japanese", "ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+  height: 100%;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans Japanese",
+    "ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
 }
 
 body {
-    background-color: #FFF;
-    font-size: 100%;
-    -webkit-tap-highlight-color: transparent;
+  background-color: #fff;
+  font-size: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .app {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .header {
-    width: 100%;
-    height: 56px;
-    background: #222;
+  width: 100%;
+  height: 56px;
+  background: #222;
 }
 
 .header-container {
-    max-width: 1020px;
-    margin: 0 auto;
+  max-width: 1020px;
+  margin: 0 auto;
 }
 
 .logo {
-    height: 100%;
-    padding-top: 3px;
-    margin-left: 12px;
+  height: 100%;
+  padding-top: 3px;
+  margin-left: 12px;
 }
 
 .logo-img {
-    width: auto;
-    height: 47px;
+  width: auto;
+  height: 47px;
 }
 
 .swipe {
-    width: 100vw;
-    min-height: 100vh;
-    display: flex;
-    flex-flow: row nowrap;
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
 }
 
 .swipe-item {
-    width: 100%;
-    flex-shrink: 0;
-    scroll-snap-align: center;
-    scroll-snap-stop: always;
+  width: 100%;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
 }
 
 .swipe::-webkit-scrollbar {
-    display:none;
+  display: none;
 }
 
 @media screen and (max-width: 480px) {
-    .header {
-        height: 50px;
-    }
+  .header {
+    height: 50px;
+  }
 
-    .logo-img {
-        height: 42px;
-    }
+  .logo-img {
+    height: 42px;
+  }
 }
 
 .footer {
-    width: 100%;
-    height: 60px;
+  width: 100%;
+  height: 60px;
 }
 
 .footer-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px 0;
-    border-top: 1px solid #ccc;
-    font-size: 12px;
-    color: var(--base-border-color);
-    text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 0;
+  border-top: 1px solid #ccc;
+  font-size: 12px;
+  color: var(--base-border-color);
+  text-align: center;
 }
 
 .footer-container .info2 {
-    margin-top: 7px;
+  margin-top: 7px;
 }
 
 .privacy-policy-wrap {
-    width: 650px;
-    height: 100%;
-    margin: 0 auto;
-    margin-bottom: 25px;
-    font-size: 13px;
+  width: 650px;
+  height: 100%;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  font-size: 13px;
 }
 
 .privacy-policy-container {
-    padding: 12px;
+  padding: 12px;
 }
 
 .privacy-policy-container .title {
-    font-size: 18px;
-    font-weight: bold;
-    padding: 12px 0;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 0;
 }
 
 .privacy-policy-container .main {
-    padding-left: 6px;
+  padding-left: 6px;
 }
 
 .privacy-policy-container .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .privacy-policy-container ul {
-    list-style-type: disc;
+  list-style-type: disc;
 }
 
 .privacy-policy-container ul li {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .privacy-policy-container p {
-    font-size: 14px;
-    padding-top: 12px;
-    padding-bottom: 4px;
+  font-size: 14px;
+  padding-top: 12px;
+  padding-bottom: 4px;
 }
 
 .privacy-policy-container a {
-    word-break: break-all;
+  word-break: break-all;
 }
 
 @media screen and (max-width: 650px) {
-    .privacy-policy-wrap {
-        width: 100%;
-    }
+  .privacy-policy-wrap {
+    width: 100%;
+  }
 }
-
 
 /** navigation */
 .navigation {
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-    z-index: 1000;
-    background: #FFF;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
 }
 
 .navigation-wrap {
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
 }
 
 .navigation-wrap::-webkit-scrollbar {
-    height: 100%;
-    display: none;
+  height: 100%;
+  display: none;
 }
 
 .navigation-container {
-    width: 100%;
-    height: 100%;
-    min-width: 950px;
-    display: flex;
-    justify-content: center;
-    -webkit-justify-content: center;
-    align-items: center;
-    -webkit-align-items: center;
+  width: 100%;
+  height: 100%;
+  min-width: 950px;
+  display: flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
 }
 
 .channel-section {
-    margin: 0 4px;
-    min-width: 50px;
+  margin: 0 4px;
+  min-width: 50px;
 }
 
 .channel-section a {
-    display: block;
-    height: 34px;
-    padding: 0 6px;
-    text-align: center;
-    line-height: 33px;
-    text-decoration: none;
-    color: #000;
-    font-size: 13px;
-    white-space: nowrap;
+  display: block;
+  height: 34px;
+  padding: 0 6px;
+  text-align: center;
+  line-height: 33px;
+  text-decoration: none;
+  color: #000;
+  font-size: 13px;
+  white-space: nowrap;
 }
 
 .channel-section a:hover {
-    color: #184175;
+  color: #184175;
 }
 
 .channel-section .router-link-active {
-    box-sizing: border-box;
-    border-bottom: 2px solid #222;
-    font-size: 14px;
+  box-sizing: border-box;
+  border-bottom: 2px solid #222;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 480px) {
-    .navigation {
-        margin-top: -1px;
-        border-top: 1px solid #ccc;
-    }
-    .channel-section {
-        margin: 0 5px;
-        margin-top: 1px;
-    }
+  .navigation {
+    margin-top: -1px;
+    border-top: 1px solid #ccc;
+  }
+  .channel-section {
+    margin: 0 5px;
+    margin-top: 1px;
+  }
 
-    .channel-section a {
-        height: 38px;
-        line-height: 36px;
-        font-size: 14px;
-    }
+  .channel-section a {
+    height: 38px;
+    line-height: 36px;
+    font-size: 14px;
+  }
 
-    .router-link-active {
-        transition: all 0.3s ease-out;
-    }
+  .router-link-active {
+    transition: all 0.3s ease-out;
+  }
 }

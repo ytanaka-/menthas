@@ -1,108 +1,115 @@
-const Page = require("./page")
-const dayjs = require('dayjs')
-const config = require('config')
-const TOP_SELECTION_SIZE = config.top_selection_size
-const SELECTION_SIZE = config.selection_size
-const MMR_REL_WEIGHT = config.mmr_rel_weight
+const Page = require("./page");
+const dayjs = require("dayjs");
+const config = require("config");
+const TOP_SELECTION_SIZE = config.top_selection_size;
+const SELECTION_SIZE = config.selection_size;
+const MMR_REL_WEIGHT = config.mmr_rel_weight;
 
 class PageService {
-
-  curatedNewsSelect(threshold, size){
+  curatedNewsSelect(threshold, size) {
     return new Promise((resolve, reject) => {
       Page.findCuratedNews(threshold, TOP_SELECTION_SIZE)
-      .then((pages)=>{
-        const selectionPages = this._diversifiedSelect(pages, size, ["all"])
-        resolve(selectionPages)
-      }).catch((err)=>{
-        reject(err);
-      })
-    })
+        .then((pages) => {
+          const selectionPages = this._diversifiedSelect(pages, size, ["all"]);
+          resolve(selectionPages);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   }
 
-  curatedNewsSelectByCategory(channelName, categories, threshold, size){
+  curatedNewsSelectByCategory(channelName, categories, threshold, size) {
     return new Promise((resolve, reject) => {
       Page.findCuratedNewsByCategory(categories, threshold, SELECTION_SIZE)
-      .then((pages)=>{
-        const selectionPages = this._diversifiedSelect(pages, size, categories)
-        resolve(selectionPages)
-      }).catch((err)=>{
-        reject(err);
-      })
-    })
+        .then((pages) => {
+          const selectionPages = this._diversifiedSelect(
+            pages,
+            size,
+            categories,
+          );
+          resolve(selectionPages);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   }
 
   // 指定された件数までMMRを使ってindexを登録していく
   _diversifiedSelect(pages, size, categories) {
     if (pages.length < size) {
-      size = pages.length
+      size = pages.length;
     }
-    const selectedPages = []
-    const selectedPageUnions = []
-    const now = dayjs()
+    const selectedPages = [];
+    const selectedPageUnions = [];
+    const now = dayjs();
     // categoriesはmongooseのidの配列なので文字列にする
-    const _categories = []
-    categories.forEach((category)=>{
-      _categories.push(category.toString())
-    })
+    const _categories = [];
+    categories.forEach((category) => {
+      _categories.push(category.toString());
+    });
     for (let i = 0; i < size; i++) {
-      const max = {}
+      const max = {};
       pages.forEach((page, index) => {
-        const scores = page.scores
-        const hostName = page.host_name
-        const curatedTime = dayjs(page.curated_at)
-        const diff = now.diff(curatedTime, 'hours')
-        const category = {}
+        const scores = page.scores;
+        const hostName = page.host_name;
+        const curatedTime = dayjs(page.curated_at);
+        const diff = now.diff(curatedTime, "hours");
+        const category = {};
         scores.forEach((score) => {
-          if (_categories == "all" || (_categories && _categories.includes(score.category._id.toString()))){
+          if (
+            _categories == "all" ||
+            (_categories && _categories.includes(score.category._id.toString()))
+          ) {
             if (!category.score || score.score > category.score) {
-              category.score = score.score
-              category.name = score.category.name
-              category.curator = score.curated_by
+              category.score = score.score;
+              category.name = score.category.name;
+              category.curator = score.curated_by;
             }
           }
-        })
+        });
         // 類似度計測用に使う要素
-        let union = [hostName, category.name].concat(category.curator)
+        let union = [hostName, category.name].concat(category.curator);
         if (page.features) {
-          union = union.concat(page.features)
+          union = union.concat(page.features);
         }
         // 時間経過からrelを算出
-        const rel = category.score / ((diff + 2) ^ 0.55)
+        const rel = category.score / ((diff + 2) ^ 0.55);
         // 類似度を算出
-        const sim = this._maxSim(union, selectedPageUnions)
-        const mmrScore = MMR_REL_WEIGHT * rel - (1 - MMR_REL_WEIGHT) * sim
+        const sim = this._maxSim(union, selectedPageUnions);
+        const mmrScore = MMR_REL_WEIGHT * rel - (1 - MMR_REL_WEIGHT) * sim;
         if (max.index == undefined || mmrScore > max.score) {
-          max.index = index
-          max.score = mmrScore
-          max.union = union
+          max.index = index;
+          max.score = mmrScore;
+          max.union = union;
         }
-      })
-      selectedPages.push(pages[max.index])
-      selectedPageUnions.push(max.union)
-      pages.splice(max.index, 1)
+      });
+      selectedPages.push(pages[max.index]);
+      selectedPageUnions.push(max.union);
+      pages.splice(max.index, 1);
     }
-    return selectedPages
+    return selectedPages;
   }
 
-  _maxSim(union, selectedUnions){
-    let max = 0
+  _maxSim(union, selectedUnions) {
+    let max = 0;
     selectedUnions.forEach((_union) => {
-      let intersection = 0
-      union.forEach((u1)=>{
-        _union.forEach((u2)=>{
-          if(u1 == u2) {
-            intersection++
+      let intersection = 0;
+      union.forEach((u1) => {
+        _union.forEach((u2) => {
+          if (u1 == u2) {
+            intersection++;
           }
-        })
-      })
-      const sim = intersection / (union.length + _union.length - intersection)
-      if(sim > max){
-        max = sim
+        });
+      });
+      const sim = intersection / (union.length + _union.length - intersection);
+      if (sim > max) {
+        max = sim;
       }
-    })
-    return max
+    });
+    return max;
   }
-
 }
 
-module.exports = new PageService()
+module.exports = new PageService();

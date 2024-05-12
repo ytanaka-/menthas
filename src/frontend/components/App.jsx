@@ -1,16 +1,18 @@
-import React, { useEffect, useReducer, useRef, createContext, useContext, useState } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useLocation
-} from "react-router-dom";
-import Header from './Header.jsx';
-import Navigation from './Navigation.jsx';
-import NewsList from './NewsList.jsx';
-import PrivacyPolicy from './PrivacyPolicy.jsx';
-import Footer from './Footer.jsx';
-import { getChannels } from '../libs/api-client';
+import React, {
+  useEffect,
+  useReducer,
+  useRef,
+  createContext,
+  useContext,
+  useState,
+} from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import Header from "./Header.jsx";
+import Navigation from "./Navigation.jsx";
+import NewsList from "./NewsList.jsx";
+import PrivacyPolicy from "./PrivacyPolicy.jsx";
+import Footer from "./Footer.jsx";
+import { getChannels } from "../libs/api-client";
 
 export const MenthasContext = createContext();
 const kActivateNextNum = 1;
@@ -19,7 +21,7 @@ export const App = () => {
   const [state, dispatch] = useReducer(reduce, {
     channels: [],
     news: new Map(),
-    currentChannel: getChannelNameFromPath(location.pathname)
+    currentChannel: getChannelNameFromPath(location.pathname),
   });
   useEffect(() => {
     (async () => {
@@ -28,9 +30,10 @@ export const App = () => {
       if (status === 200) {
         const data = await result.json();
         dispatch({
-          type: 'setChannels', payload: {
-            channels: data.channels
-          }
+          type: "setChannels",
+          payload: {
+            channels: data.channels,
+          },
         });
       }
     })();
@@ -52,12 +55,14 @@ export const App = () => {
       </BrowserRouter>
     </MenthasContext.Provider>
   );
-}
+};
 
 const SwipeWrapper = () => {
   const { state, dispatch } = useContext(MenthasContext);
   const { channels, currentChannel } = state;
-  const index = channels.findIndex(channel => channel.name === currentChannel);
+  const index = channels.findIndex(
+    (channel) => channel.name === currentChannel,
+  );
   const containerRef = useRef();
   const itemsRef = useRef([]);
   useEffect(() => {
@@ -84,7 +89,7 @@ const SwipeWrapper = () => {
     clearTimeout(timerId);
     const _id = setTimeout(() => syncChannelTab(ev), 100);
     setTimerId(_id);
-  }
+  };
   const syncChannelTab = (ev) => {
     const scrollLeft = ev.target.scrollLeft;
     const width = ev.target.getBoundingClientRect().width;
@@ -99,9 +104,10 @@ const SwipeWrapper = () => {
     const nextChannel = channels[index + moveNum].name;
     if (nextChannel) {
       dispatch({
-        type: 'setCurrentChannel', payload: {
-          currentChannel: nextChannel
-        }
+        type: "setCurrentChannel",
+        payload: {
+          currentChannel: nextChannel,
+        },
       });
       if (nextChannel === "all") {
         history.pushState(null, null, "/");
@@ -109,36 +115,43 @@ const SwipeWrapper = () => {
         history.pushState(null, null, `/${nextChannel}`);
       }
     }
-  }
+  };
 
   return (
     <>
-      <div className="swipe" onScroll={onScroll} ref={containerRef} >
+      <div className="swipe" onScroll={onScroll} ref={containerRef}>
         {channels.map((channel, i) => {
-          const isActive = i >= index - kActivateNextNum && i <= index + kActivateNextNum;
+          const isActive =
+            i >= index - kActivateNextNum && i <= index + kActivateNextNum;
           return (
-            <div className="swipe-item" data-name={channel.name} key={channel.name} ref={el => itemsRef.current[i] = el} >
+            <div
+              className="swipe-item"
+              data-name={channel.name}
+              key={channel.name}
+              ref={(el) => (itemsRef.current[i] = el)}
+            >
               <NewsList category={channel.name} isActive={isActive} />
             </div>
-          )
+          );
         })}
       </div>
     </>
   );
-}
+};
 
 const isMaybeTouchDevice = () => {
   return window.matchMedia("(pointer: coarse)").matches;
-}
+};
 
 const AppWrapper = ({ children }) => {
   const { dispatch } = useContext(MenthasContext);
   const location = useLocation();
   useEffect(() => {
     dispatch({
-      type: 'setCurrentChannel', payload: {
-        currentChannel: getChannelNameFromPath(location.pathname)
-      }
+      type: "setCurrentChannel",
+      payload: {
+        currentChannel: getChannelNameFromPath(location.pathname),
+      },
     });
   }, [location.pathname]);
   const onContextMenu = (ev) => {
@@ -146,27 +159,27 @@ const AppWrapper = ({ children }) => {
       // スマホ・タブレットの場合は長押しタップで右クリックメニューが出てしまうので無効化する
       ev.preventDefault();
     }
-  }
+  };
 
   return (
     <div className="app" onContextMenu={onContextMenu}>
       {children}
     </div>
-  )
-}
+  );
+};
 
 function reduce(state, action) {
   switch (action.type) {
     case "setLoading":
-      return { ...state, loading: action.payload.loading }
+      return { ...state, loading: action.payload.loading };
     case "setChannels":
-      return { ...state, channels: action.payload.channels }
+      return { ...state, channels: action.payload.channels };
     case "setNews": {
-      state.news.set(action.payload.channel, action.payload.pages)
+      state.news.set(action.payload.channel, action.payload.pages);
       return state;
     }
     case "setCurrentChannel":
-      return { ...state, currentChannel: action.payload.currentChannel }
+      return { ...state, currentChannel: action.payload.currentChannel };
     default:
       throw new Error();
   }
@@ -176,7 +189,7 @@ function getChannelNameFromPath(pathname) {
   if (pathname === "/") {
     return "all";
   }
-  const s = pathname.split('/');
+  const s = pathname.split("/");
   if (s.length > 0) {
     return s[1];
   }

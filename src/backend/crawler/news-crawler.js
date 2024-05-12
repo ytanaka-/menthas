@@ -3,14 +3,13 @@ const webpageClient = require("./webpage-client");
 const contentsClient = require("./contents-client");
 const Category = require("../model/category");
 const Page = require("../model/page");
-const config = require('config');
+const config = require("config");
 const CONTENTS_SCORE_WEIGHT = config.contents_score_weight;
 const SIMILARITY_SCORE_WEIGHT = config.similarity_score_weight;
 const CURATE_THRESHOLD = 3;
 const MAX_THRESHOLD = 4;
 
 class NewsCrawler {
-
   async checkCategory(categoryName) {
     try {
       const category = await Category.findByName(categoryName);
@@ -23,7 +22,7 @@ class NewsCrawler {
     } catch (err) {
       console.error(err);
     }
-    console.log(`CheckCategory[${categoryName}] complete.`)
+    console.log(`CheckCategory[${categoryName}] complete.`);
   }
 
   async checkCurator(curator, category) {
@@ -31,7 +30,11 @@ class NewsCrawler {
     const links = await this.fetchCuratorRecentRSS(curator);
     for (const link of links) {
       try {
-        const message = await this.fetchWebPageAndUpdateScore(link.url, curator, category);
+        const message = await this.fetchWebPageAndUpdateScore(
+          link.url,
+          curator,
+          category,
+        );
         if (message) {
           console.log(message);
           // 既に登録済みのところまできたら探索を打ち切る
@@ -65,7 +68,7 @@ class NewsCrawler {
       if (diff < 1) {
         recentLinks.push(link);
       }
-    }  
+    }
     return recentLinks;
   }
 
@@ -116,28 +119,39 @@ class NewsCrawler {
         let _score = 1;
         const _str = page.title + " " + page.description;
         const features = contentsClient.getFeatures(_str);
-        const similarity = await contentsClient.fetchSimilarity(category.name, features);
+        const similarity = await contentsClient.fetchSimilarity(
+          category.name,
+          features,
+        );
         if (similarity != 0.0) {
-          _score = _score + SIMILARITY_SCORE_WEIGHT * Math.tanh(4 * similarity - 1.25); // tanhで調整
+          _score =
+            _score + SIMILARITY_SCORE_WEIGHT * Math.tanh(4 * similarity - 1.25); // tanhで調整
         }
         // indexOfが値が存在しない場合に-1を返すのを利用
-        if (category.tags.some((tag) => { return !!~_str.indexOf(tag) }) == true) {
+        if (
+          category.tags.some((tag) => {
+            return !!~_str.indexOf(tag);
+          }) == true
+        ) {
           _score = _score + CONTENTS_SCORE_WEIGHT * 1;
         }
         updateScores.push({
           category: category._id,
           score: _score,
-          curated_by: [curator]
+          curated_by: [curator],
         });
       }
-      await Page.findOneAndUpdate({ _id: page._id }, { scores: updateScores, curated_at: curated_at });
+      await Page.findOneAndUpdate(
+        { _id: page._id },
+        { scores: updateScores, curated_at: curated_at },
+      );
       return "updated.";
     } catch (err) {
       if (err.code == 11000) {
         return "already exists.";
       }
       throw err;
-    };
+    }
   }
 
   async registerPage(url, curator, category) {
@@ -146,11 +160,19 @@ class NewsCrawler {
       let _score = 1;
       const _str = page.title + " " + page.description;
       const features = contentsClient.getFeatures(_str);
-      const similarity = await contentsClient.fetchSimilarity(category.name, features);
+      const similarity = await contentsClient.fetchSimilarity(
+        category.name,
+        features,
+      );
       if (similarity != 0.0) {
-        _score = _score + SIMILARITY_SCORE_WEIGHT * Math.tanh(4 * similarity - 1.25);
+        _score =
+          _score + SIMILARITY_SCORE_WEIGHT * Math.tanh(4 * similarity - 1.25);
       }
-      if (category.tags.some((tag) => { return !!~_str.indexOf(tag) }) == true) {
+      if (
+        category.tags.some((tag) => {
+          return !!~_str.indexOf(tag);
+        }) == true
+      ) {
         _score = _score + CONTENTS_SCORE_WEIGHT * 1;
       }
       const newPage = new Page({
@@ -161,11 +183,13 @@ class NewsCrawler {
         host_name: page.host_name,
         amphtml: page.amphtml,
         features: features,
-        scores: [{
-          category: category._id,
-          score: _score,
-          curated_by: [curator]
-        }]
+        scores: [
+          {
+            category: category._id,
+            score: _score,
+            curated_by: [curator],
+          },
+        ],
       });
       await newPage.save();
       return "new page is registered.";
@@ -178,4 +202,4 @@ class NewsCrawler {
   }
 }
 
-module.exports = new NewsCrawler()
+module.exports = new NewsCrawler();

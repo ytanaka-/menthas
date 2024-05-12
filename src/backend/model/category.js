@@ -1,43 +1,47 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const categorySchema = new Schema({
   name: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   description: {
-    type: String
+    type: String,
   },
   curators: {
-    type: [{
-      type: String
-    }],
-    default: []
+    type: [
+      {
+        type: String,
+      },
+    ],
+    default: [],
   },
   tags: {
-    type: [{
-      type: String
-    }],
-    default: []
-  }
+    type: [
+      {
+        type: String,
+      },
+    ],
+    default: [],
+  },
 });
 
 categorySchema.statics = {
-  findAll(){
-    return this.model("Category").find({}).exec()
+  findAll() {
+    return this.model("Category").find({}).exec();
   },
 
-  findByName(categoryName){
+  findByName(categoryName) {
     return this.findOne({
-      name: categoryName
-    }).exec()
-  }
-}
+      name: categoryName,
+    }).exec();
+  },
+};
 
 module.exports = mongoose.model("Category", categorySchema);

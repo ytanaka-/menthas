@@ -1,18 +1,18 @@
-const path = require('path')
+const path = require("path");
 
 module.exports = {
-  mode: 'development',
+  mode: "development",
 
-  entry: path.join(__dirname, 'src/frontend/app.js'),
+  entry: path.join(__dirname, "src/frontend/app.js"),
 
   output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, 'public/assets'),
-    assetModuleFilename: 'images/[hash][ext][query]'
+    filename: "bundle.js",
+    path: path.join(__dirname, "public/assets"),
+    assetModuleFilename: "images/[hash][ext][query]",
   },
-  
+
   resolve: {
-    extensions: [".js", ".jsx", ".ts"]
+    extensions: [".js", ".jsx", ".ts"],
   },
 
   module: {
@@ -21,15 +21,15 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: "babel-loader",
+        },
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: "babel-loader",
+        },
       },
       {
         test: /\.css$/i,
@@ -37,8 +37,8 @@ module.exports = {
       },
       {
         test: /\.svg/,
-        type: 'asset/resource'
-      }
-    ]
-  }
+        type: "asset/resource",
+      },
+    ],
+  },
 };

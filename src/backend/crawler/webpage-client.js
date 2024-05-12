@@ -1,6 +1,6 @@
-const fetch = require('node-fetch');
-const cheerio = require('cheerio');
-const validator = require('validator');
+const fetch = require("node-fetch");
+const cheerio = require("cheerio");
+const validator = require("validator");
 // 最大受信量を2MBに制限
 const maxDataSize = 1024 * 1024 * 2;
 
@@ -19,17 +19,17 @@ class WebPageClient {
     // 短縮URLやリダイレクトされていると同じエントリが重複して生成されてしまう
     let page = {
       url: res.url,
-      title: $("title").text()
-    }
+      title: $("title").text(),
+    };
     // canonical属性がある場合はそのURLを優先して二重登録を防ぐ
-    const canonial = $("link[rel='canonical']").attr('href');
+    const canonial = $("link[rel='canonical']").attr("href");
     if (canonial) {
       page.url = canonial;
     }
-    if (!validator.isURL(page.url, { protocols: ['http','https']})) {
+    if (!validator.isURL(page.url, { protocols: ["http", "https"] })) {
       throw new Error("Failed to validate URL.");
     }
-    
+
     // og:titleがある場合はそちらを優先
     const ogTitle = $("meta[property='og:title']").attr("content");
     if (typeof ogTitle !== "undefined" && ogTitle !== "") {
@@ -42,7 +42,7 @@ class WebPageClient {
     page.thumbnail = $("meta[property='og:image']").attr("content");
     // urlが/hogeのようなlocalを前提にしたものの場合は削除
     if (/^\//.test(page.thumbnail)) {
-      page.thumbnail = '';
+      page.thumbnail = "";
     }
 
     page.host_name = $("meta[property='og:site_name']").attr("content");
@@ -50,14 +50,16 @@ class WebPageClient {
       page.host_name = _url.host;
     }
 
-    const description = $("meta[property='og:description']").attr("content") || $("meta[name='description']").attr("content");
-    page.description = description
+    const description =
+      $("meta[property='og:description']").attr("content") ||
+      $("meta[name='description']").attr("content");
+    page.description = description;
 
     // AMP対応していれば対象URLを取得
-    page.amphtml = $("link[rel='amphtml']").attr('href');
+    page.amphtml = $("link[rel='amphtml']").attr("href");
 
     return page;
   }
 }
 
-module.exports = new WebPageClient()
+module.exports = new WebPageClient();

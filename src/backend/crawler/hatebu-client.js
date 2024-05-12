@@ -1,11 +1,10 @@
-const fetch = require('node-fetch');
+const fetch = require("node-fetch");
 const xml2js = require("xml2js");
 const config = require("config");
 const parser = new xml2js.Parser();
 const UA = config.crawler.UA;
 
 class HatebuClient {
-
   // output array
   // お気に入りに登録したURLとdateを配列を返す
   // offsetは20件単位で指定
@@ -13,8 +12,10 @@ class HatebuClient {
     if (typeof name === "undefined") {
       throw new Error("Bookmarker Name is undefined.");
     }
-    const result = await this.getBookmarkerRSS(name, offset).catch((err) => { throw err; });
-    const data = await parser.parseStringPromise(result);  
+    const result = await this.getBookmarkerRSS(name, offset).catch((err) => {
+      throw err;
+    });
+    const data = await parser.parseStringPromise(result);
     if (typeof data["rdf:RDF"] === "undefined" && data["rdf:RDF"] === null) {
       throw new Error("Not data[rdf:RDF]");
     }
@@ -23,7 +24,7 @@ class HatebuClient {
     items.forEach((item) => {
       links.push({
         url: item["link"][0],
-        date: item["dc:date"][0]
+        date: item["dc:date"][0],
       });
     });
     return links;
@@ -33,9 +34,9 @@ class HatebuClient {
     const url = `https://b.hatena.ne.jp/${name}/bookmark.rss?of=${offset}`;
     const options = {
       headers: {
-        "User-Agent": UA
-      }
-    }
+        "User-Agent": UA,
+      },
+    };
     const res = await fetch(url, options);
     if (res.status !== 200) {
       throw new Error("URL StatusCode is not 200.");
@@ -44,4 +45,4 @@ class HatebuClient {
   }
 }
 
-module.exports = new HatebuClient()
+module.exports = new HatebuClient();
