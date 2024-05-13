@@ -1,3 +1,5 @@
+const Encoding = require("encoding-japanese");
+const util = require("node:util");
 const fetch = require("node-fetch");
 const cheerio = require("cheerio");
 const validator = require("validator");
@@ -5,6 +7,27 @@ const validator = require("validator");
 const maxDataSize = 1024 * 1024 * 2;
 
 class WebPageClient {
+  constructor() {
+    this.utf8Decoder = new util.TextDecoder();
+    this.sjisDecoder = new util.TextDecoder("sjis");
+    this.eucjpDecoder = new util.TextDecoder("euc-jp");
+  }
+
+  async decode(res) {
+    const arrayBuffer = await res.arrayBuffer();
+    const view = new Uint8Array(arrayBuffer);
+    const detectedEncoding = Encoding.detect(view);
+    // enのサイトだとASCIIで判定されるので、utf-8でdecodeを試す
+    if (detectedEncoding === "UTF8" || detectedEncoding === "ASCII") {
+      return this.utf8Decoder.decode(view);
+    } else if (detectedEncoding === "SJIS") {
+      return this.sjisDecoder.decode(view);
+    } else if (detectedEncoding === "EUCJP") {
+      return this.eucjpDecoder.decode(view);
+    } else {
+      throw Error("Unsupported characters.");
+    }
+  }
   // urlからpageのmetaデータを取得
   async fetch(url) {
     const _url = new URL(url);
@@ -13,7 +36,7 @@ class WebPageClient {
     if (res.status !== 200) {
       throw new Error("URL StatusCode is not 200.");
     }
-    const text = await res.text();
+    const text = await this.decode(res);
     const $ = cheerio.load(text);
     // redirect後のurlを取得するためにres.urlを使う
     // 短縮URLやリダイレクトされていると同じエントリが重複して生成されてしまう

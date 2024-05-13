@@ -10,7 +10,7 @@ describe("unit test", () => {
   const canonicalMock =
     '<!DOCTYPE html><html><head><meta charset="utf-8"><meta property="og:title" content="canonical"><title>canonical</title><link rel="canonical" href="http://canonical.url"></head><body></body></html>';
 
-  beforeEach(() => {
+  beforeAll(() => {
     nock(`${BASE_URL}`).get("/").reply(200, mock);
     nock(`${BASE_URL}`).get("/notitle").reply(200, noTitle);
     nock(`${BASE_URL}`).get("/canonical").reply(200, canonicalMock);
