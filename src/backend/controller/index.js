@@ -1,6 +1,5 @@
 const express = require("express");
 const Channel = require("../model/channel");
-const Category = require("../model/category");
 const PageService = require("../model/page-service");
 const router = express.Router();
 const config = require("config");

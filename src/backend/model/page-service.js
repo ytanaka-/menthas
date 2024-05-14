@@ -19,6 +19,8 @@ class PageService {
     });
   }
 
+  // Note: categoriesとなっているが、channelとcategoryは1対1の関係でほぼ今では同値
+  // おそらく当初は複数のcategoryを指定できるようにするつもりだったのかも？
   curatedNewsSelectByCategory(channelName, categories, threshold, size) {
     return new Promise((resolve, reject) => {
       Page.findCuratedNewsByCategory(categories, threshold, SELECTION_SIZE)

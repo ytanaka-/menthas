@@ -5,9 +5,9 @@
 ### 機能
 
 - 様々なカテゴリ
-- JavaScriptやデザインなどのフロントエンドからサーバーサイド、インフラまで多様なカテゴリのニュースを配信
+  - JavaScriptやデザインなどのフロントエンドからサーバーサイド、インフラまで多様なカテゴリのニュースを配信
 - はてなブックマークの優秀なCuratorによるニュース選出
-- 各々のカテゴリごとに専門度の高いユーザを算出してニュースを選出
+  - 各々のカテゴリごとに専門度の高いユーザを算出してニュースを選出(RSSを利用しています)
 
 ### 仕組み
 
@@ -17,12 +17,14 @@
 
 ### Requirements
 
-MongoDB, Node.js etc...
+MongoDB, Node.js, React
 
-### Contributing
+### Contribution
 
 ```
 $ mongorestore --host localhost --db menthas-example examples/data
 $ npm install
 $ npm run start
 ```
+
+ニュースを実際にCurateするにはさらにcategory, channelの中身を更新する必要があります。
