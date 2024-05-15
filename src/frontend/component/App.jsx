@@ -7,12 +7,12 @@ import React, {
   useState,
 } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Header from "./Header.jsx";
-import Navigation from "./Navigation.jsx";
-import NewsList from "./NewsList.jsx";
-import PrivacyPolicy from "./PrivacyPolicy.jsx";
-import Footer from "./Footer.jsx";
-import { getChannels } from "../libs/api-client";
+import { Header } from "./Header.jsx";
+import { Navigation } from "./Navigation.jsx";
+import { NewsList } from "./NewsList.jsx";
+import { PrivacyPolicy } from "./PrivacyPolicy.jsx";
+import { Footer } from "./Footer.jsx";
+import { getChannelList } from "../lib/api-client.js";
 
 export const MenthasContext = createContext();
 const kActivateNextNum = 1;
@@ -25,7 +25,7 @@ export const App = () => {
   });
   useEffect(() => {
     (async () => {
-      const result = await getChannels();
+      const result = await getChannelList();
       const status = result.status;
       if (status === 200) {
         const data = await result.json();

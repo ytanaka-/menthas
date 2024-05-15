@@ -1,4 +1,4 @@
-export function getChannel(name) {
+export function getChannelNews(name) {
   const headers = new Headers({
     "Content-type": "application/json",
   });
@@ -8,7 +8,7 @@ export function getChannel(name) {
   });
 }
 
-export function getChannels() {
+export function getChannelList() {
   const headers = new Headers({
     "Content-type": "application/json",
   });

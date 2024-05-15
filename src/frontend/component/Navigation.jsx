@@ -1,8 +1,8 @@
 import React, { useEffect, useContext, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { MenthasContext } from "./App";
+import { MenthasContext } from "./App.jsx";
 
-const Navigation = () => {
+export const Navigation = () => {
   const { state } = useContext(MenthasContext);
   const { channels, currentChannel } = state;
   return (
@@ -48,5 +48,3 @@ const NavigationItem = ({ currentChannel, channel }) => {
     </>
   );
 };
-
-export default Navigation;

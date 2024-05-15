@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import ReactLoading from "react-loading";
 import dayjs from "dayjs";
-import { getChannel } from "../libs/api-client";
-import { MenthasContext } from "./App";
+import { MenthasContext } from "./App.jsx";
+import { getChannelNews } from "../lib/api-client.js";
 import "../css/news-list.css";
 
-const NewsList = ({ category, isActive }) => {
+export const NewsList = ({ category, isActive }) => {
   const { state, dispatch } = useContext(MenthasContext);
   const { news } = state;
   const [loading, setLoading] = useState(true);
@@ -27,7 +27,7 @@ const NewsList = ({ category, isActive }) => {
       });
     } else if (isActive) {
       (async () => {
-        const result = await getChannel(category);
+        const result = await getChannelNews(category);
         const status = result.status;
         if (status === 200) {
           const data = await result.json();
@@ -252,5 +252,3 @@ function createTopAndListNews(pages) {
   });
   return { top, pages: _pages };
 }
-
-export default NewsList;
