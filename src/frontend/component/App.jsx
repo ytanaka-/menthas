@@ -60,6 +60,7 @@ export const App = () => {
 const SwipeWrapper = () => {
   const { state, dispatch } = useContext(MenthasContext);
   const { channels, currentChannel } = state;
+  const [timerId, setTimerId] = useState();
   const index = channels.findIndex(
     (channel) => channel.name === currentChannel,
   );
@@ -84,7 +85,6 @@ const SwipeWrapper = () => {
     }
   }, [channels, currentChannel]);
 
-  const [timerId, setTimerId] = useState();
   const onScroll = (ev) => {
     clearTimeout(timerId);
     const _id = setTimeout(() => syncChannelTab(ev), 100);
