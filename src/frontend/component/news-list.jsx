@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import ReactLoading from "react-loading";
 import dayjs from "dayjs";
-import { MenthasContext } from "./App.jsx";
+import { MenthasContext } from "./app.jsx";
 import { getChannelNews } from "../lib/api-client.js";
 import "../css/news-list.css";
 

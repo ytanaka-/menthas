@@ -7,11 +7,11 @@ import React, {
   useState,
 } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { Header } from "./Header.jsx";
-import { Navigation } from "./Navigation.jsx";
-import { NewsList } from "./NewsList.jsx";
-import { PrivacyPolicy } from "./PrivacyPolicy.jsx";
-import { Footer } from "./Footer.jsx";
+import { Header } from "./header.jsx";
+import { Navigation } from "./navigation.jsx";
+import { NewsList } from "./news-list.jsx";
+import { PrivacyPolicy } from "./privacy-policy.jsx";
+import { Footer } from "./footer.jsx";
 import { getChannelList } from "../lib/api-client.js";
 
 export const MenthasContext = createContext();

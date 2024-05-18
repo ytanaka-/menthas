@@ -1,6 +1,6 @@
+require("./category");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-require("./category");
 
 const scoreSchema = new Schema({
   category: {

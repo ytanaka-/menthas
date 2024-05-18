@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useRef } from "react";
 import { NavLink } from "react-router-dom";
-import { MenthasContext } from "./App.jsx";
+import { MenthasContext } from "./app.jsx";
 
 export const Navigation = () => {
   const { state } = useContext(MenthasContext);
