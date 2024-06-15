@@ -31,7 +31,7 @@ ul {
 
 .header {
   width: 100%;
-  height: 56px;
+  height: 58px;
   background: #222;
 }
 
@@ -42,13 +42,13 @@ ul {
 
 .logo {
   height: 100%;
-  padding-top: 3px;
+  padding-top: 4px;
   margin-left: 12px;
 }
 
 .logo-img {
   width: auto;
-  height: 47px;
+  height: 49px;
 }
 
 .swipe {
