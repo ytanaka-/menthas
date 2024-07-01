@@ -7,14 +7,15 @@ const CURATED_THRESHOLD = config.curated_threshold;
 const TOP_CURATED_THRESHOLD = config.top_threshold;
 const RSS_SIZE = config.rss_size;
 const RSS = require("rss");
+const GAID = config.ga_id;
 
 router.get("/", (req, res) => {
-  res.render("index", {});
+  res.render("index", { ga: GAID });
 });
 
 router.get("/:channel", (req, res) => {
   const channelName = req.params.channel;
-  res.render("index", { channel: channelName });
+  res.render("index", { channel: channelName, ga: GAID });
 });
 
 // 後方互換として残しておく

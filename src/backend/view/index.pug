@@ -22,15 +22,14 @@ html
 
     link(rel='alternate', type='application/rss+xml' title='all' href='/all/rss')
     if channel
-      link(rel='alternate', type='application/rss+xml' title='#{channel}' href='/#{channel}/rss')
-
+      link(rel='alternate', type='application/rss+xml' title=`${channel}` href=`/${channel}/rss`)
     if process.env.NODE_ENV == 'production'
-      script(async src="https://www.googletagmanager.com/gtag/js?id=UA-63592648-1")
+      script(async src=`https://www.googletagmanager.com/gtag/js?id=${ga}`)
       script.
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'UA-63592648-1');
+        gtag('config', `${ga}`);
 
 
   body
