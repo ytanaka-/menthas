@@ -7,7 +7,7 @@ const CURATED_THRESHOLD = config.curated_threshold;
 const TOP_CURATED_THRESHOLD = config.top_threshold;
 const RSS_SIZE = config.rss_size;
 const RSS = require("rss");
-const GAID = config.ga_id;
+const GAID = process.env.GA_ID || config.ga_id;
 
 router.get("/", (req, res) => {
   res.render("index", { ga: GAID });
