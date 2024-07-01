@@ -27,7 +27,7 @@
     "mongoose": "^8.2.0",
     "node-fetch": "^2.7.0",
     "path": "^0.12.7",
-    "pug": "^3.0.2",
+    "pug": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loading": "^2.0.3",
