@@ -10,7 +10,7 @@ const RSS = require("rss");
 const GAID = process.env.GA_ID || config.ga_id;
 
 router.get("/", (req, res) => {
-  res.render("index", { ga: GAID });
+  res.render("index", { ga: GAID, version: process.env.npm_package_version });
 });
 
 router.get("/:channel", (req, res) => {

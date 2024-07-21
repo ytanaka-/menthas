@@ -14,7 +14,9 @@ const server = express();
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 server.use(helmet());
-server.use(express.static(path.join(__dirname, "../../public")));
+server.use(
+  express.static(path.join(__dirname, "../../public"), { maxAge: "3d" }),
+);
 server.use("/", require("./controller/index"));
 server.use("/api/", require("./controller/api"));
 server.set("views", path.join(__dirname, "view"));

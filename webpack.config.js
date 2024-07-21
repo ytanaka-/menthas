@@ -1,3 +1,5 @@
+const package = require("./package.json");
+const version = package.version;
 const path = require("path");
 
 module.exports = {
@@ -7,7 +9,7 @@ module.exports = {
 
   output: {
     filename: "bundle.js",
-    path: path.join(__dirname, "public/assets"),
+    path: path.join(__dirname, `public/assets/${version}`),
     assetModuleFilename: "images/[hash][ext][query]",
   },
 

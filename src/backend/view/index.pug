@@ -19,10 +19,11 @@ html
     link(rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png")
     link(rel="manifest" href="/site.webmanifest")
     link(rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5")
-
     link(rel='alternate', type='application/rss+xml' title='all' href='/all/rss')
     if channel
        link(rel='alternate', type='application/rss+xml' title='#{channel}' href='/#{channel}/rss')
+    
+    script(src=`/assets/${version}/bundle.js` defer)
     if process.env.NODE_ENV == 'production'
       script(async src=`https://www.googletagmanager.com/gtag/js?id=${ga}`)
       script.
@@ -33,4 +34,3 @@ html
 
   body
     div#app
-    script(src="/assets/bundle.js")
