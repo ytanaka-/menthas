@@ -62,6 +62,9 @@ router.get("/:channel/rss", (req, res) => {
           /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g,
           "",
         );
+        if (description && description.length > 300) {
+          description = description.substring(0, 300);
+        }
         const p = {
           title: title,
           description: description,
