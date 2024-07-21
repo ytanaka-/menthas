@@ -46,7 +46,7 @@ router.get("/:channel/rss", (req, res) => {
     .then((pages) => {
       const feed = new RSS({
         title: `Menthas #${channelName}`,
-        description: "Menthas: Curated News Reader For Hackers.",
+        description: "Menthas: Curated News Reader For Japanese Programmers.",
         feed_url: `https://menthas.com/${channelName}/rss`,
         site_url: "https://menthas.com",
         custom_namespaces: {
