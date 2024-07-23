@@ -15,7 +15,11 @@ router.get("/", (req, res) => {
 
 router.get("/:channel", (req, res) => {
   const channelName = req.params.channel;
-  res.render("index", { channel: channelName, ga: GAID });
+  res.render("index", {
+    channel: channelName,
+    ga: GAID,
+    version: process.env.npm_package_version,
+  });
 });
 
 // 後方互換として残しておく
