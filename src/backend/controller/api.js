@@ -41,14 +41,31 @@ router.get("/channels/:name", (req, res) => {
       );
     })
     .then((pages) => {
+      const _pages = [];
       pages.forEach((page) => {
         const description = page.description;
         if (description && description.length > 300) {
           page.description = description.substr(0, 300);
         }
+        _pages.push({
+          _id: page._id,
+          title: page.title,
+          url: page.url,
+          description: page.description,
+          thumbnail: page.thumbnail,
+          host_name: page.host_name,
+          amphtml: page.amphtml,
+          curated_at: page.curated_at,
+          scores: page.scores.map((score) => {
+            return {
+              category: score.category,
+              score: score.score,
+            };
+          }),
+        });
       });
       return res.json({
-        pages: pages,
+        pages: _pages,
       });
     })
     .catch((err) => {
