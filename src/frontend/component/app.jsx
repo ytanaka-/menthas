@@ -15,7 +15,7 @@ import { Footer } from "./footer.jsx";
 import { getChannelList } from "../lib/api-client.js";
 
 export const MenthasContext = createContext();
-const kActivateNextNum = 1;
+const kActivateNextNum = 0;
 
 export const App = () => {
   const [state, dispatch] = useReducer(reduce, {
