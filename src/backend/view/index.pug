@@ -25,12 +25,7 @@ html
     
     script(src=`/assets/${version}/bundle.js` defer)
     if process.env.NODE_ENV == 'production'
-      script(async src=`https://www.googletagmanager.com/gtag/js?id=${ga}`)
-      script.
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '#{ga}');
+      script(defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon=`{"token": "${cfBeacon}"}`)
 
   body
     div#app

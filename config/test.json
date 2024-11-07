@@ -3,7 +3,7 @@
     "URL": "mongodb://localhost/",
     "DB_NAME": "test"
   },
-  "ga_id": "",
+  "cf_beacon": "",
   "crawler": {
     "UA": "request"
   },

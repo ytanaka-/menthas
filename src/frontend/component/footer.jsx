@@ -16,11 +16,6 @@ export const Footer = () => {
               <a href={GITHUB_URL}>Github</a>
             </span>
           </div>
-          <div className="info2">
-            <span>
-              Menthasはユーザビリティの改善や分析のためGoogleAnalyticsを使用しています
-            </span>
-          </div>
         </div>
       </div>
     </>
