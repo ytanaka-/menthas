@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
-import ReactLoading from "react-loading";
+import { useEffect, useState, useContext } from "react";
 import dayjs from "dayjs";
-import { MenthasContext } from "./app.jsx";
-import { getChannelNews } from "../lib/api-client.js";
+import { MenthasContext } from "./App";
+import { getChannelNews } from "../lib/api-client";
 import "../css/news-list.css";
 
 export const NewsList = ({ category, isActive }) => {
@@ -61,12 +60,7 @@ export const NewsList = ({ category, isActive }) => {
     return (
       <div className="news-list">
         <div className="loading">
-          <ReactLoading
-            type={"bars"}
-            color={"#333"}
-            height={"24px"}
-            width={"24px"}
-          />
+          
         </div>
       </div>
     );

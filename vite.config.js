@@ -25,6 +25,7 @@ export default defineConfig({
   build: {
     outDir: `public/assets/${version}`,
     emptyOutDir: true,
+    minify: process.env.NODE_ENV === 'production',
     rollupOptions: {
       input: path.resolve(__dirname, "src/frontend/app.js"),
       output: {

@@ -1,4 +1,4 @@
-import React, {
+import {
   useEffect,
   useReducer,
   useRef,
@@ -7,12 +7,12 @@ import React, {
   useState,
 } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { Header } from "./header.jsx";
-import { Navigation } from "./navigation.jsx";
-import { NewsList } from "./news-list.jsx";
-import { PrivacyPolicy } from "./privacy-policy.jsx";
-import { Footer } from "./footer.jsx";
-import { getChannelList } from "../lib/api-client.js";
+import { Header } from "./Header";
+import { Navigation } from "./Navigation";
+import { NewsList } from "./NewsList";
+import { PrivacyPolicy } from "./PrivacyPolicy";
+import { Footer } from "./Footer";
+import { getChannelList } from "../lib/api-client";
 
 export const MenthasContext = createContext();
 const kActivateNextNum = 0;

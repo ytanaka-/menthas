@@ -1,5 +1,3 @@
-import React from "react";
-
 const TWITTER_URL = "https://twitter.com/_ytanaka_";
 const GITHUB_URL = "https://github.com/ytanaka-/menthas";
 
