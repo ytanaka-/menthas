@@ -1,6 +1,6 @@
 {
   "name": "menthas",
-  "version": "3.5.2",
+  "version": "3.5.3",
   "description": "Menthas: Curated News Reader For Hackers",
   "main": "src/backend/server.js",
   "scripts": {
@@ -18,27 +18,27 @@
   "author": "yu_tanaka",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^2.2.2",
     "cheerio": "^1.0.0-rc.12",
     "compression": "^1.7.4",
     "config": "^2.0.1",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.19",
     "encoding-japanese": "^2.1.0",
-    "express": "^4.18.2",
-    "helmet": "^3.21.2",
-    "mongoose": "^8.2.0",
+    "express": "^4.22.1",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.22.1",
     "node-fetch": "^2.7.0",
     "path": "^0.12.7",
-    "pm2": "^6.0.5",
+    "pm2": "^6.0.14",
     "pug": "^3.0.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "react-loading": "^2.0.3",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.30.3",
     "rss": "^1.2.2",
     "serve-favicon": "^2.5.0",
     "tiny-segmenter": "^0.2.0",
-    "validator": "^13.11.0",
+    "validator": "^13.15.26",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
@@ -52,7 +52,7 @@
     "nock": "^13.0.4",
     "prettier": "3.2.5",
     "style-loader": "^3.3.1",
-    "webpack": "^5.59.1",
-    "webpack-cli": "^4.9.1"
+    "webpack": "^5.105.0",
+    "webpack-cli": "^6.0.1"
   }
 }
