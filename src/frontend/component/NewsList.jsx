@@ -24,6 +24,7 @@ export const NewsList = ({ category, isActive }) => {
         top,
         pages,
       });
+      setLoading(false);
     } else if (isActive) {
       (async () => {
         const result = await getChannelNews(category);
@@ -60,7 +61,7 @@ export const NewsList = ({ category, isActive }) => {
     return (
       <div className="news-list">
         <div className="loading">
-          
+          <span className="loading-spinner" />
         </div>
       </div>
     );
