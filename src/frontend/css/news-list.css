@@ -15,9 +15,23 @@ a {
 
 .loading {
   width: 100%;
-  padding-bottom: 15px;
+  padding: 20px 0;
   display: flex;
   justify-content: center;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #333;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .news-list {

@@ -22,7 +22,8 @@ html
     link(rel='alternate', type='application/rss+xml' title='all' href='/all/rss')
     if channel
        link(rel='alternate', type='application/rss+xml' title='#{channel}' href='/#{channel}/rss')
-    
+
+    link(rel='stylesheet', href=`/assets/${version}/bundle.css`)
     script(src=`/assets/${version}/bundle.js` defer)
     if process.env.NODE_ENV == 'production'
       script(defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon=`{"token": "${cfBeacon}"}`)
