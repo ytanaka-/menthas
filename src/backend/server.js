@@ -14,7 +14,16 @@ const port = process.env.PORT || 3000;
 const server = express();
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
-server.use(helmet());
+server.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "img-src": ["'self'", "data:", "https:"],
+      },
+    },
+  }),
+);
 server.use(compression());
 server.use(
   express.static(path.join(__dirname, "../../public"), { maxAge: "5m" }),
