@@ -1,6 +1,6 @@
 const nock = require("nock");
 const contentsClient = require("../contents-client");
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "http://localhost:5050";
 
 describe("unit test", () => {
   beforeEach(() => {

@@ -12,3 +12,4 @@ public/assets
 src/etc/model
 .vscode
 src/backend/crawler/__test__/crawler-e2e.test.js
+.venv
