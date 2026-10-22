@@ -1,5 +1,0 @@
-.cache
-config/production.json
-node_modules
-*.log
-setups

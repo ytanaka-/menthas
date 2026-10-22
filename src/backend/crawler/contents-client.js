@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const TinySegmenter = require("tiny-segmenter");
 // 類似度を返すpythonサーバのエンドポイント
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "http://localhost:5050";
 
 class ContentsClient {
   constructor() {
